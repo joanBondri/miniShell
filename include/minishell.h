@@ -6,6 +6,7 @@
 #include <stdio.h>
 #include <readline/readline.h>
 #include <readline/history.h>
+#include "parse.h"
 
 typedef struct s_cmd
 {

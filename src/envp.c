@@ -1,5 +1,12 @@
 #include "minishell.h"
 
+char	*get_env(char *var, t_env *lst)
+{
+	t_env	*buff;
+
+	buff = match_lstenv(var, lst);
+	return (buff->val[0]);
+}
 t_env	*match_lstenv(char *var, t_env *lst)
 {
 	t_env	*buff;

@@ -2,5 +2,5 @@
 
 char	*get_prompt(void)
 {
-	return (ft_strdup("prompt >"));
+	return (ft_strdup("minishell>"));
 }

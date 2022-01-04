@@ -7,7 +7,5 @@ int		main(int argc, char **argv, char **envp)
 	data = parse(argc, argv, envp);
 	if (!data)
 		return (1);
-	//while true
-	//	prompt
 	return (0);
 }
