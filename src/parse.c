@@ -107,7 +107,7 @@ void	create_multiple_cells(char **strs, t_cell **lst)
 			return ;
 		*buff = {0};
 		buff->content = *strs;
-		buff->separator = SPACE;
+		buff->separator = MSSPACE;
 		if (!end)
 			*lst = buff;
 		else
@@ -181,10 +181,29 @@ t_data	parse(int ac, char **av, char **env)
 	if (!data)
 		return (NULL);
 	data->env = list_env(env);
+
+//to delete
+	t_env	*buff;
+	char	**s;
+	buff = *(data->env);
+	while (buff)
+	{
+		printf("%s = ", buff->var);
+		s = buff->val;
+		--s;
+		while (*++s)
+			printf("%s:", *s);
+		printf("\n");
+		buff = buff->next;
+	}
+	return (NULL);
+	//end of delete
+/*		
 	while (true)
 	{
 		str = readline(get_prompt());
 		add_history(str);
 		deconstruct(str, data, &lst);
 	}
+	*/
 }

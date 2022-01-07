@@ -3,7 +3,7 @@
 # define NOTHING 0
 # define QUOTE 1
 # define DQUOTE 2
-# define SPACE 3
+# define MSSPACE 3
 # define FILE 1
 # define CMD 2
 

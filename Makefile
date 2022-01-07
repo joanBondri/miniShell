@@ -15,7 +15,7 @@ NAME = minishell
 
 CC = clang
 
-CFLAGS = -Wall -Wextra -Werror -I./include/
+CFLAGS = -Wall -Wextra -Werror -I./include/ -I./src/libft/
 
 RM = rm -rf
 
