@@ -1,11 +1,12 @@
 #ifndef MINISHELL_H
 #define MINISHELL_H
 
-#include "../libft/libft.h"
+#include "libft.h"
 #include <unistd.h>
 #include <stdio.h>
 #include <readline/readline.h>
 #include <readline/history.h>
+# include "parse.h"
 
 typedef struct s_cmd
 {
@@ -16,16 +17,16 @@ typedef struct s_cmd
     int     infile;
     char    *path_outfile;
     int     outfile;
-    t_cmd   *next;
-    t_cmd   *prev;
+    struct s_cmd	*next;
+    struct s_cmd	*prev;
 }               t_cmd;
 
 typedef struct s_env
 {
     char    *var;
     char    **val;
-    t_env   *next;
-    t_env   *prev;
+    struct s_env   *next;
+    struct s_env   *prev;
 }               t_env;
 
 typedef struct s_data
@@ -40,7 +41,7 @@ typedef struct s_data
     int     nbr_pipe;
     int     pipe_even[2];
     int     pipe_odd[2];
-    char    ***env;
+    char    ***env_strs;
     int     nbr_cmd;
     t_cmd   **cmd;
     t_env   **env;
