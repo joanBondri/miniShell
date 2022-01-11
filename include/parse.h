@@ -1,11 +1,12 @@
 #ifndef PARSE_H
 # define PARSE_H
-# define NOTHING 0
-# define QUOTE 1
-# define DQUOTE 2
+# define MSNOTHING 0
+# define MSQUOTE 1
+# define MSDQUOTE 2
+# define MSWHITESPACE 4
 # define MSSPACE 3
-# define FILE 1
-# define CMD 2
+# define MSFILE 1
+# define MSCMD 2
 
 typedef struct	s_cell
 {

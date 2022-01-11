@@ -23,6 +23,7 @@ typedef struct s_list
 	struct s_list	*next;
 }				t_list;
 
+char			**ft_first_split(char const *s, char *c);
 double			ft_atoi_double(const char *str);
 int				*int_to_ptr(int i);
 double			ft_atod(char *str);

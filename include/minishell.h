@@ -2,11 +2,12 @@
 #define MINISHELL_H
 
 #include "libft.h"
+# include "parse.h"
 #include <unistd.h>
 #include <stdio.h>
+#include <stdbool.h>
 #include <readline/readline.h>
 #include <readline/history.h>
-# include "parse.h"
 
 typedef struct s_cmd
 {
@@ -25,8 +26,8 @@ typedef struct s_env
 {
     char    *var;
     char    **val;
-    struct s_env   *next;
-    struct s_env   *prev;
+    struct s_env	*next;
+    struct s_env	*prev;
 }               t_env;
 
 typedef struct s_data
@@ -48,5 +49,13 @@ typedef struct s_data
 }               t_data;
 
 void	exec_data(t_data data);
+t_env	*match_lstenv(char *var, t_env *lst);
+t_data	*parse(char **env);
+t_env	**list_env(char **var);
+char	*get_prompt(void);
+
+t_cell	*decompose_spaces(t_cell *current, t_cell *prev);
+char	 decompose_quotes(char *s, t_cell **lst, char comp);
+
 
 #endif

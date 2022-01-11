@@ -2,6 +2,7 @@ OBJS = $(SRC:.c=.o)
 
 
 SRC = 	ft_lstadd_back.c \
+			ft_first_split.c \
 			ft_lstuntie_last.c \
 			ft_lstadd_front.c \
 			ft_lstclear.c \

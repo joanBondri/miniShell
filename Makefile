@@ -2,6 +2,7 @@ SRC = envp.c \
 	  get_prompt.c \
 	  main.c \
 	  parse.c \
+	  cut_off.c \
 
 SRCSDIR = ./src
 
@@ -25,7 +26,7 @@ RM = rm -rf
 $(NAME): $(OBJS)
 	make -C src/libft
 	mv src/libft/libft.a ./libft.a
-	$(CC) -o $(NAME)  $(OBJS) -lft
+	$(CC) -o $(NAME)  $(OBJS) libft.a -lreadline
 
 all: $(NAME)
 
