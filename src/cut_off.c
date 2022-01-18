@@ -1,4 +1,4 @@
-#include "minishell.h"
+#include "pip.h"
 
 t_cell	*attribute_cell(char *s, int i, int info)
 {

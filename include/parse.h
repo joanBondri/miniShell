@@ -7,6 +7,7 @@
 # define MSSPACE 3
 # define MSFILE 1
 # define MSCMD 2
+# include <stdbool.h>
 
 typedef struct	s_cell
 {

@@ -1,7 +1,8 @@
-SRC = envp.c \
-	  get_prompt.c \
+SRC = get_prompt.c \
 	  main.c \
 	  parse.c \
+	  ft_split_func.c \
+	  pip.c \
 	  cut_off.c \
 
 SRCSDIR = ./src

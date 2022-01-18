@@ -1,4 +1,4 @@
-#include "minishell.h"
+#include "pip.h"
 
 int		entanglement(char *s)
 {
@@ -30,29 +30,6 @@ int		entanglement(char *s)
 		}
 	}
 	return (q + dq);
-}
-
-bool	letter_stuck(char *s)
-{
-	int		i;
-
-	i = -1;
-	while (s[++i])
-	{
-		if ((s[i] == '\'' || s[i] == '"'))
-		{
-			if (i != 0 && s[i - 1] != ' ')
-				return (true);
-			i++;
-			while (s[i] != '\'' && s[i] != '"' && s[i])
-				i++;
-			if (!s[i])
-				return (false);
-			if (s[i + 1] && s[i + 1] != ' ')
-				return (true);
-		}
-	}
-	return (false);
 }
 
 void	attach_end_lst_cell(t_cell *buff, t_cell **lst)
@@ -127,14 +104,8 @@ t_cell	**decompose_quotes(char *s, t_cell **lst, char *comp)
 	if (info == MSNOTHING)
 		return (decompose_quotes(s + i + 1, lst, s + i));
 	return (decompose_quotes(s + i + 1, lst, " "));
-}*/
-
-void	ft_exit(char *str)
-{
-	printf("%s", str);
-	exit(0);
 }
-/*
+
 bool	decompose_spaces(t_cell *current, t_cell *prev, t_cell **lst)
 {
 	int		i;
@@ -165,6 +136,12 @@ bool	decompose_spaces(t_cell *current, t_cell *prev, t_cell **lst)
 	free(current);
 	return (decompose_spaces(cell->next, cell, lst));
 }*/
+
+void	ft_exit(char *str)
+{
+	printf("%s", str);
+	exit(0);
+}
 
 int		deconstruct(char *s, t_data **dt)
 {
@@ -206,32 +183,13 @@ t_data	*parse(char **env)
 	data = malloc(sizeof(t_data) * 1);
 	if (!data)
 		return (NULL);
-	data->env = list_env(env);
-
-//to delete
-/*	t_env	*buff;
-	char	**s;
-
-	(void)str;
-	(void)lst;
-	buff = *(data->env);
-	while (buff)
-	{
-		printf("%s=", buff->var);
-		s = buff->val;
-		--s;
-		while (*(++s + 1))
-			printf("%s:", *s);
-		printf("%s\n", *s);
-		buff = buff->next;
-	}
-	return (NULL);
-*/	//end of delete
-		
+	*data = (t_data){0};
+	data->env = &env;
 	while (true)
 	{
-		str = readline(get_prompt());
+		str = readline(get_prompt("Jesus love you"));
 		add_history(str);
-		deconstruct(str, &data);
+		divide_pip(str, &data);
 	}
+	return (data);
 }
