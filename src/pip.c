@@ -1,6 +1,6 @@
 #include "pip.h"
 
-	bool	check_pip_double(char *s)
+bool	check_pip_double(char *s)
 {
 	int		i;
 
@@ -71,7 +71,7 @@ void	generate_cmds_strs(t_cmd **pips, char **strs)
 	prev = NULL;
 	while (strs[++i])
 	{
-		buff = malloc(sizeof(t_list));
+		buff = malloc(sizeof(t_cmd));
 		if (!buff)
 			ft_exit("malloc foire");
 		*buff = (t_cmd){0};
@@ -80,6 +80,7 @@ void	generate_cmds_strs(t_cmd **pips, char **strs)
 		buff->prev = prev;
 		prev = buff;
 		end = &(buff->next);
+		buff = NULL;
 	}
 	*end = NULL;
 }
@@ -87,22 +88,15 @@ void	generate_cmds_strs(t_cmd **pips, char **strs)
 void	divide_pip(char *s, t_data **data)
 {
 	char	**strs;
-	t_cmd	*pips;
+	t_cmd	**pips;
 
+	if (check_pip_double(s))
+		ft_exit("Error with pip\n");
 	strs = ft_split_func(s, "|", &divide_with_quotes);
-	if (!strs)
+	pips = malloc(sizeof(t_cmd*));
+	if (!strs || !pips)
 		ft_exit("the end\n");
-	pips = NULL;
-	generate_cmds_strs(&pips, strs);
-	printf("je suis la %p -> %p\n", *data, (*data)->cmd);
-	(*data)->cmd = NULL;
-	(*data)->cmd = malloc(sizeof(t_cmd*));
-	if (!(*data)->cmd)
-		ft_exit("je suis das al rue, dans le business");
-	(*data)->cmd = &pips;
-	while (pips)
-	{
-		printf("%p = %s\n", pips, pips->path);
-		pips = pips->next;
-	}
+	*pips = NULL;
+	generate_cmds_strs(pips, strs);
+	(*data)->cmd = pips;
 }

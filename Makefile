@@ -27,7 +27,7 @@ RM = rm -rf
 $(NAME): $(OBJS)
 	make -C src/libft
 	mv src/libft/libft.a ./libft.a
-	$(CC) -o $(NAME)  $(OBJS) libft.a -lreadline
+	$(CC) -o $(NAME) $(OBJS) libft.a -lreadline
 
 all: $(NAME)
 
