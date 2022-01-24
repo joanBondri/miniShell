@@ -90,8 +90,6 @@ void	divide_pip(char *s, t_data **data)
 	char	**strs;
 	t_cmd	**pips;
 
-	if (check_pip_double(s))
-		ft_exit("Error with pip\n");
 	strs = ft_split_func(s, "|", &divide_with_quotes);
 	pips = malloc(sizeof(t_cmd*));
 	if (!strs || !pips)

@@ -1,37 +1,5 @@
 #include "pip.h"
 
-int		entanglement(char *s)
-{
-	char	c;
-	int		i;
-	int		q;
-	int		dq;
-
-	i = -1;
-	dq = 0;
-	q = 0;
-	while (s[++i])
-	{
-		if (s[i] == '\'' || s[i] == '"')
-		{
-			c = s[i];
-			if (c == '\'')
-				q = (q + 1) % 2;
-			else
-				dq = (dq + 1) % 2;
-			while (s[i] && s[i] != c)
-				++i;
-			if (!s[i])
-				break ;
-			if (c == '\'')
-				q = (q + 1) % 2;
-			else
-				dq = (dq + 1) % 2;
-		}
-	}
-	return (q + dq);
-}
-
 void	attach_end_lst_cell(t_cell *buff, t_cell **lst)
 {
 	t_cell	*end;
@@ -152,8 +120,6 @@ int		deconstruct(char *s, t_data **dt)
 
 	lst = NULL;
 	//a revoir dans lagestion d' erreur
-	if (entanglement(s))
-		ft_exit("unexpected character\n");
 	c = ' ';
 	while (c)
 		c = decompose_quotes(s, &lst, c);
