@@ -6,10 +6,30 @@ void	check_pips(char *s)
 		ft_exit("Error with pip\n");
 }
 
+void	find_type_token(char *tb, char *s, t_token *t)
+{
+	char	*copy;
+
+	if (ft_strncmp(tb, s, ft_strlen(tb)) && ft_strchr("<>|$\'\"", str[0]))
+			return ;
+	t->start = s;
+	if (!ft_strncmp(tb, s, ft_strlen(tb)))
+		i = MSWORD;
+	else if (s[0] == '$' && (!s[1] || ft_strchr(" \t\v\n\f", s[1])))
+		i == MSWORD;
+	t->status = i;
+	if (-1 == find_variable_in_str(s, t->copy))
+		t->sub_status = MSNONE;
+	if ()
+
+		
+}
+
 void	next_token(char *s, t_token *t)
 {
 	int		i;
 	char	*str;
+	t_token	tok;
 	static	char tb[][] = {"|", "<<",  ">>, <", ">", "'", "\"", "$"};
 
 	i = 0;
@@ -20,7 +40,11 @@ void	next_token(char *s, t_token *t)
 	i = -1;
 	while(++i < 8)
 	{
-		if (strncmp(str, tb[i], ft_strlen(tb[i])))
+		tok = (t_token){0};
+		tok->status = i;
+		find_type_token(tb[i], i, str, &tok);
+		if (!tok.start)
+			break ;
 	}
 }
 

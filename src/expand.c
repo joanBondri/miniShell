@@ -38,7 +38,11 @@ int	find_variable_in_str(char *prin, char *res)
 		if (j == 1 && prin[j] == '{')
 			return (find_var_par(prin, res));
 		if (j == 1 && is_digit(prin[j]))
+		{
+			start = prin + j;
+			i = 1;
 			break ;
+		}
 		if (!ft_strchr("1234567890_qwertyuiopasdfghj
 					klzxcvbnQWERTYUIOPASDFGHJKLZXCVB", prin[j]))
 			break ;

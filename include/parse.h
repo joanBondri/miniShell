@@ -12,6 +12,12 @@
 # define MSRED_APP 2
 # define MSRED_OUT 3
 # define MSRED_IN 4
+# define MSVOID 80
+# define MSNONE 81
+# define MSAMBIGOUS 82
+# define MSAMBIGOUSL 83
+# define MSAMBIGOUSR 84
+# define MSAMBIGOUSLR 85
 # include <stdbool.h>
 
 typedef struct	s_cell
@@ -28,6 +34,7 @@ typedef struct	s_token
 	char		copy;
 	int			length;
 	int			status;
+	int			sub_status;
 }				t_token;
 
 #endif

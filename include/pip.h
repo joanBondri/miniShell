@@ -15,5 +15,6 @@ void	chain_cell(t_cell *to_add, t_cell *next, t_cell *prev);
 t_cell	*decompose_spaces(t_cell *current, t_cell *prev);
 char decompose_quotes(char *s, t_cell **lst, char comp);
 bool	check_pip_double(char *s);
+int	find_variable_in_str(char *prin, char *res);
 
 #endif
