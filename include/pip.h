@@ -16,5 +16,4 @@ t_cell	*decompose_spaces(t_cell *current, t_cell *prev);
 char decompose_quotes(char *s, t_cell **lst, char comp);
 bool	check_pip_double(char *s);
 
-
 #endif

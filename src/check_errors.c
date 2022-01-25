@@ -10,15 +10,18 @@ void	next_token(char *s, t_token *t)
 {
 	int		i;
 	char	*str;
-	static	char tb[][] = {"|", "<<", "<", ">", ">>", "'", "\"", "$"};
+	static	char tb[][] = {"|", "<<",  ">>, <", ">", "'", "\"", "$"};
 
 	i = 0;
 	while (ft_strchr(" \t\v\f\n", s[i]))
 		i++;
 	t->start = s + i;
 	str = s + i;
-	i = 0;
-	while(str[++i] && str)
+	i = -1;
+	while(++i < 8)
+	{
+		if (strncmp(str, tb[i], ft_strlen(tb[i])))
+	}
 }
 
 void	check_redirection_file(char *str)

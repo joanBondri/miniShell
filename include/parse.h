@@ -9,9 +9,9 @@
 # define MSCMD 2
 # define MSPIP 0
 # define MSRED_HER 1
-# define MSRED_IN 2
+# define MSRED_APP 2
 # define MSRED_OUT 3
-# define MSRED_APP 4
+# define MSRED_IN 4
 # include <stdbool.h>
 
 typedef struct	s_cell
