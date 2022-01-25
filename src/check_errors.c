@@ -6,10 +6,62 @@ void	check_pips(char *s)
 		ft_exit("Error with pip\n");
 }
 
-void	find_type_token(char *tb, char *s, t_token *t)
+void	develope_varenv(t_token *t, char *s, t_data *dt)
 {
-	char	*copy;
+	char	*res;
+	int		i;
+	bool	start;
 
+	t->length = find_variable_in_str(s, t->copy);
+	if (-1 == t->length)
+	{
+		t->sub_status = MSNONE;
+		return ;
+	}
+	res = find_env(t->copy, dt);
+	if (!res)
+	{
+		t->sub_status = MSNONE;
+		return ;
+	}
+	start = false;
+	free(t->copy);
+	t->copy = res;
+	i = 0;
+	while (res[i] && ft_strchr(" \t\f\v\n", res[i]))
+		i++;
+	if (ft_strlen(res) == 0)
+		t->sub_status = MSVOID;
+	else if (i == ft_strlen(res))
+		t->sub_status = MSWHITESPACE;
+	else if (i != 0)
+		start = true;
+	while (res[i] && !ft_strchr(" \t\f\v\n", res[i]))
+		i++;
+	if (i != ft_strlen(res))
+	{
+		while (res[i] && ft_strchr(" \t\f\v\n", res[i]))
+			i++;
+		if (i != ft_strlen(res))
+			t->sub_status = MSAMBIGOUS;
+		else if (start)
+			t->sub_status = MSAMBIGOUSLR;
+		else
+			t->sub_status = MSAMBIGOUSR;
+	}
+	else if (start)
+		t->sub_status = MSAMBIGOUSL;
+	else
+		t->sub_status = MSWORD;
+}
+
+
+//il rest a faire les tokens de < > | ' ", et tout ce qui est mot simple puis gerer la concatenation
+//mais j'avance puisqu'il rest maintenant a faire les okens les plus simpl il y aura juste la cancatenation qui sera un peut galere
+//ensuite il faudra ouvrir les fichiers puis les refermer
+//faire toutes les redirection puis il faudra interpreter
+void	find_type_token(char *tb, char *s, t_token *t, t_data *dt)
+{
 	if (ft_strncmp(tb, s, ft_strlen(tb)) && ft_strchr("<>|$\'\"", str[0]))
 			return ;
 	t->start = s;
@@ -18,11 +70,9 @@ void	find_type_token(char *tb, char *s, t_token *t)
 	else if (s[0] == '$' && (!s[1] || ft_strchr(" \t\v\n\f", s[1])))
 		i == MSWORD;
 	t->status = i;
-	if (-1 == find_variable_in_str(s, t->copy))
-		t->sub_status = MSNONE;
-	if ()
-
-		
+	if (i == MSVARENV)
+		return (develope_varenv(t, s, dt));
+	else if (  )
 }
 
 void	next_token(char *s, t_token *t)
