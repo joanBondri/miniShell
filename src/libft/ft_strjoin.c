@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
 #include <stdlib.h>
 
 static int	strl(char *s)
@@ -31,8 +32,12 @@ char	*ft_strjoin(char const *str1, char const *str2)
 
 	s1 = (char *)str1;
 	s2 = (char *)str2;
-	if (s1 == NULL || s2 == NULL)
+	if (s1 == NULL && s2 == NULL)
 		return (NULL);
+	if (!s1)
+		return (ft_strdup(s2));
+	if (!s2)
+		return (ft_strdup(s1));
 	res = malloc(sizeof(char) * (strl(s1) + strl(s2) + 1));
 	if (!(res))
 		return (NULL);

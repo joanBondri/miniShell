@@ -1,26 +1,26 @@
-#include "pips.h"
+#include "pip.h"
 
-int	find_var_par(char *prin, char *res)
+int	find_var_par(char *prin, char **res)
 {
 	int		i;
 
-	i = 1;
+	i = -1;
 	while (prin[++i])
 	{
 		if (prin[i] == '}')
 			break ;
 	}
 	if (i == 2)
-		res = NULL;
+		*res = NULL;
 	else
-		res = malloc(sizeof(char) * (i - 2));
-	if (!res)
+		*res = malloc(sizeof(char) * (i - 2));
+	if (!*res)
 		ft_exit("error_malloc\n");
-	ft_strlcpy(res, prin + 2, i - 2);
-	return (i - 2);
+	ft_strlcpy(*res, prin + 2, i - 1);
+	return (i + 1);
 }
 
-int	find_variable_in_str(char *prin, char *res)
+int	find_variable_in_str(char *prin, char **res)
 {
 	int		i;
 	int		j;
@@ -37,14 +37,13 @@ int	find_variable_in_str(char *prin, char *res)
 	{
 		if (j == 1 && prin[j] == '{')
 			return (find_var_par(prin, res));
-		if (j == 1 && is_digit(prin[j]))
+		if (j == 1 && ft_isdigit(prin[j]))
 		{
 			start = prin + j;
 			i = 1;
 			break ;
 		}
-		if (!ft_strchr("1234567890_qwertyuiopasdfghj
-					klzxcvbnQWERTYUIOPASDFGHJKLZXCVB", prin[j]))
+		if (!ft_isalnum(prin[j]) && prin[j] != '_')
 			break ;
 		if (!start)
 			start = prin + j;
@@ -54,11 +53,11 @@ int	find_variable_in_str(char *prin, char *res)
 	}
 	if (!start)
 		return (-1);
-	res = malloc(sizeof(char) * (s + 1));
-	if (!res)
+	*res = malloc(sizeof(char) * (s + 1));
+	if (!*res)
 		ft_exit("error with malloc\n");
-	ft_strlcpy(res, prin, s);
-	return (i);
+	ft_strlcpy(*res, prin + 1, s + 1);
+	return (i + 1);
 }
 
 char	*get_variable_first_time(char *val, int msg, t_data *dt)
@@ -69,10 +68,10 @@ char	*get_variable_first_time(char *val, int msg, t_data *dt)
 	int		i;
 
 	state = 0;
-	str = find_env(var, dt);
+	str = find_env(val, dt);
 	if (!str)
 		ft_exit("Malloc error\n");
-	if (msg == MSDQUOTES)
+	if (msg == MSDQUOTE)
 		return (str);
 	if (ft_strlen(str) == 0)
 		;
@@ -109,7 +108,7 @@ int		expand_variable(char *prin, int ind, char *res, t_data *dt)
 	i = -1;
 	q = false;
 	dq = false;
-	if (!prin || ind < 0 || !h)
+	if (!prin || ind < 0)
 		return (-1);
 	if (prin[ind] == '$')
 	{
@@ -123,20 +122,28 @@ int		expand_variable(char *prin, int ind, char *res, t_data *dt)
 		}
 		if (q)
 			return (-1);
-		i = find_variable_in_str(prin + ind, val);
+		val = NULL;
+		i = find_variable_in_str(prin + ind, &val);
 		if (!val)
 			return (-1);
 		if (dq)
-			res = get_value(val, MSDQUOTES, dt);
+			res = get_variable_first_time(val, MSDQUOTE, dt);
 		else
-			res = get_value(val, MSNOTHING, dt);
+			res = get_variable_first_time(val, MSNOTHING, dt);
 		return (i);
 	}
 	return (-1);
 }
 
-void	find_n_replace(char *s,
-		(bool f)(char *prin, int yop, char *rep, int *hwmny), t_data *dt)
+void	replace(char *s, int len, char *res)
+{
+	(void) s;
+	(void) res;
+	(void) len;
+}
+
+/*void	find_n_replace(char *s,
+		int (f)(char *prin, int yop, char *rep, int *hwmny, t_data *dt), t_data *dt)
 {
 	int		i;
 	char	*res;
@@ -150,7 +157,7 @@ void	find_n_replace(char *s,
 			free(res);
 			res = NULL;
 		}
-		if (f(s, i, res, &len))
+		if (f(s, i, res, &len, dt))
 			replace(s + i, len, res);
 	}
 }
@@ -158,4 +165,5 @@ void	find_n_replace(char *s,
 char	*quotes_and_variable(char *s, t_data *data)
 {
 	find_n_replace(s, &expand_variable, data);
-}
+	return (ft_strdup("tu n'auras rien de moi pute\n"));
+}*/

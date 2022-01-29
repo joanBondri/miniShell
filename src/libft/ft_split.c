@@ -106,7 +106,7 @@ char	**ft_split(char const *s, char *c)
 	return (tab);
 }
 
-void	free_second_deg(char **s)
+void	free_tab(char **s)
 {
 	int		i;
 

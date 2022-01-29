@@ -1,9 +1,15 @@
-SRC = get_prompt.c \
-	  main.c \
-	  parse.c \
-	  ft_split_func.c \
-	  pip.c \
-	  cut_off.c \
+SRC = \
+		check_errors.c \
+		cut_off.c \
+		env_finder.c \
+		expand.c \
+		ft_malloc_idea.c \
+		ft_split_func.c \
+		get_prompt.c \
+		main.c \
+		parse.c \
+		pip.c \
+		redirection.c \
 
 SRCSDIR = ./src
 

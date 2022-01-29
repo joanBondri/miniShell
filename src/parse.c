@@ -1,6 +1,6 @@
 #include "pip.h"
 
-void	attach_end_lst_cell(t_cell *buff, t_cell **lst)
+/*void	attach_end_lst_cell(t_cell *buff, t_cell **lst)
 {
 	t_cell	*end;
 
@@ -13,7 +13,7 @@ void	attach_end_lst_cell(t_cell *buff, t_cell **lst)
 			end = end->next;
 		end->next = buff;
 	}
-}
+}*/
 
 //on decompose deja les quotes
 /*
@@ -110,7 +110,7 @@ void	ft_exit(char *str)
 	printf("%s", str);
 	exit(0);
 }
-
+/*
 int		deconstruct(char *s, t_data **dt)
 {
 	t_cell		*lst;
@@ -140,6 +140,24 @@ int		deconstruct(char *s, t_data **dt)
 	(void)dt;
 	return (0);
 }
+*/
+void	know_your_token(char *s, t_data *dt)
+{
+	t_token		t;
+	int			i = 0;
+
+	while (s[i])
+	{
+		t = (t_token){0};
+		next_token(s + i, &t, dt);
+		printf("whats poppin, status = %i, substatus = %i, copy = %s, t_len = %i\n", t.status, t.sub_status, t.copy, t.length);
+		if (t.copy)
+			free(t.copy);
+		if (t.length == 0)
+			break ;
+		i += t.length;
+	}
+}
 
 t_data	*parse(char **env)
 {
@@ -153,9 +171,10 @@ t_data	*parse(char **env)
 	data->env = &env;
 	while (true)
 	{
-		str = readline(get_prompt("Jesus love you"));
+		str = readline(get_prompt());
 		add_history(str);
-		divide_pip(str, &data);
+		know_your_token(str, data);
+	//	divide_pip(str, &data);
 	}
 	return (data);
 }

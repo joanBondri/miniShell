@@ -75,5 +75,5 @@ char			*ft_strrchr(const char *str, int c);
 char			*ft_substr(char const *s, unsigned int start, size_t len);
 int				ft_tolower(int c);
 int				ft_toupper(int c);
-void			free_second_deg(char **s);
+void			free_tab(char **s);
 #endif

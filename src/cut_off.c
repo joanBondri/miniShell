@@ -1,5 +1,6 @@
 #include "pip.h"
 
+/*
 t_cell	*attribute_cell(char *s, int i, int info)
 {
 	t_cell	*res;
@@ -185,4 +186,4 @@ t_cell	*decompose_spaces(t_cell *current, t_cell *prev)
 	chain_cell(to_add, current->next, prev);
 	return (to_add->next);
 }
-
+*/

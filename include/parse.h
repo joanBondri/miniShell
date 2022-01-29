@@ -1,15 +1,17 @@
 #ifndef PARSE_H
 # define PARSE_H
+
 # define MSNOTHING 0
 # define MSWHITESPACE 8
 # define MSSPACE 3
 # define MSFILE 1
 # define MSCMD 2
+
 # define MSPIP 0
 # define MSRED_HER 1
 # define MSRED_APP 2
-# define MSRED_OUT 3
-# define MSRED_IN 4
+# define MSRED_IN 3
+# define MSRED_OUT 4
 # define MSQUOTE 5
 # define MSDQUOTE 6
 # define MSVARENV 7
@@ -34,7 +36,7 @@ typedef struct	s_cell
 typedef struct	s_token
 {
 	char		*start;
-	char		copy;
+	char		*copy;
 	int			length;
 	int			status;
 	int			sub_status;

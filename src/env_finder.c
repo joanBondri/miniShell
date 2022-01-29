@@ -1,4 +1,4 @@
-#include "minishell.h"
+#include "pip.h"
 
 int is_valid_var(char *str)
 {
@@ -37,7 +37,7 @@ char    *find_env(char *var, t_data *data)
     index = find_index_env(data, var);
     if (index == -1)
         return (NULL);
-    tmp = data->env[index];
+    tmp = data->env[0][index];
     tmp = tmp + (ft_strlen(var) + 1);
     return (ft_strdup(tmp));
     
@@ -48,11 +48,11 @@ int find_index_env(t_data *data, char *str)
     int i;
 
     i = 0;
-    if (!data->env)
+    if (!data->env[0])
         return(-2);
-    while (data->env[i])
+    while (data->env[0][i])
     {
-        if (strncmp(data->env[i], str, ft_strlen(str)))
+        if (!strncmp(data->env[0][i], str, ft_strlen(str)))
         {
             return (i);
         }
@@ -63,8 +63,8 @@ int find_index_env(t_data *data, char *str)
 
 int change_val_var(t_data *data, char *str, int i)
 {
-    free(data->env[i]);
-    data->env[i] = str;
+    free(data->env[0][i]);
+    data->env[0][i] = str;
     return (1);
 }
 
@@ -76,12 +76,12 @@ int add_var_tab(t_data *data, char *str)
 
     o = 0;
     i = 0;
-    while (data->env[i] != NULL)
+    while (data->env[0][i] != NULL)
         i++;
     tmp = malloc(sizeof(char *) * (i + 2));
-    while (data->env[o] != NULL)
+    while (data->env[0][o] != NULL)
     {
-        tmp[o] = ft_strdup(data->env[o]);
+        tmp[o] = ft_strdup(data->env[0][o]);
         if (!tmp[o])
         {
             free_tab(tmp);
@@ -96,18 +96,24 @@ int add_var_tab(t_data *data, char *str)
         return (-1);     
     }
     tmp[++o] = NULL;
-    free_tab(data->env);
-    data->env = tmp;
+    free_tab(data->env[0]);
+    data->env[0] = tmp;
     return (1);
 }
 
 int put_val_tab(t_data *data, char *var, char *new)
 {
     char *tmp;
+    char *second;
 
-    tmp = ft_strjoin3(var, "=", new);
+    second = ft_strjoin(var, "=");
+    if (!second)
+        return (-1);
+    tmp = ft_strjoin(second, new);
+	free(second);
     if (!tmp)
         return (-1);
+
     if (find_index_env(data, var) == -1)
     {
         if (add_var_tab(data, tmp) == -1)
