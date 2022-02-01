@@ -1,5 +1,93 @@
 #include "pip.h"
 
+void	parser_director(char *s, t_data *dt)
+{
+	check_pips(s, dt);
+	check_quotes(s, dt);
+	check_par(s);
+	check_redirection(s, dt);
+	divide_pip(s, &dt);
+	get_redirection(dt);
+	replace_redirection(dt);
+	expand_rest_anvvar(dt);
+	interprate_sequence(dt);
+	// fonction qui relie 
+}
+
+void	near_token(char *s, t_data *dt)
+{
+	int		i;
+	int		j;
+	t_token	t;
+
+	i = 0;
+	while (s[i] && ft_strchr(" \t\f\v", s[i]))
+		i++;
+	j = i;
+	next_token(s, &t, dt);
+	if (!(t->copy))
+		ft_unexpected_token('\0', ft_strdup("newline"));
+	else
+		ft_unexpected_token('\0', t.copy);	
+}
+
+void	ambigus_redirect(char *str, t_data *dt)
+{	
+	int		i;
+	int		j;
+	char	*res;
+
+	i = 0;
+	j = 0;
+	while (s[i] && ft_strchr(" \t\f\v", s[i]))
+		i++;
+	while (s[i + j] && !ft_strchr(" \t\f\v", s[i + j]))
+		j++;
+	res = ft_strndup(str + i, j);
+	printf("minishell: %s: ambiguous redirect\n", res);
+	free_all_malloc();
+	come_back_prompt(dt);
+}
+
+void	assemblage_file_name_red(char *s, t_token &tt,  t_data *dt)
+{
+	int		i;
+	char	*res_buff;
+	bool	p;
+	t_token	t;
+
+	i = 0;
+	p = false;
+	while (s[i] && ft_strchr(" \t\f\v", s[i]))
+		i++;
+	while (s[i])
+	{
+		t = (t_token){0};
+		next_token(s + i, &t, dt);
+		if (!t.status == MSWHITESPACE)
+			add_lst_malloc((void*)t.copy);
+		if ((t.status >= PIP && t.status >= MSRED_OUT)
+				|| t.status == MSWHITESPACE)
+			break ;
+		if (t.sub_status == NONE && t.copy == NULL)
+			p = true;
+		else
+			p = false;
+		else if (t.sub_status == NONE || t.sub_status == VOID)
+			continue ;
+		res_buff = ft_strjoin(res, t.copy);
+		if (res)
+			free(res);
+		res = res_buff;
+		i += t.length;
+	}
+	tt->length = i;
+	if (!(tt->copy) && p)
+		ambigus_redirect(s, dt);
+	else if(!(tt->copy))
+		near_token(s, dt);
+}
+
 char	*ft_strndup(char *s, int size)
 {
 	int		i;
@@ -18,10 +106,10 @@ char	*ft_strndup(char *s, int size)
 	return (res);
 }
 
-void	check_pips(char *s)
+void	check_pips(char *s, t_data *dt)
 {
 	if (check_pip_double(s))
-		ft_exit("Error with pip\n");
+		ft_unexpected_token('|', NULL);
 }
 
 char	*ft_strlreplace(char *s1, char *s2, int index, int len)
@@ -92,6 +180,7 @@ void	develope_word(t_token *t, char *s)
 
 	if (!s[0])
 	{
+		t->length = 0;
 		t->sub_status = MSVOID;
 		return ;
 	}
@@ -207,7 +296,10 @@ void	find_type_token(char *tb, char *s, t_token *t, t_data *dt)
 void	ft_unexpected_token(char c, char *s)
 {
 		(void)s;
-		printf("minishell: syntax error near unexpected token `%c'", c);
+		if (s)
+			printf("minishell: syntax error near unexpected token `%s'", s);
+		else
+			printf("minishell: syntax error near unexpected token `%c'", c);
 		exit(2);
 }
 
@@ -298,7 +390,7 @@ void	check_redirection_file(char *str, t_data *dt)
 	t_token	t;
 
 	if (ft_strlen(str) < 1)
-		return ;
+		ft_unexpected_token((char)0, strdup("newline"));
 	i = 0;
 	if (ft_strchr("<>", str[1]))
 	{
@@ -308,7 +400,8 @@ void	check_redirection_file(char *str, t_data *dt)
 		if (str[0] == '<')
 			return (check_heredoc(str));
 	}
-	next_token(str + i, &t, dt);
+	assemblage_file_name_red(str, &t, dt);
+	free(t.copy);
 }
 
 void	check_redirection(char *str, t_data *dt)
@@ -328,7 +421,7 @@ void	check_redirection(char *str, t_data *dt)
 	}
 }
 
-bool	entanglement(char *s)
+char	entanglement(char *s)
 {
 	char	c;
 	int		i;
@@ -357,13 +450,18 @@ bool	entanglement(char *s)
 				dq = !dq;
 		}
 	}
-	return (q || dq);
+	if (q || dq)
+		return (c);
+	return (0);
 }
 
-void	check_quotes(char *s)
+void	check_quotes(char *s, t_data *dt)
 {
-	if (entanglement(s))
-		ft_exit("quotes : still open\n");
+	char	c;
+
+	c = entanglement(s);
+	if (c)
+		ft_unexpected_token(c, NULL);
 }
 
 void	check_errors_cmd(char *s)

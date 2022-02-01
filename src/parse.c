@@ -169,12 +169,6 @@ t_data	*parse(char **env)
 		return (NULL);
 	*data = (t_data){0};
 	data->env = &env;
-	while (true)
-	{
-		str = readline(get_prompt());
-		add_history(str);
-		know_your_token(str, data);
-	//	divide_pip(str, &data);
-	}
+	come_back_prompt(str, &data);
 	return (data);
 }
