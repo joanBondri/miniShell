@@ -15,8 +15,6 @@ void	parser_director(char *s, t_data **data)
 	{
 		//fonction qui va chercher toutes les redirections
 		get_redirection(buff, *dt);
-		//simplement on supprime de la ligne toute redirection et les fichiers associer
-		replace_redirection(buff, *dt);
 		//on remplace les expands
 		expand_rest_anvvar(buff, *dt);
 		//on split tout ca
@@ -26,8 +24,61 @@ void	parser_director(char *s, t_data **data)
 	//fonction de xaviiiiiier
 }
 
-void	get_redirection(t_cmd *focus, t_data *dt)
+void	get_2_redirection(char *s, t_cmd *yop, t_token t, t_data *dt)
 {
+	int		flag;
+	int		fd;
+
+	if (!ft_strncmp(s + i, ">", 1))
+	{
+		flag = O_CREAT | O_RDWR;
+		if (!ft_strncmp(s + i, ">>", 2))
+			flag = flag | O_APPEND;
+		else
+			flag = flag | O_TRUNC;
+		fd = open(t.copy, flags,
+			S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH);
+		if (!fd)
+			return (end_fd());
+		if (yop->fd != 0)
+			close 
+	}
+	
+
+}
+
+void	get_redirection(char *str, t_cmd *focus, t_data *dt)
+{
+	int			i;
+	bool		q;
+	bool		p;
+	t_token		t;
+
+	i = -1;
+	q = false;
+	p = false;
+	while (str[++i])
+	{
+		if (str[i] == '\'' && !p)
+			q = !q;
+		if (str[i] == '"' && !q)
+			p = !p;
+		if (ft_strchr("<>", str[i]) && !q && !p)
+		{
+			t = (t_token){0};
+			if (!ft_strncmp("<<", str + i, 2))
+				return (get_heredoc(str, i, focus, dt));
+			if (!ft_strncmp(">>", str + i, 2))
+				assemblage_file_name_red(str + i + 2, &t, dt);
+			else
+				assemblage_file_name_red(str + i + 1, &t, dt);
+			get_2_redirection(str + i, focus, t, dt);
+			if (!ft_strncmp(">>", str + i, 2))
+				ft_strlreplace(str, "", i, t.length + 2);
+			else
+				ft_strlreplace(str, "", i, t.length + 1);
+		}
+	}
 	
 }
 
@@ -66,7 +117,7 @@ void	ambigus_redirect(char *str, t_data *dt)
 	come_back_prompt(dt);
 }
 
-void	assemblage_file_name_red(char *s, t_token &tt,  t_data *dt)
+void	assemblage_file_name_red(char *s, t_token *tt,  t_data *dt)
 {
 	int		i;
 	char	*res_buff;
@@ -424,16 +475,19 @@ void	check_redirection_file(char *str, t_data *dt)
 void	check_redirection(char *str, t_data *dt)
 {
 	int			i;
-	static bool	q[2] = {0};
+	bool		q;
+	bool		p;
 
 	i = -1;
+	q = false;
+	p = false;
 	while (str[++i])
 	{
-		if (str[i] == '\'' && !q[1])
-			q[0] = !q[0];
-		if (str[i] == '"' && !q[0])
-			q[1] = !q[1];
-		if (ft_strchr("<>", str[i] && !q[0] && !q[1]))
+		if (str[i] == '\'' && !p)
+			q = !q;
+		if (str[i] == '"' && !q)
+			p = !p;
+		if (ft_strchr("<>", str[i] && !q && !p))
 			check_redirection_file(str + i, dt);
 	}
 }
