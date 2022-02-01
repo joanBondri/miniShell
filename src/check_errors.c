@@ -16,12 +16,39 @@ void	parser_director(char *s, t_data **data)
 		//fonction qui va chercher toutes les redirections
 		get_redirection(buff, *dt);
 		//on remplace les expands
-		expand_rest_anvvar(buff, *dt);
+		expand_rest_envvar(buff, *dt);
 		//on split tout ca
 		interprate_sequence(buff, *dt);
 		//heredoc 
 	}
 	//fonction de xaviiiiiier
+}
+
+void	expand_rest_envvar(t_cmd *buff, t_data *dt)
+{
+	char	*str;
+	int		i;
+	char	*buff;
+	t_token	t;
+
+	str = buff->path;
+	i = 0;
+	while (str[i])
+	{
+		t = (t_token){0};
+		next_token(str + i, &t, dt);
+		if (t.status == MSVARENV || t.status == MSDQUOTES)
+		{
+			buff = ft_strlreplace(t->copy, );
+		}
+	}
+}
+
+void	no_such_file(char *name)
+{
+		printf("minishell: %s:  No such file or directory\n", t.copy);
+		free_all_malloc();
+		return (come_back_prompt(NULL));
 }
 
 void	get_2_redirection(char *s, t_cmd *yop, t_token t, t_data *dt)
@@ -40,11 +67,17 @@ void	get_2_redirection(char *s, t_cmd *yop, t_token t, t_data *dt)
 			S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH);
 		if (!fd)
 			return (end_fd());
-		if (yop->fd != 0)
-			close 
+		if (yop->outfile != 0)
+			close(yop->outfile);
+		yop->outfile = fd;
+		return ;
 	}
-	
-
+	fd = open(t.copy, ORDONLY);
+	if (fd < 1)
+		return (no_such_file(t.copy));
+	if (yop->infile)
+		close(yop.infile);
+	yop.infile = fd;
 }
 
 void	get_redirection(char *str, t_cmd *focus, t_data *dt)
@@ -74,9 +107,9 @@ void	get_redirection(char *str, t_cmd *focus, t_data *dt)
 				assemblage_file_name_red(str + i + 1, &t, dt);
 			get_2_redirection(str + i, focus, t, dt);
 			if (!ft_strncmp(">>", str + i, 2))
-				ft_strlreplace(str, "", i, t.length + 2);
+				focus->path = ft_strlreplace(str, "", i, t.length + 2);
 			else
-				ft_strlreplace(str, "", i, t.length + 1);
+				focus->path = ft_strlreplace(str, "", i, t.length + 1);
 		}
 	}
 	
