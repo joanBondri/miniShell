@@ -15,8 +15,8 @@ void	parser_director(char *s, t_data **data)
 	{
 		get_redirection(buff, *dt);
 		expand_rest_envvar(buff, *dt);
-		interprate_sequence(buff, *dt);
-		//heredoc 
+		interprate_sequence(buff);
+		//heredoc
 	}
 	//fonction de xaviiiiiier
 }
@@ -128,8 +128,6 @@ void	get_redirection(char *str, t_cmd *focus, t_data *dt)
 		if (ft_strchr("<>", str[i]) && !q && !p)
 		{
 			t = (t_token){0};
-			if (!ft_strncmp("<<", str + i, 2))
-				return (get_heredoc(str, i, focus, dt));
 			if (!ft_strncmp(">>", str + i, 2))
 				assemblage_file_name_red(str + i + 2, &t, dt);
 			else
@@ -510,11 +508,6 @@ void	next_token(char *s, t_token *t, t_data *dt)
 	}
 }
 
-void	check_heredoc(char *s)
-{
-	(void)s;
-}
-
 void	check_redirection_file(char *str, t_data *dt)
 {
 	int		i;
@@ -528,8 +521,6 @@ void	check_redirection_file(char *str, t_data *dt)
 		i = 1;
 		if (str[1] != str[0])
 			ft_unexpected_token(str[1], NULL);
-		if (str[0] == '<')
-			return (check_heredoc(str));
 	}
 	assemblage_file_name_red(str, &t, dt);
 	free(t.copy);
