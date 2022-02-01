@@ -13,22 +13,40 @@ void	parser_director(char *s, t_data **data)
 	buff = *(dt->cmd);
 	while (buff)
 	{
-		//fonction qui va chercher toutes les redirections
 		get_redirection(buff, *dt);
-		//on remplace les expands
 		expand_rest_envvar(buff, *dt);
-		//on split tout ca
 		interprate_sequence(buff, *dt);
 		//heredoc 
 	}
 	//fonction de xaviiiiiier
 }
 
+void	interprate_sequence(t_cmd *buff)
+{
+	char	*strs;
+
+	strs = ft_split_func(buff->path, " ", divide_with_quotes);
+	buff->cmd = strs;
+}
+
+char	*ft_strjoin_three(char *s1, char *s2, char *s3)
+{
+	char	*buff1;
+	char	*buff2;
+
+	if (!s1 && !s2 && !s3)
+		return (NULL);
+	buff1 = ft_strjoin(s1, s2);
+	buff2 = ft_strjoin(buff1, s3);
+	free(buff1);
+	return (buff2);
+}
+
 void	expand_rest_envvar(t_cmd *buff, t_data *dt)
 {
 	char	*str;
 	int		i;
-	char	*buff;
+	char	*buff_s;
 	t_token	t;
 
 	str = buff->path;
@@ -39,8 +57,19 @@ void	expand_rest_envvar(t_cmd *buff, t_data *dt)
 		next_token(str + i, &t, dt);
 		if (t.status == MSVARENV || t.status == MSDQUOTES)
 		{
-			buff = ft_strlreplace(t->copy, );
+			if (t.status == MSDQUOTES
+					&& (t.sub_status != VOID || t.sub_status != NONE))
+			{
+				buff_s = ft_strjoin_three("'", t.copy, "'");
+				free(t.copy);
+				t.copy = buff_s;
+			}
+			buff_s = ft_strlreplace(buff->path, t.copy, i, t.length);
+			free(buff->path);
+			free(t.copy);
+			buff->path = buff_s;
 		}
+		i+= t.length;
 	}
 }
 
@@ -401,7 +430,7 @@ void	ft_unexpected_token(char c, char *s)
 			printf("minishell: syntax error near unexpected token `%s'", s);
 		else
 			printf("minishell: syntax error near unexpected token `%c'", c);
-		exit(2);
+		free_all_malloc();
 }
 
 void	ft_bad_substitution(char *s)
@@ -427,7 +456,8 @@ void	ft_bad_substitution(char *s)
 	res = ft_strndup(s, j);
 	printf("minishell: %s: bad substitution\n", res);
 	free(res);
-	ft_exit(1);
+	free_all_malloc();
+	come_back_prompt(NULL);
 }
 
 void	check_par(char *s)
@@ -566,9 +596,4 @@ void	check_quotes(char *s, t_data *dt)
 	c = entanglement(s);
 	if (c)
 		ft_unexpected_token(c, NULL);
-}
-
-void	check_errors_cmd(char *s)
-{
-	check_pips(s);
 }
