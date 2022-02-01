@@ -1,17 +1,34 @@
 #include "pip.h"
 
-void	parser_director(char *s, t_data *dt)
+void	parser_director(char *s, t_data **data)
 {
-	check_pips(s, dt);
-	check_quotes(s, dt);
+	static t_data	**dt = data;
+	t_cmd			*buff;
+
+	check_pips(s, *dt);
+	check_quotes(s, *dt);
 	check_par(s);
-	check_redirection(s, dt);
-	divide_pip(s, &dt);
-	get_redirection(dt);
-	replace_redirection(dt);
-	expand_rest_anvvar(dt);
-	interprate_sequence(dt);
-	// fonction qui relie 
+	check_redirection(s, *dt);
+	divide_pip(s, dt);
+	buff = *(dt->cmd);
+	while (buff)
+	{
+		//fonction qui va chercher toutes les redirections
+		get_redirection(buff, *dt);
+		//simplement on supprime de la ligne toute redirection et les fichiers associer
+		replace_redirection(buff, *dt);
+		//on remplace les expands
+		expand_rest_anvvar(buff, *dt);
+		//on split tout ca
+		interprate_sequence(buff, *dt);
+		//heredoc 
+	}
+	//fonction de xaviiiiiier
+}
+
+void	get_redirection(t_cmd *focus, t_data *dt)
+{
+	
 }
 
 void	near_token(char *s, t_data *dt)
