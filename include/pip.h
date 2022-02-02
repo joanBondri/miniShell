@@ -26,7 +26,7 @@ void	ft_unexpected_token(char c, char *s);
 void	ft_bad_substitution(char *s);
 void	check_par(char *s);
 void	next_token(char *s, t_token *t, t_data *dt);
-void	check_redirection_file(char *str, t_data *dt);
+int		check_redirection_file(char *str, t_data *dt);
 void	check_redirection(char *str, t_data *dt);
 char	entanglement(char *s);
 void	check_quotes(char *s);

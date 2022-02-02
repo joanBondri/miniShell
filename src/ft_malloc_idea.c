@@ -40,3 +40,4 @@ void	free_lst(void)
 	all = add_lst_malloc(NULL);
 	ft_lstclear(all, ft_nothing);
 }
+//fonction en chantier qui va servr a eviter les doubles free

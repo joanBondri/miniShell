@@ -3,9 +3,14 @@
 bool	change_mind(char *change, bool bo)
 {
 	static bool		yop = false;
+	bool			buff;
 
 	if (change && !ft_strncmp(change, "yes", ft_strlen(change)))
+	{
+		buff = yop;
 		yop = bo;
+		return (buff);
+	}
 	return (yop);
 }
 

@@ -4,19 +4,22 @@ void	parser_director(char *s, t_data **dt)
 {
 	t_cmd			*buff;
 
+	(void)buff;
+	(void)dt;
 	check_pips(s);
-	if (change_mind("no", false))
+	if (change_mind("yes", false))
 		return ;
 	check_quotes(s);
-	if (change_mind("no", false))
+	if (change_mind("yes", false))
 		return ;
+	printf("-> %s\n", s);
 	check_par(s);
-	if (change_mind("no", false))
+	if (change_mind("yes", false))
 		return ;
 	check_redirection(s, *dt);
-	if (change_mind("no", false))
+	if (change_mind("yes", false))
 		return ;
-	divide_pip(s, dt);
+	/*divide_pip(s, dt);
 	buff = (*dt)->cmd[0];
 	int		yaa = -1;
 	while (buff)
@@ -31,7 +34,7 @@ void	parser_director(char *s, t_data **dt)
 			printf("arg %i : %s\n", i, buff->arg[i]);
 		buff = buff->next;
 		//heredoc
-	}
+	}*/
 	//fonction de xaviiiiiier
 	return ;
 }
@@ -188,6 +191,7 @@ void	ambigus_redirect(char *s)
 		j++;
 	res = ft_strndup(s + i, j);
 	printf("minishell: %s: ambiguous redirect\n", res);
+	free(res);
 	free_all_lst_malloc();
 	change_mind("yes", true);
 }
@@ -232,24 +236,27 @@ void	assemblage_file_name_red(char *s, t_token *tt,  t_data *dt)
 	{
 		t = (t_token){0};
 		next_token(s + i, &t, dt);
-		if (t.status != MSWHITESPACE)
-			add_lst_malloc((void*)t.copy);
 		if ((t.status >= MSPIP && t.status <= MSRED_OUT)
 				|| t.status == MSWHITESPACE)
 			break ;
-		if (t.sub_status == MSNONE && t.copy == NULL)
+		i += t.length;
+		if (t.status == MSVARENV && t.sub_status == MSNONE &&
+				!ft_strncmp(t.copy, "", 23))
 			p = true;
 		else
 			p = false;
-		if (t.sub_status == MSNONE || t.sub_status == MSVOID)
-			continue ;
 		assemblage_concateneur(NULL, t.copy);
-		i += t.length;
+		printf("%s\n", t.copy);
 	}
 	tt->copy = assemblage_concateneur("rien", NULL);
 	tt->length = i;
-	if (!(tt->copy) && p)
+	if (t.copy)
+		free(t.copy);
+	if (p)
+	{
+//		free(tt->copy);
 		ambigus_redirect(s);
+	}
 	else if(!(tt->copy))
 		near_token(s, dt);
 }
@@ -310,7 +317,7 @@ void	develope_dquote(t_token *t, char *s, t_data *dt)
 	char	*res;
 
 	i = 1;
-	while (s[i] != '"')
+	while (s[i] && s[i] != '"')
 		i++;
 	t->start = s;
 	t->length = i + 1;
@@ -326,12 +333,13 @@ void	develope_dquote(t_token *t, char *s, t_data *dt)
 		next_token(s + i, &tok, dt);
 		if (tok.length == -1)
 			continue ;
-		if (tok.status == MSVARENV && (tok.sub_status != MSNONE
-				|| tok.status == MSWORD))
+		if (tok.status == MSVARENV)
 		{
-			res = ft_strlreplace(t->copy, tok.copy, i, tok.length);
+			res = ft_strlreplace(t->copy, tok.copy, i - 1, tok.length);
 			if (!res)
 				return((void)printf("malloc wsh\n"));
+			printf("status = %i and sub = %i, str = %s\n", tok.status, tok.sub_status, tok.copy);
+			printf("res = %s\n", res);
 			free(t->copy);
 			free(tok.copy);
 			t->copy = res;
@@ -386,11 +394,14 @@ void	develope_varenv(t_token *t, char *s, t_data *dt)
 	if (-1 == t->length)
 	{
 		t->sub_status = MSNONE;
+		t->copy = ft_strdup("");
 		return ;
 	}
 	res = find_env(t->copy, dt);
 	if (!res)
 	{
+		free(t->copy);
+		t->copy = ft_strdup("");
 		t->sub_status = MSNONE;
 		return ;
 	}
@@ -406,23 +417,7 @@ void	develope_varenv(t_token *t, char *s, t_data *dt)
 		t->sub_status = MSWHITESPACE;
 	else if (i != 0)
 		start = true;
-	while (res[i] && !ft_strchr(" \t\f\v\n", res[i]))
-		i++;
-	if (i != ft_strlen(res))
-	{
-		while (res[i] && ft_strchr(" \t\f\v\n", res[i]))
-			i++;
-		if (i != ft_strlen(res))
-			t->sub_status = MSAMBIGOUS;
-		else if (start)
-			t->sub_status = MSAMBIGOUSLR;
-		else
-			t->sub_status = MSAMBIGOUSR;
-	}
-	else if (start)
-		t->sub_status = MSAMBIGOUSL;
-	else
-		t->sub_status = MSWORD;
+	t->sub_status = MSWORD;
 }
 
 void	develope_redirection(t_token *t, char *s)
@@ -434,10 +429,7 @@ void	develope_redirection(t_token *t, char *s)
 		t->copy = ft_strndup(s, 1);
 	t->length = ft_strlen(t->copy);
 }
-//il rest a faire les tokens de < > | ' ", et tout ce qui est mot simple puis gerer la concatenation
-//mais j'avance puisqu'il rest maintenant a faire les okens les plus simpl il y aura juste la cancatenation qui sera un peut galere
-//ensuite il faudra ouvrir les fichiers puis les refermer
-//faire toutes les redirection puis il faudra interpreter
+
 void	find_type_token(char *tb, char *s, t_token *t, t_data *dt)
 {
 	if (ft_strncmp(tb, s, ft_strlen(tb)) && ft_strchr("<>|$\'\"", s[0]))
@@ -515,6 +507,8 @@ void	check_par(char *s)
 			{
 				if (s[i] == '}')
 					break ;
+				if (i == j + 2 && ft_isdigit(s[i]))
+					return (ft_bad_substitution(s + j));
 				if (!ft_isalnum(s[i]) && s[i] != '_')
 					return (ft_bad_substitution(s + j));
 			}	
@@ -549,22 +543,36 @@ void	next_token(char *s, t_token *t, t_data *dt)
 	}
 }
 
-void	check_redirection_file(char *str, t_data *dt)
+int		check_redirection_file(char *str, t_data *dt)
 {
 	int		i;
+	int		len;
 	t_token	t;
 
 	if (ft_strlen(str) < 1)
-		return (ft_unexpected_token((char)0, strdup("newline")));
+	{
+		ft_unexpected_token((char)0, strdup("newline"));
+		return (0);
+	}
 	i = 0;
 	if (ft_strchr("<>", str[1]))
 	{
 		i = 1;
+		len = 2;
 		if (str[1] != str[0])
-			return (ft_unexpected_token(str[1], NULL));
+		{
+			ft_unexpected_token(str[1], NULL);
+			return (2);
+		}
 	}
-	assemblage_file_name_red(str, &t, dt);
-	free(t.copy);
+	else
+		len = 1;
+	assemblage_file_name_red(str + len, &t, dt);
+	printf("yaa %s\n", t.copy);
+	if (t.copy)
+		free(t.copy);
+	t.copy = NULL;
+	return (len);
 }
 
 void	check_redirection(char *str, t_data *dt)
@@ -582,8 +590,11 @@ void	check_redirection(char *str, t_data *dt)
 			q = !q;
 		if (str[i] == '"' && !q)
 			p = !p;
-		if (ft_strchr("<>", str[i] && !q && !p))
-			check_redirection_file(str + i, dt);
+		if (ft_strchr("<>", str[i]) && !q && !p)
+			i += check_redirection_file(str + i, dt);
+		if (change_mind("no", false))
+			return ;
+		
 	}
 }
 
@@ -591,12 +602,12 @@ char	entanglement(char *s)
 {
 	char	c;
 	int		i;
-	int		q;
-	int		dq;
+	bool	q;
+	bool	dq;
 
 	i = -1;
-	dq = 0;
-	q = 0;
+	dq = false;
+	q = false;
 	while (s[++i])
 	{
 		if (s[i] == '\'' || s[i] == '"')
@@ -606,6 +617,7 @@ char	entanglement(char *s)
 				q = !q;
 			else
 				dq = !dq;
+			i++;
 			while (s[i] && s[i] != c)
 				++i;
 			if (!s[i])

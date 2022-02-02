@@ -4,7 +4,7 @@ char	*get_prompt(void)
 {
 	char	*sl;
 
-	sl = ft_strdup("minishell>");
+	sl = ft_strdup("minishell> ");
 	add_lst_malloc((void*)sl);
 	return (sl);
 }
