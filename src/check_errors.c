@@ -18,6 +18,7 @@ void	parser_director(char *s, t_data **dt)
 		return ;
 	divide_pip(s, dt);
 	buff = (*dt)->cmd[0];
+	int		yaa = -1;
 	while (buff)
 	{
 		get_redirection(s, buff, *dt);
@@ -25,6 +26,7 @@ void	parser_director(char *s, t_data **dt)
 		interprate_sequence(buff);
 
 		int i = -1;
+		printf("\nje suis la cmd number %i:\n", ++yaa);
 		while (buff->arg[++i])
 			printf("arg %i : %s\n", i, buff->arg[i]);
 		buff = buff->next;
@@ -461,9 +463,9 @@ void	ft_unexpected_token(char c, char *s)
 {
 		(void)s;
 		if (s)
-			printf("minishell: syntax error near unexpected token `%s'", s);
+			printf("minishell: syntax error near unexpected token `%s'\n", s);
 		else
-			printf("minishell: syntax error near unexpected token `%c'", c);
+			printf("minishell: syntax error near unexpected token `%c'\n", c);
 		free_all_lst_malloc();
 		change_mind("yes", true);
 }
