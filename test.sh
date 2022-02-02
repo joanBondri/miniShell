@@ -1,5 +1,3 @@
 ./minishell << end
-ls
-env
-ls | wc
+echo >>$yop$gfddfgdg""salut$PATH
 end

@@ -100,7 +100,7 @@ char	*get_variable_first_time(char *val, int msg, t_data *dt)
 	if (msg == MSDQUOTE)
 		return (str);
 	if (ft_strlen(str) == 0)
-		;
+		(void)msg;
 	if (ft_strchr(" \t\n\f\v", str[0]))
 	{
 		free(str);
@@ -124,7 +124,7 @@ char	*get_variable_first_time(char *val, int msg, t_data *dt)
 	return (str_2);
 }
 
-int		expand_variable(char *prin, int ind, char *res, t_data *dt)
+/*int		expand_variable(char *prin, int ind, char *res, t_data *dt)
 {
 	bool	q;
 	bool	dq;
@@ -159,7 +159,7 @@ int		expand_variable(char *prin, int ind, char *res, t_data *dt)
 		return (i);
 	}
 	return (-1);
-}
+}*/
 
 void	replace(char *s, int len, char *res)
 {

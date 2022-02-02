@@ -21,19 +21,19 @@ OBJS = $(SRCS:.c=.o)
 
 NAME = minishell
 
-CC = clang
+CC = gcc
 
 CFLAGS = -Wall -Wextra -Werror -I./include/ -I./src/libft/
 
 RM = rm -rf
 
 .c.o :
-	$(CC) $(CFLAGS) -c $< -o ${<:.c=.o}
+	$(CC) -g $(CFLAGS) -c $< -o ${<:.c=.o}
 
 $(NAME): $(OBJS)
 	make -C src/libft
 	mv src/libft/libft.a ./libft.a
-	$(CC) -o $(NAME) $(OBJS) libft.a -lreadline
+	$(CC) -g -o $(NAME) $(OBJS) libft.a -lreadline
 
 all: $(NAME)
 

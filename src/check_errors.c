@@ -12,16 +12,15 @@ void	parser_director(char *s, t_data **dt)
 	check_quotes(s);
 	if (change_mind("yes", false))
 		return ;
-	printf("-> %s\n", s);
 	check_par(s);
 	if (change_mind("yes", false))
 		return ;
 	check_redirection(s, *dt);
 	if (change_mind("yes", false))
 		return ;
-	/*divide_pip(s, dt);
+	divide_pip(s, dt);
 	buff = (*dt)->cmd[0];
-	int		yaa = -1;
+	/*int		yaa = -1;
 	while (buff)
 	{
 		get_redirection(s, buff, *dt);
@@ -163,13 +162,11 @@ void	get_redirection(char *str, t_cmd *focus, t_data *dt)
 void	near_token(char *s, t_data *dt)
 {
 	int		i;
-	int		j;
 	t_token	t;
 
 	i = 0;
 	while (s[i] && ft_strchr(" \t\f\v", s[i]))
 		i++;
-	j = i;
 	next_token(s, &t, dt);
 	if (!(t.copy))
 		return (ft_unexpected_token('\0', ft_strdup("newline")));
@@ -240,18 +237,16 @@ void	assemblage_file_name_red(char *s, t_token *tt,  t_data *dt)
 				|| t.status == MSWHITESPACE)
 			break ;
 		i += t.length;
+		//printf("4 - %p\n", t.copy);
 		if (t.status == MSVARENV && t.sub_status == MSNONE &&
 				!ft_strncmp(t.copy, "", 23))
 			p = true;
 		else
 			p = false;
 		assemblage_concateneur(NULL, t.copy);
-		printf("%s\n", t.copy);
 	}
 	tt->copy = assemblage_concateneur("rien", NULL);
 	tt->length = i;
-	if (t.copy)
-		free(t.copy);
 	if (p)
 	{
 //		free(tt->copy);
@@ -388,7 +383,6 @@ void	develope_varenv(t_token *t, char *s, t_data *dt)
 {
 	char	*res;
 	int		i;
-	bool	start;
 
 	t->length = find_variable_in_str(s, &(t->copy));
 	if (-1 == t->length)
@@ -405,7 +399,6 @@ void	develope_varenv(t_token *t, char *s, t_data *dt)
 		t->sub_status = MSNONE;
 		return ;
 	}
-	start = false;
 	free(t->copy);
 	t->copy = res;
 	i = 0;
@@ -415,8 +408,6 @@ void	develope_varenv(t_token *t, char *s, t_data *dt)
 		t->sub_status = MSVOID;
 	else if (i == ft_strlen(res))
 		t->sub_status = MSWHITESPACE;
-	else if (i != 0)
-		start = true;
 	t->sub_status = MSWORD;
 }
 
@@ -437,7 +428,8 @@ void	find_type_token(char *tb, char *s, t_token *t, t_data *dt)
 	t->start = s;
 	if (!ft_strchr("<>|$\'\"", s[0]))
 		t->status = MSWORD;
-	else if (s[0] == '$' && (!s[1] || ft_strchr(" \t\v\n\f", s[1])))
+	else if (s[0] == '$'
+			&& (!s[1] || (!ft_isalnum(s[1]) && !ft_strchr("_{", s[1]))))
 		t->status = MSWORD;
 	if (t->status == MSVARENV)
 		return (develope_varenv(t, s, dt));
@@ -545,7 +537,6 @@ void	next_token(char *s, t_token *t, t_data *dt)
 
 int		check_redirection_file(char *str, t_data *dt)
 {
-	int		i;
 	int		len;
 	t_token	t;
 
@@ -554,10 +545,8 @@ int		check_redirection_file(char *str, t_data *dt)
 		ft_unexpected_token((char)0, strdup("newline"));
 		return (0);
 	}
-	i = 0;
 	if (ft_strchr("<>", str[1]))
 	{
-		i = 1;
 		len = 2;
 		if (str[1] != str[0])
 		{
@@ -568,7 +557,6 @@ int		check_redirection_file(char *str, t_data *dt)
 	else
 		len = 1;
 	assemblage_file_name_red(str + len, &t, dt);
-	printf("yaa %s\n", t.copy);
 	if (t.copy)
 		free(t.copy);
 	t.copy = NULL;
@@ -586,6 +574,7 @@ void	check_redirection(char *str, t_data *dt)
 	p = false;
 	while (str[++i])
 	{
+		//printf("salut je suis la paix\n");
 		if (str[i] == '\'' && !p)
 			q = !q;
 		if (str[i] == '"' && !q)
