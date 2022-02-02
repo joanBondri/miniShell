@@ -1,11 +1,12 @@
 #ifndef MINISHELL_H
-#define MINISHELL_H
-
-#include "libft.h"
-#include <unistd.h>
-#include <stdio.h>
-#include <readline/readline.h>
-#include <readline/history.h>
+# define MINISHELL_H
+# include "libft.h"
+# include <unistd.h>
+# include <stdio.h>
+# include <readline/readline.h>
+# include <readline/history.h>
+# include <sys/stat.h>
+# include <fcntl.h>
 
 typedef struct s_cmd
 {

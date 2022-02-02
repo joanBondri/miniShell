@@ -1,8 +1,8 @@
-#include "pips.h"
+#include "pip.h"
 
 t_list	**add_lst_malloc(void *mem)
 {
-	static	t_lst	*one = NULL;
+	static	t_list	*one = NULL;
 
 	if (mem)
 		ft_lstadd_front(&one, ft_lstnew(mem));
@@ -21,10 +21,10 @@ void	*ft_malloc_conditional(size_t len)
 
 void	free_all_lst_malloc(void)
 {
-	t_lst	**all;
+	t_list	**all;
 
 	all = add_lst_malloc(NULL);
-	ft_lst_clear(all, free);
+	ft_lstclear(all, free);
 }
 
 void	ft_nothing(void *mem)
@@ -35,8 +35,8 @@ void	ft_nothing(void *mem)
 
 void	free_lst(void)
 {
-	t_lst	**all;
+	t_list	**all;
 
 	all = add_lst_malloc(NULL);
-	ft_lst_clear(all, ft_nothing);
+	ft_lstclear(all, ft_nothing);
 }

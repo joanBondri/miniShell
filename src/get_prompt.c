@@ -1,11 +1,11 @@
-#include "minishell.h"
+#include "pip.h"
 
 char	*get_prompt(void)
 {
 	char	*sl;
 
 	sl = ft_strdup("minishell>");
-	add_list_malloc((void*)sl);
+	add_lst_malloc((void*)sl);
 	return (sl);
 }
 

@@ -1,5 +1,14 @@
 #include "pip.h"
 
+bool	change_mind(char *change, bool bo)
+{
+	static bool		yop = false;
+
+	if (change && !ft_strncmp(change, "yes", ft_strlen(change)))
+		yop = bo;
+	return (yop);
+}
+
 int	find_var_par(char *prin, char **res)
 {
 	int		i;
@@ -15,7 +24,11 @@ int	find_var_par(char *prin, char **res)
 	else
 		*res = malloc(sizeof(char) * (i - 2));
 	if (!*res)
-		ft_exit("error_malloc\n");
+	{
+		printf("error_malloc\n");
+		change_mind("yes", true);
+		return (-1);
+	}
 	ft_strlcpy(*res, prin + 2, i - 1);
 	return (i + 1);
 }
@@ -55,7 +68,11 @@ int	find_variable_in_str(char *prin, char **res)
 		return (-1);
 	*res = malloc(sizeof(char) * (s + 1));
 	if (!*res)
-		ft_exit("error with malloc\n");
+	{
+		printf("error_malloc\n");
+		change_mind("yes", true);
+		return (-1);
+	}
 	ft_strlcpy(*res, prin + 1, s + 1);
 	return (i + 1);
 }
@@ -70,7 +87,11 @@ char	*get_variable_first_time(char *val, int msg, t_data *dt)
 	state = 0;
 	str = find_env(val, dt);
 	if (!str)
-		ft_exit("Malloc error\n");
+	{
+		printf("error_malloc\n");
+		change_mind("yes", true);
+		return (NULL);
+	}
 	if (msg == MSDQUOTE)
 		return (str);
 	if (ft_strlen(str) == 0)

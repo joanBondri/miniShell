@@ -85,6 +85,12 @@ void	generate_cmds_strs(t_cmd **pips, char **strs)
 	*end = NULL;
 }
 
+void	ft_exit(char *str)
+{
+	printf("%s\n", str);
+	exit (0);
+}
+
 void	divide_pip(char *s, t_data **data)
 {
 	char	**strs;
