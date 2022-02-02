@@ -13,8 +13,14 @@ void	come_back_prompt(t_data **data)
 {
 	char	*str;
 
-	str = readline(get_prompt());
-	add_history(str);
-
-	know_your_token(str, data);
+	while (true)
+	{
+		str = readline(get_prompt());
+		add_history(str);
+		if (!ft_loop_strchr(" \t\v\f", str))
+			parser_director(str, data);
+		if (str)
+			free(str);
+		str = NULL;
+	}
 }

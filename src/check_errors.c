@@ -19,6 +19,7 @@ void	parser_director(char *s, t_data **data)
 		//heredoc
 	}
 	//fonction de xaviiiiiier
+	return ;
 }
 
 void	interprate_sequence(t_cmd *buff)
