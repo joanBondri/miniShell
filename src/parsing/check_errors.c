@@ -20,29 +20,48 @@ void	parser_director(char *s, t_data **dt)
 		return ;
 	divide_pip(s, dt);
 	buff = (*dt)->cmd[0];
-	/*int		yaa = -1;
 	while (buff)
 	{
-		get_redirection(s, buff, *dt);
+		get_redirection(buff, *dt);
 		expand_rest_envvar(buff, *dt);
 		interprate_sequence(buff);
 
-		int i = -1;
-		printf("\nje suis la cmd number %i:\n", ++yaa);
-		while (buff->arg[++i])
-			printf("arg %i : %s\n", i, buff->arg[i]);
+		//int i = -1;
+		//printf("\nje suis la cmd number %i:\n", ++yaa);
+		//while (buff->arg[++i])
+		//	printf("arg %i : %s\n", i, buff->arg[i]);
+	//	printf("buff->path = %s\n", buff->path);
+//		printf("le fin = %i et fout = %i\n", buff->infile, buff->outfile);
 		buff = buff->next;
-		//heredoc
-	}*/
+	}
 	//fonction de xaviiiiiier
 	return ;
 }
 
+bool	ft_trim(char *s, char c)
+{
+	if(s[0] != c || s[ft_strlen(s) - 1] != c)
+		return (false);
+	ft_strlcpy(s, s + 1, ft_strlen(s + 1));
+	s[ft_strlen(s) - 1] = (char)0;
+	printf("%s\n", s);
+	return (true);
+}	
+
 void	interprate_sequence(t_cmd *buff)
 {
 	char	**strs;
+	int		i;
 
 	strs = ft_split_func(buff->path, " ", divide_with_quotes);
+	if (!strs)
+		ft_exit("error_malloc\n");
+	i = -1;
+	while (strs[++i])
+	{
+		if (!ft_trim(strs[i], '\''))
+			ft_trim(strs[i], '\"');
+	}
 	buff->arg = strs;
 }
 
@@ -61,32 +80,34 @@ char	*ft_strjoin_three(char *s1, char *s2, char *s3)
 
 void	expand_rest_envvar(t_cmd *buff, t_data *dt)
 {
-	char	*str;
 	int		i;
 	char	*buff_s;
 	t_token	t;
 
-	str = buff->path;
 	i = 0;
-	while (str[i])
+	while (buff->path[i])
 	{
 		t = (t_token){0};
-		next_token(str + i, &t, dt);
+		next_token(buff->path + i, &t, dt);
 		if (t.status == MSVARENV || t.status == MSDQUOTE)
 		{
 			if (t.status == MSDQUOTE
 					&& (t.sub_status != MSVOID || t.sub_status != MSNONE))
 			{
-				buff_s = ft_strjoin_three("'", t.copy, "'");
+				buff_s = ft_strjoin_three("\"", t.copy, "\"");
 				free(t.copy);
 				t.copy = buff_s;
 			}
 			buff_s = ft_strlreplace(buff->path, t.copy, i, t.length);
+			i+= ft_strlen(t.copy);
 			free(buff->path);
-			free(t.copy);
 			buff->path = buff_s;
+			//printf("! - coffee_shop = |%s|, buff_s = |%s|\n", buff->path + i, buff_s);
 		}
-		i+= t.length;
+		else
+			i += t.length;
+		if (t.status != MSWHITESPACE)
+			free(t.copy);
 	}
 }
 
@@ -111,7 +132,7 @@ void	get_2_redirection(char *s, t_cmd *yop, t_token t)
 			flag = flag | O_TRUNC;
 		fd = open(t.copy, flag,
 			S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH);
-		if (!fd)
+		if (fd < 1)
 			return (no_such_file(t.copy));
 		if (yop->outfile != 0)
 			close(yop->outfile);
@@ -126,35 +147,47 @@ void	get_2_redirection(char *s, t_cmd *yop, t_token t)
 	yop->infile = fd;
 }
 
-void	get_redirection(char *str, t_cmd *focus, t_data *dt)
+void	temp_function_get_redir(char *str, int i, t_data *dt, t_cmd *focus)
+{
+	t_token	t;
+
+	t = (t_token){0};
+	if (!ft_strncmp(">>", str + i, 2))
+		assemblage_file_name_red(str + i + 2, &t, dt);
+	else
+		assemblage_file_name_red(str + i + 1, &t, dt);
+	get_2_redirection(str + i, focus, t);
+	if (!ft_strncmp(">>", str + i, 2))
+		focus->path = ft_strlreplace(str, "", i, t.length + 2);
+	else
+		focus->path = ft_strlreplace(str, "", i, t.length + 1);
+	printf("focus -> patg %s\n", focus->path);
+	free(str);
+	free(t.copy);
+}
+
+void	get_redirection(t_cmd *focus, t_data *dt)
 {
 	int			i;
 	bool		q;
 	bool		p;
-	t_token		t;
 
-	i = -1;
+	i = 0;
 	q = false;
 	p = false;
-	while (str[++i])
+	while (focus->path[i])
 	{
-		if (str[i] == '\'' && !p)
+		//printf("ca segfault c'est tout\n");
+		if (focus->path[i] == '\'' && !p)
 			q = !q;
-		if (str[i] == '"' && !q)
+		if (focus->path[i] == '"' && !q)
 			p = !p;
-		if (ft_strchr("<>", str[i]) && !q && !p)
-		{
-			t = (t_token){0};
-			if (!ft_strncmp(">>", str + i, 2))
-				assemblage_file_name_red(str + i + 2, &t, dt);
-			else
-				assemblage_file_name_red(str + i + 1, &t, dt);
-			get_2_redirection(str + i, focus, t);
-			if (!ft_strncmp(">>", str + i, 2))
-				focus->path = ft_strlreplace(str, "", i, t.length + 2);
-			else
-				focus->path = ft_strlreplace(str, "", i, t.length + 1);
-		}
+		if (ft_strchr("<>", focus->path[i]) && !q && !p)
+			temp_function_get_redir(focus->path, i, dt, focus);
+		else
+			i++;
+		if (change_mind("no", NULL))
+			return ;
 	}
 	
 }
@@ -167,7 +200,7 @@ void	near_token(char *s, t_data *dt)
 	i = 0;
 	while (s[i] && ft_strchr(" \t\f\v", s[i]))
 		i++;
-	next_token(s, &t, dt);
+	next_token(s + i, &t, dt);
 	if (!(t.copy))
 		return (ft_unexpected_token('\0', ft_strdup("newline")));
 	else
@@ -193,29 +226,20 @@ void	ambigus_redirect(char *s)
 	change_mind("yes", true);
 }
 
-char	*assemblage_concateneur(char *s1, char *s2)
+char	*assemblage_concateneur(char *s1)
 {
 	static char	*str = NULL;
 	char		*res;
-	char		*res1;
 
-
-	if (!s1 && !s2)
-		return (NULL);
-	if (!s2)
+	if (!s1)
 	{
 		res = str;
 		str = NULL;
 		return (res);
 	}
-	if (s1)
-		res = ft_strjoin(s1, s2);
-	else
-		res = s2;
-	res1 = ft_strjoin(str, res);
-	free(res);
+	res = ft_strjoin(str, s1);
 	free(str);
-	str = res1;
+	str = res;
 	return (NULL);
 }
 
@@ -237,15 +261,15 @@ void	assemblage_file_name_red(char *s, t_token *tt,  t_data *dt)
 				|| t.status == MSWHITESPACE)
 			break ;
 		i += t.length;
-		//printf("4 - %p\n", t.copy);
 		if (t.status == MSVARENV && t.sub_status == MSNONE &&
 				!ft_strncmp(t.copy, "", 23))
 			p = true;
 		else
 			p = false;
-		assemblage_concateneur(NULL, t.copy);
+		if (t.copy)
+			assemblage_concateneur(t.copy);
 	}
-	tt->copy = assemblage_concateneur("rien", NULL);
+	tt->copy = assemblage_concateneur(NULL);
 	tt->length = i;
 	if (p)
 	{

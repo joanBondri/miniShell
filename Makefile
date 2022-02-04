@@ -1,15 +1,13 @@
 SRC = \
-		check_errors.c \
-		cut_off.c \
-		env_finder.c \
-		expand.c \
-		ft_malloc_idea.c \
-		ft_split_func.c \
-		get_prompt.c \
+		parsing/check_errors.c \
+		parsing/env_finder.c \
+		parsing/expand.c \
+		parsing/ft_malloc_idea.c \
+		parsing/ft_split_func.c \
+		parsing/get_prompt.c \
 		main.c \
-		parse.c \
-		pip.c \
-		redirection.c \
+		parsing/parse.c \
+		parsing/pip.c \
 
 SRCSDIR = ./src
 
@@ -21,14 +19,14 @@ OBJS = $(SRCS:.c=.o)
 
 NAME = minishell
 
-CC = gcc
+CC = clang
 
 CFLAGS = -Wall -Wextra -Werror -I./include/ -I./src/libft/
 
 RM = rm -rf
 
 .c.o :
-	$(CC) -g $(CFLAGS) -c $< -o ${<:.c=.o}
+	$(CC)  $(CFLAGS) -c $< -o ${<:.c=.o}
 
 $(NAME): $(OBJS)
 	make -C src/libft
