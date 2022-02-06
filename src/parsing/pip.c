@@ -75,6 +75,8 @@ void	generate_cmds_strs(t_cmd **pips, char **strs)
 		if (!buff)
 			ft_exit("malloc foire");
 		*buff = (t_cmd){0};
+		buff->infile = -1;
+		buff->outfile = -1;
 		buff->path = strs[i];
 		*end = buff;
 		buff->prev = prev;
@@ -98,7 +100,10 @@ int		count_double_tab(char **strs)
 
 	i = 0;
 	while (strs[i])
+	{
+		add_lst_malloc((void*)strs[i]);
 		i++;
+	}
 	return (i);
 }
 

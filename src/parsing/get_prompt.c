@@ -12,13 +12,18 @@ char	*get_prompt(void)
 void	come_back_prompt(t_data **data)
 {
 	char	*str;
+	char	**env;
 
 	while (true)
 	{
-		str = readline(get_prompt());
+		env = (*data)->env;
+		(**data) = (t_data){0};
+		(*data)->env = env;
+		str = readline("minishell> ");
 		add_history(str);
 		if (!ft_loop_strchr(" \t\v\f", str))
 			parser_director(str, data);
+		ft_all_lst_malloc();
 		if (str)
 			free(str);
 		str = NULL;

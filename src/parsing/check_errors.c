@@ -57,8 +57,10 @@ void	interprate_sequence(t_cmd *buff)
 	if (!strs)
 		ft_exit("error_malloc\n");
 	i = -1;
+	add_lst_malloc((void*)strs);
 	while (strs[++i])
 	{
+		add_lst_malloc((void*)strs[i]);
 		if (!ft_trim(strs[i], '\''))
 			ft_trim(strs[i], '\"');
 	}
@@ -134,7 +136,7 @@ void	get_2_redirection(char *s, t_cmd *yop, t_token t)
 			S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH);
 		if (fd < 1)
 			return (no_such_file(t.copy));
-		if (yop->outfile != 0)
+		if (yop->outfile > -1)
 			close(yop->outfile);
 		yop->outfile = fd;
 		return ;
@@ -142,7 +144,7 @@ void	get_2_redirection(char *s, t_cmd *yop, t_token t)
 	fd = open(t.copy, O_RDONLY);
 	if (fd < 1)
 		return (no_such_file(t.copy));
-	if (yop->infile)
+	if (yop->infile > -1)
 		close(yop->infile);
 	yop->infile = fd;
 }
