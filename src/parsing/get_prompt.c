@@ -23,7 +23,7 @@ void	come_back_prompt(t_data **data)
 		add_history(str);
 		if (!ft_loop_strchr(" \t\v\f", str))
 			parser_director(str, data);
-		ft_all_lst_malloc();
+		free_all_lst_malloc();
 		if (str)
 			free(str);
 		str = NULL;

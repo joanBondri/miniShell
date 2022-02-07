@@ -1,4 +1,4 @@
-#include <minishell.h>
+#include "pip.h"
 
 static char	**first_alloc(char *s, char *c,
 		bool (check)(char *s, int i, char *c))
@@ -78,7 +78,7 @@ static char	**fill_tab(char **tab, char *s, char *c,
 	return (tab);
 }
 
-char	**ft_split_func(char *s, char *c, bool (check)(char *s, int i, char *c))
+char	**ft_split_func(char *s, char *c, bool (check)(char *, int , char *))
 {
 	char	**tab;
 

@@ -23,6 +23,8 @@
 # define MSAMBIGOUSR 84
 # define MSAMBIGOUSLR 85
 # define MSWORD 86
+#include <readline/readline.h>
+#include <readline/history.h>
 # include <stdbool.h>
 
 typedef struct	s_cell
