@@ -1,6 +1,6 @@
 SRC = \
+		env_finder.c \
 		parsing/check_errors.c \
-		parsing/env_finder.c \
 		parsing/expand.c \
 		parsing/ft_malloc_idea.c \
 		parsing/ft_split_func.c \

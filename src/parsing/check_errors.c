@@ -4,8 +4,6 @@ void	parser_director(char *s, t_data **dt)
 {
 	t_cmd			*buff;
 
-	(void)buff;
-	(void)dt;
 	check_pips(s);
 	if (change_mind("yes", false))
 		return ;
@@ -19,7 +17,7 @@ void	parser_director(char *s, t_data **dt)
 	if (change_mind("yes", false))
 		return ;
 	divide_pip(s, dt);
-	buff = (*dt)->cmd[0];
+	buff = (*dt)->cmd;
 	while (buff)
 	{
 		get_redirection(buff, *dt);
@@ -315,7 +313,7 @@ char	*ft_strlreplace(char *s1, char *s2, int index, int len)
 
 	if (!s1 || len < 0 || index < 0)
 		return (NULL);
-	if (index + len > ft_strlen(s1))
+	if ((size_t)index + len > ft_strlen(s1))
 		end = NULL;
 	else
 		end = ft_strdup(s1 + index + len);
@@ -432,7 +430,7 @@ void	develope_varenv(t_token *t, char *s, t_data *dt)
 		i++;
 	if (ft_strlen(res) == 0)
 		t->sub_status = MSVOID;
-	else if (i == ft_strlen(res))
+	else if ((size_t)i == ft_strlen(res))
 		t->sub_status = MSWHITESPACE;
 	t->sub_status = MSWORD;
 }
