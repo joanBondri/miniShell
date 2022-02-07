@@ -18,6 +18,7 @@ int is_valid_var(char *str)
     return (0);
 }
 
+
 int is_correct_export(char **env_val, char *tab_cell, char *str)
 {
     if (!env_val || !tab_cell)

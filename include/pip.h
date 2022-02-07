@@ -3,6 +3,7 @@
 # include "minishell.h"
 # include "parse.h"
 
+char	*ft_loop_strchr(const char *str, char *c);
 void	parser_director(char *s, t_data **data);
 void	interprate_sequence(t_cmd *buff);
 char	*ft_strjoin_three(char *s1, char *s2, char *s3);
