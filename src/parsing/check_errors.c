@@ -1,5 +1,33 @@
 #include "pip.h"
 
+char	*ft_strjoin_mod23(char const *str1, char const *str2)
+{
+	long	i;
+	char	*s1;
+	char	*s2;
+	char	*res;
+
+	s1 = (char *)str1;
+	s2 = (char *)str2;
+	if (s1 == NULL && s2 == NULL)
+		return (NULL);
+	if (!s1)
+		return (ft_strdup(s2));
+	if (!s2)
+		return (ft_strdup(s1));
+	res = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
+	if (!(res))
+		return (NULL);
+	i = -1;
+	while ((size_t)++i < ft_strlen(s1))
+		res[i] = s1[i];
+	i = -1;
+	while ((size_t)++i < ft_strlen(s2))
+		res[i + ft_strlen(s1)] = s2[i];
+	res[ft_strlen(s1) + ft_strlen(s2)] = '\0';
+	return (res);
+}
+
 void	parser_director(char *s, t_data **dt)
 {
 	t_cmd			*buff;
@@ -72,8 +100,8 @@ char	*ft_strjoin_three(char *s1, char *s2, char *s3)
 
 	if (!s1 && !s2 && !s3)
 		return (NULL);
-	buff1 = ft_strjoin(s1, s2);
-	buff2 = ft_strjoin(buff1, s3);
+	buff1 = ft_strjoin_mod23(s1, s2);
+	buff2 = ft_strjoin_mod23(buff1, s3);
 	free(buff1);
 	return (buff2);
 }
@@ -237,7 +265,7 @@ char	*assemblage_concateneur(char *s1)
 		str = NULL;
 		return (res);
 	}
-	res = ft_strjoin(str, s1);
+	res = ft_strjoin_mod23(str, s1);
 	free(str);
 	str = res;
 	return (NULL);
@@ -318,8 +346,8 @@ char	*ft_strlreplace(char *s1, char *s2, int index, int len)
 	else
 		end = ft_strdup(s1 + index + len);
 	start = ft_strndup(s1, index);
-	buff = ft_strjoin(start, s2);
-	res = ft_strjoin(buff, end);
+	buff = ft_strjoin_mod23(start, s2);
+	res = ft_strjoin_mod23(buff, end);
 	if (end)
 		free(end);
 	if (start)
