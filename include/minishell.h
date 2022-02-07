@@ -75,7 +75,7 @@ char	*find_env(char *var, t_data *data);
 int	add_var_tab(t_data *data, char *str);
 int	change_val_var(t_data *data, char *str, int i);
 void	print_export_error(char *str);
-char	**free_tab(char **tab);
+void	free_tab(char **tab);
 int	call_builtin(t_data *data, t_cmd *cmd, int i);
 int	put_prepath(t_cmd *cmd, char **path);
 int	loop_path(char **path, char **cmd);

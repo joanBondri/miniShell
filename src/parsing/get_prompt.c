@@ -1,12 +1,30 @@
 #include "pip.h"
 
-char	*get_prompt(void)
+void	free_tab(char **s)
 {
-	char	*sl;
+	int		i;
 
-	sl = ft_strdup("minishell> ");
-	add_lst_malloc((void*)sl);
-	return (sl);
+	i = -1;
+	while (s[++i])
+		free(s[i]);
+	free(s);
+}
+
+char	*ft_loop_strchr(const char *str, char *c)
+{
+	char	*res;
+	int		i;
+
+	i = -1;
+	if (!str || !c)
+		return (NULL);
+	while (c[++i])
+	{
+		res = ft_strchr(str, c[i]);
+		if (res == NULL)
+			break ;
+	}
+	return (res);
 }
 
 void	come_back_prompt(t_data **data)
