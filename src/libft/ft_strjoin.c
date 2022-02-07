@@ -6,10 +6,11 @@
 /*   By: jbondri <joan.bondri@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/18 16:52:59 by jbondri           #+#    #+#             */
-/*   Updated: 2021/06/11 11:10:13 by jbondri          ###   ########.fr       */
+/*   Updated: 2022/02/07 13:14:42 by jbondri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
 #include <stdlib.h>
 
 static int	strl(char *s)
@@ -31,8 +32,12 @@ char	*ft_strjoin(char const *str1, char const *str2)
 
 	s1 = (char *)str1;
 	s2 = (char *)str2;
-	if (s1 == NULL || s2 == NULL)
+	if (s1 == NULL && s2 == NULL)
 		return (NULL);
+	if (!s1)
+		return (ft_strdup(s2));
+	if (!s2)
+		return (ft_strdup(s1));
 	res = malloc(sizeof(char) * (strl(s1) + strl(s2) + 1));
 	if (!(res))
 		return (NULL);

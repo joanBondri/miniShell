@@ -6,7 +6,7 @@
 /*   By: jbondri <joan.bondri@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/18 16:50:37 by jbondri           #+#    #+#             */
-/*   Updated: 2021/09/06 17:59:54 by jbondri          ###   ########.fr       */
+/*   Updated: 2022/02/07 13:15:31 by jbondri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,4 +75,5 @@ char			*ft_substr(char const *s, unsigned int start, size_t len);
 int				ft_tolower(int c);
 int				ft_toupper(int c);
 void			free_second_deg(char **s);
+void			free_tab(char **s);
 #endif

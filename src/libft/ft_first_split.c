@@ -26,7 +26,7 @@ static char	**first_alloc(char *s, char *c)
 	{
 		while (s[i] && ft_strchr(c, s[i]))
 			i++;
-		if (!s[i])
+		if (!s[i] && count == 2)
 			break ;
 		while (s[i] && !ft_strchr(c, s[i]))
 			i++;
@@ -54,7 +54,7 @@ static char	**second_alloc(char **tab, char *s, char *c)
 			i++;
 		if (!s[i])
 			break ;
-		while (s[i] && !ft_strchr(c, s[i]))
+		while (s[i] && (!ft_strchr(c, s[i]) || j != -1))
 		{
 			i++;
 			count++;
@@ -82,14 +82,14 @@ static char	**fill_tab(char **tab, char *s, char *c)
 			i++;
 		if (!s[i])
 			break ;
-		while (s[i] && !ft_strchr(c, s[i]))
+		while (s[i] && (!ft_strchr(c, s[i]) || j != 0))
 			tab[j][++k] = s[i++];
 		tab[j][++k] = '\0';
 	}
 	return (tab);
 }
 
-char	**ft_split(char const *s, char *c)
+char	**ft_first_split(char const *s, char *c)
 {
 	char	*str;
 	char	**tab;
@@ -104,14 +104,4 @@ char	**ft_split(char const *s, char *c)
 		return (NULL);
 	fill_tab(tab, str, c);
 	return (tab);
-}
-
-void	free_second_deg(char **s)
-{
-	int		i;
-
-	i = -1;
-	while (s[++i])
-		free(s[i]);
-	free(s);
 }
