@@ -26,7 +26,8 @@ t_data	*parse(char **env)
 	if (!data)
 		return (NULL);
 	*data = (t_data){0};
-	data->env = &env;
+	//a modifier avec ce que xcahhhhhhhhal a fait
+	data->env = env;
 	come_back_prompt(&data);
 	return (data);
 }

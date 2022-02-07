@@ -113,11 +113,12 @@ void	divide_pip(char *s, t_data **data)
 	t_cmd	**pips;
 
 	strs = ft_split_func(s, "|", &divide_with_quotes);
-	pips = ft_malloc_conditional(sizeof(t_cmd*));
+	pips = malloc(sizeof(t_cmd*));
 	if (!strs || !pips)
 		ft_exit("error_malloc\n");
 	*pips = NULL;
 	(*data)->nbr_cmd = count_double_tab(strs);
 	generate_cmds_strs(pips, strs);
-	(*data)->cmd = pips;
+	(*data)->cmd = *pips;
+	free(pips);
 }
