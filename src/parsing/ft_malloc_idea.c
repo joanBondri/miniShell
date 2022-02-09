@@ -24,7 +24,10 @@ void	free_all_lst_malloc(void)
 	t_list	**all;
 
 	all = add_lst_malloc(NULL);
+	printf("all = %p\n", *all);
 	ft_lstclear(all, free);
+	*all = NULL;
+	printf("all = %p\n", *all);
 }
 
 void	ft_nothing(void *mem)
