@@ -32,10 +32,14 @@ void	parser_director(char *s, t_data **dt)
 {
 	t_cmd			*buff;
 
-	check_pips(s);
+	check_quotes(s);
 	if (change_mind("yes", false))
 		return ;
-	check_quotes(s);
+	divide_pip(s, dt);
+	do_all_heredoc(s, *dt);
+	if (change_mind("yes", false))
+		return ;
+	check_pips(s);
 	if (change_mind("yes", false))
 		return ;
 	check_par(s);
@@ -44,7 +48,6 @@ void	parser_director(char *s, t_data **dt)
 	check_redirection(s, *dt);
 	if (change_mind("yes", false))
 		return ;
-	divide_pip(s, dt);
 	buff = (*dt)->cmd;
 	while (buff)
 	{
@@ -187,8 +190,8 @@ void	temp_function_get_redir(char *str, int i, t_data *dt, t_cmd *focus)
 		focus->path = ft_strlreplace(str, "", i, t.length + 2);
 	else
 		focus->path = ft_strlreplace(str, "", i, t.length + 1);
+	add_lst_malloc((void*)focus->path);
 	printf("focus -> patg %s\n", focus->path);
-	free(str);
 	free(t.copy);
 }
 
@@ -283,6 +286,7 @@ void	assemblage_file_name_red(char *s, t_token *tt,  t_data *dt)
 	{
 		t = (t_token){0};
 		next_token(s + i, &t, dt);
+		add_lst_malloc((void*)t.copy);
 		if ((t.status >= MSPIP && t.status <= MSRED_OUT)
 				|| t.status == MSWHITESPACE)
 			break ;
@@ -299,7 +303,6 @@ void	assemblage_file_name_red(char *s, t_token *tt,  t_data *dt)
 	tt->length = i;
 	if (p)
 	{
-//		free(tt->copy);
 		ambigus_redirect(s);
 	}
 	else if(!(tt->copy))
@@ -397,6 +400,7 @@ void	develope_word(t_token *t, char *s)
 {
 	int		i;
 
+	t->status = MSWORD;
 	if (!s[0])
 	{
 		t->length = 0;

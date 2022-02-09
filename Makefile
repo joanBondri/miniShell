@@ -7,6 +7,7 @@ SRC = \
 		parsing/get_prompt.c \
 		main.c \
 		parsing/parse.c \
+		parsing/heredoc.c \
 		parsing/pip.c \
 
 SRCSDIR = ./src
@@ -21,7 +22,7 @@ NAME = minishell
 
 CC = clang
 
-CFLAGS = -Wall -Wextra -Werror -I./include/ -I./src/libft/ -fsanitize=address -g3
+CFLAGS = -Wall -Wextra -Werror -I./include/ -I./libft/ -I./src/libft/ -fsanitize=address -g3
 
 RM = rm -rf
 
