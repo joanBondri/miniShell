@@ -54,14 +54,14 @@ void	parser_director(char *s, t_data **dt)
 		get_redirection(buff, *dt);
 		expand_rest_envvar(buff, *dt);
 		interprate_sequence(buff);
-		int i = -1;
-		while (buff->arg[++i])
-			printf("arg %i : %s\n", i, buff->arg[i]);
-		printf("buff->path = %s\n", buff->path);
-		printf("le fin = %i et fout = %i\n", buff->infile, buff->outfile);
+//		int i = -1;
+//		while (buff->arg[++i])
+//			printf("arg %i : %s\n", i, buff->arg[i]);
+//		printf("buff->path = %s\n", buff->path);
+//		printf("le fin = %i et fout = %i\n", buff->infile, buff->outfile);
 		buff = buff->next;
 	}
-	//fonction de xaviiiiiier
+	exec_data(*dt, (*dt)->cmd);
 	return ;
 }
 

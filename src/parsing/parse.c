@@ -21,13 +21,24 @@ void	know_your_token(char *s, t_data *dt)
 t_data	*parse(char **env)
 {
 	t_data	*data;
+	int		i;
 
+	i = 0;
 	data = malloc(sizeof(t_data) * 1);
 	if (!data)
 		return (NULL);
 	*data = (t_data){0};
 	//a modifier avec ce que xcahhhhhhhhal a fait
-	data->env = env;
+	while (env[i])
+		i++;
+    data->env = malloc(sizeof(char *) * (i + 1));
+    i = 0;
+    while (env[i])
+    {
+        data->env[i] = ft_strdup(env[i]);
+        i++;
+    }
+	data->env[i] = NULL;
 	come_back_prompt(&data);
 	return (data);
 }

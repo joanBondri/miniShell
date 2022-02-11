@@ -1,5 +1,4 @@
 SRC = \
-		env_finder.c \
 		parsing/check_errors.c \
 		parsing/expand.c \
 		parsing/ft_malloc_idea.c \
@@ -9,6 +8,24 @@ SRC = \
 		parsing/parse.c \
 		parsing/heredoc.c \
 		parsing/pip.c \
+		executable/envp.c \
+		executable/error.c \
+		executable/executing/exec.c \
+		executable/executing/m_cd.c \
+		executable/executing/m_echo.c \
+		executable/executing/m_env.c \
+		executable/executing/m_exit.c \
+		executable/executing/m_export.c \
+		executable/executing/m_pwd.c \
+		executable/executing/m_unset.c \
+		executable/executing/utils_exec.c \
+		executable/free.c \
+		executable/print.c \
+		executable/return.c \
+		executable/utils/env_finder2.c \
+		executable/utils/env_finder.c \
+		executable/utils/fd_generator.c \
+		executable/utils/free.c
 
 SRCSDIR = ./src
 
@@ -22,7 +39,7 @@ NAME = minishell
 
 CC = clang
 
-CFLAGS = -Wall -Wextra -Werror -I./include/ -I./libft/ -I./src/libft/ -fsanitize=address -g3
+CFLAGS = -Wall -Wextra -Werror -I./include/ -I./libft/ -I./src/libft/ 
 
 RM = rm -rf
 
@@ -32,7 +49,7 @@ RM = rm -rf
 $(NAME): $(OBJS)
 	make -C libft
 	mv libft/libft.a ./libft.a
-	$(CC) -g -o $(NAME) $(OBJS)  -fsanitize=address -g3 libft.a -lreadline
+	$(CC) -o $(NAME) $(OBJS)  libft.a -lreadline
 
 all: $(NAME)
 

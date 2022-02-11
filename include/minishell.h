@@ -50,20 +50,22 @@ typedef struct	s_cmd
 
 typedef struct	s_data
 {
-	int     nbr_pipe;
-	int     pipe_even[2];
-	int     pipe_odd[2];
-	char    **env;
-	int     nbr_cmd;
-	int     return_value;
+	int	nbr_pipe;
+	int	pipe_even[2];
+	int	pipe_odd[2];
+	char	**env;
+	int	nbr_cmd;
+	int	return_value;
 	int	save_in;
 	int	save_out;
-	t_cmd   *cmd;
+	t_cmd	*cmd;
 }		t_data;
 
+t_data	*get_data(t_data *dt);
+int	ft_error(int number);
 int	return_value(int status, int i);
 void	print_env(t_data *data);
-void	free_data_cmd(t_data *data, t_cmd *cmd);
+void	free_data_cmd(void);
 int	close_fd(t_cmd *cmd);
 void    print_free(char *str, int fd);
 void	exec_check(t_data *data, t_cmd *cmd);
@@ -75,7 +77,7 @@ char	*find_env(char *var, t_data *data);
 int	add_var_tab(t_data *data, char *str);
 int	change_val_var(t_data *data, char *str, int i);
 void	print_export_error(char *str);
-void	free_tab(char **tab);
+char	**free_tab(char **tab);
 int	call_builtin(t_data *data, t_cmd *cmd, int i);
 int	put_prepath(t_cmd *cmd, char **path);
 int	loop_path(char **path, char **cmd);

@@ -1,14 +1,14 @@
 #include "pip.h"
 
-void	free_tab(char **s)
-{
-	int		i;
-
-	i = -1;
-	while (s[++i])
-		free(s[i]);
-	free(s);
-}
+//void	free_tab(char **s)
+//{
+//	int		i;
+//
+//	i = -1;
+//	while (s[++i])
+//		free(s[i]);
+//	free(s);
+//}
 
 char	*ft_loop_strchr(const char *str, char *c)
 {
