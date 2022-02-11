@@ -6,9 +6,9 @@ int		main(int argc, char **argv, char **envp)
 
 	(void)argv;
 	(void)argc;
+
 	data = parse(envp);
 	if (!data)
 		return (1);
 	return (0);
 }
-

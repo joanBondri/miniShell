@@ -53,6 +53,7 @@ void	determine_content_herdoc(char *del, int fd, t_data *dt)
 		line++;
 		write(1, ">", 1);
 		res = get_next_line(0, &s);
+		add_lst_malloc((void*)s);
 		if (res == 0)
 		{
 			printf("minishell: warning: heredocument at line ");
@@ -62,13 +63,9 @@ void	determine_content_herdoc(char *del, int fd, t_data *dt)
 		}
 		if (res == -1 || (!ft_strncmp(s, del, ft_strlen(s)) &&
 					!ft_strncmp(s, del, ft_strlen(del))))
-		{
-			printf("\nsaluuuuut\n");
 			break ;
-		}
 		write(fd, switch_varenv(s, dt), ft_strlen(s));
 		write(fd, "\n", 1);
-		free(s);
 	}
 	if (res != -1)
 		change_mind("yes", true);
@@ -79,7 +76,7 @@ char	*next_del(char *s, t_token *tt, t_data *dt)
 	int		i;
 	t_token	t;
 
-	i = 0;
+	i = 2;
 	while (s[i] && ft_strchr(" \t\f\v", s[i]))
 		i++;
 	while (s[i])
@@ -119,6 +116,7 @@ int	go_heredoc(char *str, t_cmd *buff, t_data *dt)
 		close(buff->infile);
 	buff->infile = pip[1];
 	determine_content_herdoc(del, pip[0], dt);
+	free(del);
 	close(pip[0]);
 	if (change_mind("no", false))
 		return (0);
@@ -149,6 +147,7 @@ void	catch_heredoc(char *str, t_cmd *buff, t_data *dt)
 			buff->path = ft_strlreplace(str, "", i, res);
 			str = buff->path;
 		}
+		i++;
 	}
 }
 

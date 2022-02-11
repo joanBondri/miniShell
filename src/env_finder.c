@@ -53,7 +53,7 @@ int find_index_env(t_data *data, char *str)
         return(-2);
     while (data->env[i])
     {
-        if (strncmp(data->env[i], str, ft_strlen(str)))
+        if (!strncmp(data->env[i], str, ft_strlen(str)))
         {
             return (i);
         }

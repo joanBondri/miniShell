@@ -69,7 +69,7 @@ bool	ft_trim(char *s, char c)
 {
 	if(s[0] != c || s[ft_strlen(s) - 1] != c)
 		return (false);
-	ft_strlcpy(s, s + 1, ft_strlen(s + 1));
+	ft_strlcpy(s, s + 1, ft_strlen(s + 1) + 1);
 	s[ft_strlen(s) - 1] = (char)0;
 	printf("%s\n", s);
 	return (true);
@@ -118,7 +118,7 @@ void	expand_rest_envvar(t_cmd *buff, t_data *dt)
 	{
 		t = (t_token){0};
 		next_token(buff->path + i, &t, dt);
-		if (t.status == MSVARENV || t.status == MSDQUOTE)
+		if (t.status == MSVARENV || t.status == MSDQUOTE || t.status == MSQUOTE)
 		{
 			if (t.status == MSDQUOTE
 					&& (t.sub_status != MSVOID || t.sub_status != MSNONE))
@@ -129,9 +129,7 @@ void	expand_rest_envvar(t_cmd *buff, t_data *dt)
 			}
 			buff_s = ft_strlreplace(buff->path, t.copy, i, t.length);
 			i+= ft_strlen(t.copy);
-			free(buff->path);
 			buff->path = buff_s;
-			//printf("! - coffee_shop = |%s|, buff_s = |%s|\n", buff->path + i, buff_s);
 		}
 		else
 			i += t.length;
@@ -393,7 +391,6 @@ void	develope_dquote(t_token *t, char *s, t_data *dt)
 			t->copy = res;
 		}
 	}
-	return ;
 }
 
 void	develope_word(t_token *t, char *s)

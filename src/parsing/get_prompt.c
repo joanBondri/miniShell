@@ -45,7 +45,6 @@ void	come_back_prompt(t_data **data)
 		if (str)
 			free(str);
 		str = NULL;
-		break ;
 	}
 	free(*data);
 }
