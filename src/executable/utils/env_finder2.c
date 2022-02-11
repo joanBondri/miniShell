@@ -12,19 +12,22 @@
 
 #include "../../../include/minishell.h"
 
-int	loop_env(t_data *data, char **tmp, int o)
+char	**loop_env(t_data *data, char **tmp, int *o, int i)
 {
-	while (data->env[o] != NULL)
+	tmp = malloc(sizeof(char *) * (i + 2));
+	if (!tmp)
+		exit(ft_error(MALLOC));
+	while (data->env[*o] != NULL)
 	{
-		tmp[o] = ft_strdup(data->env[o]);
-		if (!tmp[o])
+		tmp[*o] = ft_strdup(data->env[*o]);
+		if (!tmp[*o])
 		{
 			free_tab(tmp);
-			return (-1);
+			return (NULL);
 		}
-		o++;
+		*o += 1;
 	}
-	return (0);
+	return (tmp);
 }
 
 int	add_var_tab(t_data *data, char *str)
@@ -33,20 +36,24 @@ int	add_var_tab(t_data *data, char *str)
 	int		o;
 	char	**tmp;
 
+	tmp = NULL;
 	o = 0;
 	i = 0;
 	while (data->env[i] != NULL)
 		i++;
-	tmp = malloc(sizeof(char *) * (i + 2));
-	if (loop_env(data, tmp, o) == -1)
+	tmp = loop_env(data, tmp, &o, i);
+	if (tmp == NULL)
 		return (-1);
-	tmp[o] = str;
+	printf("LALLALALLALALALALA == %d\n", o);
+	tmp[o] = ft_strdup(str);
+	printf("LALLALALLALALALALA == %s\n", tmp[o]);
 	if (!tmp[o])
 	{
 		free_tab(tmp);
 		return (-1);
 	}
 	tmp[++o] = NULL;
+	printf("LALLALALLALALALALA == %d\n", o);
 	free_tab(data->env);
 	data->env = tmp;
 	return (1);

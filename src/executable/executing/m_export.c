@@ -137,6 +137,7 @@ int	m_export(t_data *data, t_cmd *cmd)
 			free(tab_cell);
 		free_tab(env_val);
 		i++;
+		printf("\n\nTOUTOUTOTUTUOTUOTUTOUTOUTOTUOTUTOUTOUTOTUOTUOT\n\n");
 	}
 	return (return_status);
 }

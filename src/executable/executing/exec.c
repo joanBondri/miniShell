@@ -12,111 +12,111 @@
 
 #include "../../../include/minishell.h"
 
-static char	**ft_free20(char **tab, int o)
-{
-	int	i;
-
-	i = 0;
-	while (i < o)
-	{
-		free(tab[i]);
-		i++;
-	}
-	free(tab);
-	return (NULL);
-}
-
-static char	**ft_malloc20(char **tab, const char *str, int compteur, char c)
-{
-	int		k;
-	int		o;
-	int		i;
-
-	i = 0;
-	k = 0;
-	o = 0;
-	while (str[i] && o < compteur)
-	{
-		while (str[i] == c && str[i])
-			i++;
-		k = 0;
-		while (str[i] != c && str[i])
-		{
-			tab[o][k] = str[i];
-			i++;
-			k++;
-		}
-		tab[o][k] = '\0';
-		o++;
-	}
-	tab[o] = 0;
-	return (tab);
-}
-
-static char	**ft_malloc_string20(
-		char **tab, const char *str, int compteur, char c)
-{
-	int		k;
-	int		o;
-	int		i;
-
-	i = 0;
-	k = 0;
-	o = 0;
-	while (str[i] && o < compteur)
-	{
-		k = 0;
-		while (str[i] == c && str[i])
-			i++;
-		while (str[i] != c && str[i])
-		{
-			i++;
-			k++;
-		}
-		tab[o] = malloc(sizeof(char) * (k + 1));
-		if (!(tab[o]))
-			return (ft_free20(tab, o));
-		o++;
-	}
-	return (ft_malloc20(tab, str, compteur, c));
-}
-
-static void	ft_assign20(int *i, int *n, int *compteur)
-{
-	*i = 0;
-	*n = 0;
-	*compteur = 0;
-}
-
-char	**ft_split20(char const *s, char c)
-{
-	int		i;
-	int		n;
-	int		compteur;
-	char	**tab;
-
-	ft_assign20(&i, &n, &compteur);
-	//printf("%s\n",s);
-	if (!s)
-		return (NULL);
-	while (s[i])
-	{
-		n = 0;
-		while (s[i] == c && s[i])
-			i++;
-		while (s[i] != c && s[i])
-		{
-			i++;
-			n++;
-		}
-		if (n > 0)
-			compteur++;
-	}
-	tab = malloc(sizeof(char *) * (compteur + 1));
-	if (!(tab))
-		return (ft_free20(tab, 0));
-	return (ft_malloc_string20(tab, s, compteur, c));
-}
+//static char	**ft_free20(char **tab, int o)
+//{
+//	int	i;
+//
+//	i = 0;
+//	while (i < o)
+//	{
+//		free(tab[i]);
+//		i++;
+//	}
+//	free(tab);
+//	return (NULL);
+//}
+//
+//static char	**ft_malloc20(char **tab, const char *str, int compteur, char c)
+//{
+//	int		k;
+//	int		o;
+//	int		i;
+//
+//	i = 0;
+//	k = 0;
+//	o = 0;
+//	while (str[i] && o < compteur)
+//	{
+//		while (str[i] == c && str[i])
+//			i++;
+//		k = 0;
+//		while (str[i] != c && str[i])
+//		{
+//			tab[o][k] = str[i];
+//			i++;
+//			k++;
+//		}
+//		tab[o][k] = '\0';
+//		o++;
+//	}
+//	tab[o] = 0;
+//	return (tab);
+//}
+//
+//static char	**ft_malloc_string20(
+//		char **tab, const char *str, int compteur, char c)
+//{
+//	int		k;
+//	int		o;
+//	int		i;
+//
+//	i = 0;
+//	k = 0;
+//	o = 0;
+//	while (str[i] && o < compteur)
+//	{
+//		k = 0;
+//		while (str[i] == c && str[i])
+//			i++;
+//		while (str[i] != c && str[i])
+//		{
+//			i++;
+//			k++;
+//		}
+//		tab[o] = malloc(sizeof(char) * (k + 1));
+//		if (!(tab[o]))
+//			return (ft_free20(tab, o));
+//		o++;
+//	}
+//	return (ft_malloc20(tab, str, compteur, c));
+//}
+//
+//static void	ft_assign20(int *i, int *n, int *compteur)
+//{
+//	*i = 0;
+//	*n = 0;
+//	*compteur = 0;
+//}
+//
+//char	**ft_split20(char const *s, char c)
+//{
+//	int		i;
+//	int		n;
+//	int		compteur;
+//	char	**tab;
+//
+//	ft_assign20(&i, &n, &compteur);
+//	//printf("%s\n",s);
+//	if (!s)
+//		return (NULL);
+//	while (s[i])
+//	{
+//		n = 0;
+//		while (s[i] == c && s[i])
+//			i++;
+//		while (s[i] != c && s[i])
+//		{
+//			i++;
+//			n++;
+//		}
+//		if (n > 0)
+//			compteur++;
+//	}
+//	tab = malloc(sizeof(char *) * (compteur + 1));
+//	if (!(tab))
+//		return (ft_free20(tab, 0));
+//	return (ft_malloc_string20(tab, s, compteur, c));
+//}
 
 int	pipe_even_c(t_data *data, t_cmd *cmd)
 {
@@ -408,12 +408,12 @@ int	exec_data(t_data *data, t_cmd *cmd)
 	i = 0;
 	while (data->env[i])
 	{
-		printf("%s\n", data->env[i]);
+		//printf("%s\n", data->env[i]);
 		if (ft_strncmp(data->env[i], "PATH=", 5) == 0)
 			break ;
 		i++;
 	}
-	path = ft_split20(data->env[i] + 5, ':');
+	path = ft_split2(data->env[i] + 5, ':');
 	if (!path)
 		exit(ft_error(MALLOC));
 	i = -1;
