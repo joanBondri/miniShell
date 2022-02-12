@@ -71,7 +71,7 @@ bool	ft_trim(char *s, char c)
 		return (false);
 	ft_strlcpy(s, s + 1, ft_strlen(s + 1) + 1);
 	s[ft_strlen(s) - 1] = (char)0;
-	printf("%s\n", s);
+	//printf("%s\n", s);
 	return (true);
 }	
 
@@ -189,7 +189,7 @@ void	temp_function_get_redir(char *str, int i, t_data *dt, t_cmd *focus)
 	else
 		focus->path = ft_strlreplace(str, "", i, t.length + 1);
 	add_lst_malloc((void*)focus->path);
-	printf("focus -> patg %s\n", focus->path);
+	//printf("focus -> patg %s\n", focus->path);
 	free(t.copy);
 }
 
@@ -384,8 +384,8 @@ void	develope_dquote(t_token *t, char *s, t_data *dt)
 			res = ft_strlreplace(t->copy, tok.copy, i - 1, tok.length);
 			if (!res)
 				return((void)printf("malloc wsh\n"));
-			printf("status = %i and sub = %i, str = %s\n", tok.status, tok.sub_status, tok.copy);
-			printf("res = %s\n", res);
+			//printf("status = %i and sub = %i, str = %s\n", tok.status, tok.sub_status, tok.copy);
+			//printf("res = %s\n", res);
 			free(t->copy);
 			free(tok.copy);
 			t->copy = res;
