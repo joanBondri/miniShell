@@ -383,9 +383,11 @@ int	loop_exec(t_data *data, t_cmd *cmd, int i, char **path)
 
 	i++;
 	piper(data, i);
+	printf("cmd == %d\n", data->nbr_cmd);
+	printf("pipe == %d\n", data->nbr_pipe);
 	if (data->nbr_cmd == 1 && is_builtin(cmd->arg[0]) == 1)
 	{
-		//one_pipe_c(data, cmd);
+		one_pipe_c(data, cmd);
 		return_value(call_builtin(data, cmd, 0), 0);
 		return (return_value(0, 1));
 	}
@@ -394,7 +396,7 @@ int	loop_exec(t_data *data, t_cmd *cmd, int i, char **path)
 		exit(ft_error(FORK));
 	else if (child == 0)
 	{
-		//if (data->nbr_pipe != 0)
+		if (data->nbr_pipe != 0)
 			fd_pipe_child(data, cmd, i);
 		if (is_builtin(cmd->arg[0]) == 1)
 		{
@@ -423,7 +425,7 @@ int	loop_exec(t_data *data, t_cmd *cmd, int i, char **path)
 	}
 	else
 	{
-		//fd_pipe_parent(data, cmd, i);
+		fd_pipe_parent(data, cmd, i);
 		if (i < data->nbr_cmd - 1)
 		{
 			loop_exec(data, cmd->next, i, path);
