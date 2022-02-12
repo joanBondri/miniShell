@@ -61,7 +61,7 @@ void	know_your_token(char *s, t_data *dt);
 t_data	*parse(char **env);
 bool	check_pip_double(char *s);
 bool	divide_with_quotes(char *str, int index, char *c);
-void	generate_cmds_strs(t_cmd **pips, char **strs);
+void	generate_cmds_strs(t_cmd **pips, char **strs, t_data *dt);
 void	divide_pip(char *s, t_data **data);
 bool	change_mind(char *change, bool bo);
 void	ft_exit(char *str);

@@ -59,7 +59,7 @@ bool	divide_with_quotes(char *str, int index, char *c)
 	return (!q && !dq);
 }
 
-void	generate_cmds_strs(t_cmd **pips, char **strs)
+void	generate_cmds_strs(t_cmd **pips, char **strs, t_data *dt)
 {
 	t_cmd	*buff;
 	t_cmd	*prev;
@@ -84,6 +84,7 @@ void	generate_cmds_strs(t_cmd **pips, char **strs)
 		end = &(buff->next);
 		buff = NULL;
 	}
+	dt->nbr_cmd = i;
 	free(strs);
 	*end = NULL;
 }
@@ -118,7 +119,7 @@ void	divide_pip(char *s, t_data **data)
 		ft_exit("error_malloc\n");
 	*pips = NULL;
 	(*data)->nbr_cmd = count_double_tab(strs);
-	generate_cmds_strs(pips, strs);
+	generate_cmds_strs(pips, strs, *data);
 	(*data)->cmd = *pips;
 	free(pips);
 }
