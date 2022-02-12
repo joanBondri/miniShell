@@ -85,6 +85,7 @@ void	generate_cmds_strs(t_cmd **pips, char **strs, t_data *dt)
 		buff = NULL;
 	}
 	dt->nbr_cmd = i;
+	dt->nbr_pipe = i - 1;
 	free(strs);
 	*end = NULL;
 }
