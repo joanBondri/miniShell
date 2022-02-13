@@ -264,6 +264,7 @@ int	first_pipe_c(t_data *data, t_cmd *cmd)
 		ret[2] = dup2(data->pipe_odd[1], STDOUT_FILENO);
 		ret[4] = close(data->pipe_odd[1]);
 	}
+	//ret[0] = -1;
 	if ((ret[0] < 0) || (ret[1] < 0) || (ret[2] < 0))
 		exit(ft_error(DUP2));
 	if ((ret[4] < 0) || (ret[5] < 0) || (ret[3] < 0) || (ret[6] < 0))
@@ -417,8 +418,8 @@ int	loop_exec(t_data *data, t_cmd *cmd, int i, char **path)
 		{
 			//if (WIFSIGNALED)
 			value = WEXITSTATUS(wstatus);//error_code
-			if (value == 130)
-				exit(ft_error(130));
+			//if (value == 130)
+			//	exit(ft_error(130));
 		}
 	}
 	if (i == data->nbr_cmd - 1)

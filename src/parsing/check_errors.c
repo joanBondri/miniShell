@@ -61,6 +61,7 @@ void	parser_director(char *s, t_data **dt)
 //		printf("le fin = %i et fout = %i\n", buff->infile, buff->outfile);
 		buff = buff->next;
 	}
+	get_data(*dt);
 	exec_data(*dt, (*dt)->cmd);
 	return ;
 }
