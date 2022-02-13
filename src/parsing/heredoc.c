@@ -146,6 +146,7 @@ void	catch_heredoc(char *str, t_cmd *buff, t_data *dt)
 				return ;
 			buff->path = ft_strlreplace(str, "", i, res);
 			str = buff->path;
+			i--;
 		}
 		i++;
 	}
