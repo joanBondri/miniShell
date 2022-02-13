@@ -113,12 +113,16 @@ int	go_heredoc(char *str, t_cmd *buff, t_data *dt)
 	del = next_del(str, &tt, dt);
 	if (!del)
 		return (0);
+	//secur pip
 	pipe(pip);
 	if (buff->infile != -1)
 		close(buff->infile);
 	buff->infile = pip[0];
 	determine_content_herdoc(del, pip[1], dt);
 	free(del);
+	char	*str2;
+	get_next_line(pip[0], &str2);
+	printf("res =%s\n", str2);
 	close(pip[0]);
 	return (tt.length);
 }
@@ -145,7 +149,7 @@ void	catch_heredoc(char *str, t_cmd *buff, t_data *dt)
 			if (res == 0)
 				return ;
 			buff->path = ft_strlreplace(str, "", i, res);
-			free(str);
+			add_lst_malloc((void*)buff->path);
 			str = buff->path;
 			i--;
 		}

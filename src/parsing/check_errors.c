@@ -28,8 +28,6 @@ char	*ft_strjoin_mod23(char const *str1, char const *str2)
 	return (res);
 }
 
-
-
 void	parser_director(char *s, t_data **dt)
 {
 	t_cmd			*buff;
@@ -182,7 +180,7 @@ void	temp_function_get_redir(char *str, int i, t_data *dt, t_cmd *focus)
 	else
 		assemblage_file_name_red(str + i + 1, &t, dt);
 	get_2_redirection(str + i, focus, t);
-	if (!ft_strncmp(">>", str + i, 2))
+	if (!ft_strncmp(">>", str + i, 2) || !ft_strncmp("<<", str + i, 2))
 		focus->path = ft_strlreplace(str, "", i, t.length + 2);
 	else
 		focus->path = ft_strlreplace(str, "", i, t.length + 1);
