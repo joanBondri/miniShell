@@ -28,6 +28,8 @@ char	*ft_strjoin_mod23(char const *str1, char const *str2)
 	return (res);
 }
 
+
+
 void	parser_director(char *s, t_data **dt)
 {
 	t_cmd			*buff;
@@ -54,11 +56,6 @@ void	parser_director(char *s, t_data **dt)
 		get_redirection(buff, *dt);
 		expand_rest_envvar(buff, *dt);
 		interprate_sequence(buff);
-//		int i = -1;
-//		while (buff->arg[++i])
-//			printf("arg %i : %s\n", i, buff->arg[i]);
-//		printf("buff->path = %s\n", buff->path);
-//		printf("le fin = %i et fout = %i\n", buff->infile, buff->outfile);
 		buff = buff->next;
 	}
 	exec_data(*dt, (*dt)->cmd);
@@ -189,7 +186,6 @@ void	temp_function_get_redir(char *str, int i, t_data *dt, t_cmd *focus)
 	else
 		focus->path = ft_strlreplace(str, "", i, t.length + 1);
 	add_lst_malloc((void*)focus->path);
-	//printf("focus -> patg %s\n", focus->path);
 	free(t.copy);
 }
 
@@ -204,7 +200,6 @@ void	get_redirection(t_cmd *focus, t_data *dt)
 	p = false;
 	while (focus->path[i])
 	{
-		//printf("ca segfault c'est tout\n");
 		if (focus->path[i] == '\'' && !p)
 			q = !q;
 		if (focus->path[i] == '"' && !q)

@@ -58,7 +58,6 @@ void	determine_content_herdoc(char *del, int fd, t_data *dt)
 		{
 			printf("minishell: warning: heredocument at line ");
 			printf("%d delimited by end-of-file (wanted `%s')\n", line, del);
-			change_mind("yes", true);
 			return ;
 		}
 		if (res == -1 || (!ft_strncmp(s, del, ft_strlen(s)) &&
@@ -97,7 +96,10 @@ char	*next_del(char *s, t_token *tt, t_data *dt)
 	tt->copy = assemblage_concateneur(NULL);
 	tt->length = i;
 	if(!(tt->copy))
+	{
 		near_token(s, dt);
+		return (0);
+	}
 	return (tt->copy);
 }
 
@@ -114,12 +116,10 @@ int	go_heredoc(char *str, t_cmd *buff, t_data *dt)
 	pipe(pip);
 	if (buff->infile != -1)
 		close(buff->infile);
-	buff->infile = pip[1];
-	determine_content_herdoc(del, pip[0], dt);
+	buff->infile = pip[0];
+	determine_content_herdoc(del, pip[1], dt);
 	free(del);
 	close(pip[0]);
-	if (change_mind("no", false))
-		return (0);
 	return (tt.length);
 }
 
