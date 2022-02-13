@@ -125,22 +125,22 @@ int	pipe_even_c(t_data *data, t_cmd *cmd)
 	if (cmd->infile != -1)
 	{
 		ret[0] = dup2(cmd->infile, STDIN_FILENO);
-		ret[4] = close(cmd->infile);
+		//ret[4] = close(cmd->infile);
 	}
 	else
 	{
 		ret[1] = dup2(data->pipe_even[0], STDIN_FILENO);
-		ret[5] = close(data->pipe_even[0]);
+		//ret[5] = close(data->pipe_even[0]);
 	}
 	if (cmd->outfile != -1)
 	{
 		ret[2] = dup2(cmd->outfile, STDOUT_FILENO);
-		ret[6] = close(cmd->outfile);
+		//ret[6] = close(cmd->outfile);
 	}
 	else
 	{
 		ret[3] = dup2(data->pipe_odd[1], STDOUT_FILENO);
-		ret[7] = close(data->pipe_odd[1]);
+		//ret[7] = close(data->pipe_odd[1]);
 	}
 	if ((ret[0] < 0) || (ret[1] < 0) || (ret[2] < 0) || (ret[3] < 0))
 		exit(ft_error(DUP2));
@@ -157,22 +157,22 @@ int	pipe_odd_c(t_data *data, t_cmd *cmd)
 	if (cmd->infile != -1)
 	{
 		ret[0] = dup2(cmd->infile, STDIN_FILENO);
-		ret[4] = close(cmd->infile);
+		//ret[4] = close(cmd->infile);
 	}
 	else
 	{
 		ret[1] = dup2(data->pipe_odd[0], STDIN_FILENO);
-		ret[5] = close(data->pipe_odd[0]);
+		//ret[5] = close(data->pipe_odd[0]);
 	}
 	if (cmd->outfile != -1)
 	{
 		ret[2] = dup2(cmd->outfile, STDOUT_FILENO);
-		ret[6] = close(cmd->outfile);
+		//ret[6] = close(cmd->outfile);
 	}
 	else
 	{
 		ret[3] = dup2(data->pipe_even[1], STDOUT_FILENO);
-		ret[7] = close(data->pipe_even[1]);
+		//ret[7] = close(data->pipe_even[1]);
 	}
 	if ((ret[0] < 0) || (ret[1] < 0) || (ret[2] < 0) || (ret[3] < 0))
 		exit(ft_error(DUP2));
@@ -194,25 +194,26 @@ int	last_pipe_c(t_data *data, t_cmd *cmd, int i)
 {
 	static int	ret[8];
 
-	if (cmd->infile != -1)
-	{	
-		ret[0] = dup2(cmd->infile, STDIN_FILENO);
-		ret[4] = close(cmd->infile);
-	}
+	
 	if (i % 2 == 0)
 	{
 		ret[1] = dup2(data->pipe_even[0], STDIN_FILENO);
-		ret[5] = close(data->pipe_even[0]);
+		//ret[5] = close(data->pipe_even[0]);
 	}
 	if (i % 2 == 1)
 	{
 		ret[2] = dup2(data->pipe_odd[0], STDIN_FILENO);
-		ret[6] = close(data->pipe_odd[0]);
+		//ret[6] = close(data->pipe_odd[0]);
+	}
+	if (cmd->infile != -1)
+	{	
+		ret[0] = dup2(cmd->infile, STDIN_FILENO);
+		//ret[4] = close(cmd->infile);
 	}
 	if (cmd->outfile != -1)
 	{
 		ret[3] = dup2(cmd->outfile, STDOUT_FILENO);
-		ret[7] = close(cmd->outfile);
+		//ret[7] = close(cmd->outfile);
 	}
 	if ((ret[0] < 0) || (ret[1] < 0) || (ret[2] < 0) || (ret[3] < 0))
 		exit(ft_error(DUP2));
@@ -221,25 +222,48 @@ int	last_pipe_c(t_data *data, t_cmd *cmd, int i)
 	return (0);
 }
 
-int	one_pipe_c(t_data *data, t_cmd *cmd)
+int	one_pipe_close(t_data *data, t_cmd *cmd)
 {
-	static int	ret[6];
+	static int	ret[2];
+
+	(void)data;
+	if (cmd->infile != -1)
+	{
+		//ret[0] = dup2(cmd->infile, STDIN_FILENO);
+		ret[0] = close(cmd->infile);
+	}
+	if (cmd->outfile != -1)
+	{
+		//ret[1] = dup2(cmd->outfile, STDOUT_FILENO);
+		ret[1] = close(cmd->outfile);
+	}
+	//if ((ret[0] < 0) || (ret[1] < 0))
+	//	exit(ft_error(DUP2));
+	if ((ret[0] < 0) || (ret[1] < 0))
+		exit(ft_error(CLOSE));
+	return (0);
+}
+
+int	one_pipe_dup(t_data *data, t_cmd *cmd)
+{
+	static int	ret[2];
 
 	(void)data;
 	if (cmd->infile != -1)
 	{
 		ret[0] = dup2(cmd->infile, STDIN_FILENO);
-		ret[2] = close(cmd->infile);
+		//ret[2] = close(cmd->infile);
 	}
 	if (cmd->outfile != -1)
 	{
+		printf("aiiaiaaiai\n");
 		ret[1] = dup2(cmd->outfile, STDOUT_FILENO);
-		ret[3] = close(cmd->outfile);
+		//ret[3] = close(cmd->outfile);
 	}
 	if ((ret[0] < 0) || (ret[1] < 0))
 		exit(ft_error(DUP2));
-	if ((ret[2] < 0) || (ret[3] < 0))
-		exit(ft_error(CLOSE));
+	//if ((ret[2] < 0) || (ret[3] < 0))
+	//	exit(ft_error(CLOSE));
 	return (0);
 }
 
@@ -252,17 +276,17 @@ int	first_pipe_c(t_data *data, t_cmd *cmd)
 	if (cmd->infile != -1)
 	{
 		ret[0] = dup2(cmd->infile, STDIN_FILENO);
-		ret[5] = close(cmd->infile);
+		//ret[5] = close(cmd->infile);
 	}
 	if (cmd->outfile != -1)
 	{
 		ret[1] = dup2(cmd->outfile, STDOUT_FILENO);
-		ret[3] = close(cmd->outfile);
+		//ret[3] = close(cmd->outfile);
 	}
 	else if (data->nbr_pipe > 0)
 	{
 		ret[2] = dup2(data->pipe_odd[1], STDOUT_FILENO);
-		ret[4] = close(data->pipe_odd[1]);
+		//ret[4] = close(data->pipe_odd[1]);
 	}
 	//ret[0] = -1;
 	if ((ret[0] < 0) || (ret[1] < 0) || (ret[2] < 0))
@@ -370,8 +394,9 @@ int	loop_exec(t_data *data, t_cmd *cmd, int i, char **path)
 	printf("pipe == %d\n", data->nbr_pipe);
 	if (data->nbr_cmd == 1 && is_builtin(cmd->arg[0]) == 1)
 	{
-		one_pipe_c(data, cmd);
+		one_pipe_dup(data, cmd);
 		return_value(call_builtin(data, cmd, 0), 0);
+		one_pipe_close(data, cmd);
 		return (return_value(0, 1));
 	}
 	child = fork();
