@@ -390,8 +390,6 @@ int	loop_exec(t_data *data, t_cmd *cmd, int i, char **path)
 
 	i++;
 	piper(data, i);
-	printf("cmd == %d\n", data->nbr_cmd);
-	printf("pipe == %d\n", data->nbr_pipe);
 	if (data->nbr_cmd == 1 && is_builtin(cmd->arg[0]) == 1)
 	{
 		one_pipe_dup(data, cmd);
