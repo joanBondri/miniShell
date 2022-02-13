@@ -34,6 +34,8 @@ void	come_back_prompt(t_data **data)
 
 	while (true)
 	{
+		signal(SIGINT, handler_int);
+		signal(SIGQUIT, SIG_IGN);
 		env = (*data)->env;
 		(**data) = (t_data){0};
 		(*data)->env = env;

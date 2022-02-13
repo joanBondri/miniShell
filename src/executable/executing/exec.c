@@ -449,8 +449,8 @@ int	loop_exec(t_data *data, t_cmd *cmd, int i, char **path)
 		waitpid(child, &wstatus, 0);
 		if (WIFEXITED(wstatus))
 		{
-			//if (WIFSIGNALED(wstatus) == 1)
-			//	ft_putendl_fd("\n", STDOUT_FILENO);
+			if (WIFSIGNALED(wstatus) == 1)
+				ft_putendl_fd("\n", STDOUT_FILENO);
 			value = WEXITSTATUS(wstatus);//error_code
 			//if (value == 130)
 			//	exit(ft_error(130));
