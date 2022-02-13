@@ -8,6 +8,7 @@ SRC = \
 		parsing/parse.c \
 		parsing/heredoc.c \
 		parsing/pip.c \
+		signal/handler.c \
 		executable/envp.c \
 		executable/error.c \
 		executable/executing/exec.c \

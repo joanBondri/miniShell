@@ -5,6 +5,7 @@
 # include "libft.h"
 # include "get_next_line.h"
 
+void	handler_int(int signal);
 char	*assemblage_concateneur(char *s1);
 void	do_all_heredoc(char *str, t_data *dt);
 char	*ft_strjoin_mod23(char const *str1, char const *str2);

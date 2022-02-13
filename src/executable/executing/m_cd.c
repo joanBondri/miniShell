@@ -38,7 +38,7 @@ int	m_cd(t_data *data, t_cmd *cmd)
 	int		lenght;
 
 	old = NULL;
-	if (cmd->arg[2])
+	if (cmd->arg[1] && cmd->arg[2])
 	{
 		ft_putendl_fd("minishell: cd: too many arguments", STDERR_FILENO);
 		return (1);

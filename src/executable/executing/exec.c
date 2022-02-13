@@ -256,7 +256,6 @@ int	one_pipe_dup(t_data *data, t_cmd *cmd)
 	}
 	if (cmd->outfile != -1)
 	{
-		printf("aiiaiaaiai\n");
 		ret[1] = dup2(cmd->outfile, STDOUT_FILENO);
 		//ret[3] = close(cmd->outfile);
 	}
@@ -391,19 +390,25 @@ int	loop_exec(t_data *data, t_cmd *cmd, int i, char **path)
 	int	value;
 
 	i++;
-	piper(data, i);
 	if (data->nbr_cmd == 1 && is_builtin(cmd->arg[0]) == 1)
 	{
+		signal(SIGINT, handler_int);
+		signal(SIGQUIT, handler_int);
 		one_pipe_dup(data, cmd);
 		return_value(call_builtin(data, cmd, 0), 0);
 		one_pipe_close(data, cmd);
 		return (return_value(0, 1));
 	}
+	piper(data, i);
 	child = fork();
 	if (child == -1)
 		exit(ft_error(FORK));
 	else if (child == 0)
 	{
+		//signal(SIGINT, SIG_IGN);
+		//signal(SIGQUIT, SIG_IGN);
+		signal(SIGINT, handler_int);
+		signal(SIGQUIT, handler_int);
 		//if (data->nbr_pipe != 0)
 		fd_pipe_child(data, cmd, i);
 		if (is_builtin(cmd->arg[0]) == 1)
@@ -433,15 +438,19 @@ int	loop_exec(t_data *data, t_cmd *cmd, int i, char **path)
 	}
 	else
 	{
+		
 		fd_pipe_parent(data, cmd, i);
 		if (i < data->nbr_cmd - 1)
 		{
 			loop_exec(data, cmd->next, i, path);
 		}
+		signal(SIGINT, SIG_IGN);
+		signal(SIGQUIT, SIG_IGN);
 		waitpid(child, &wstatus, 0);
 		if (WIFEXITED(wstatus))
 		{
-			//if (WIFSIGNALED)
+			//if (WIFSIGNALED(wstatus) == 1)
+			//	ft_putendl_fd("\n", STDOUT_FILENO);
 			value = WEXITSTATUS(wstatus);//error_code
 			//if (value == 130)
 			//	exit(ft_error(130));
