@@ -6,7 +6,7 @@
 /*   By: xchalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 14:39:44 by xchalle           #+#    #+#             */
-/*   Updated: 2022/02/11 18:20:24 by xchalle          ###   ########.fr       */
+/*   Updated: 2022/02/13 17:36:42 by jbondri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -271,11 +271,13 @@ int	first_pipe_c(t_data *data, t_cmd *cmd)
 {
 	static int	ret[7];
 
+	
 	if (data->nbr_pipe != 0)
 		ret[6] = close(data->pipe_odd[0]);
 	if (cmd->infile != -1)
 	{
 		ret[0] = dup2(cmd->infile, STDIN_FILENO);
+		//printf("%d\n", ret[0]);
 		//ret[5] = close(cmd->infile);
 	}
 	if (cmd->outfile != -1)

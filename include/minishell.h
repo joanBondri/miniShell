@@ -2,6 +2,7 @@
 #define MINISHELL_H
 
 #include "../libft/libft.h"
+# include "get_next_line.h"
 #include <unistd.h>
 #include <dirent.h>
 #include <signal.h>

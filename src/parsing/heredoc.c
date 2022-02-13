@@ -66,7 +66,7 @@ void	determine_content_herdoc(char *del, int fd, t_data *dt)
 		write(fd, switch_varenv(s, dt), ft_strlen(s));
 		write(fd, "\n", 1);
 	}
-	if (res != -1)
+	if (res == -1)
 		change_mind("yes", true);
 }
 
@@ -120,10 +120,8 @@ int	go_heredoc(char *str, t_cmd *buff, t_data *dt)
 	buff->infile = pip[0];
 	determine_content_herdoc(del, pip[1], dt);
 	free(del);
-	char	*str2;
-	get_next_line(pip[0], &str2);
-	printf("res =%s\n", str2);
-	close(pip[0]);
+	
+	close(pip[1]);
 	return (tt.length);
 }
 
