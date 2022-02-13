@@ -6,7 +6,7 @@
 /*   By: xchalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 13:32:49 by xchalle           #+#    #+#             */
-/*   Updated: 2022/02/10 13:35:56 by xchalle          ###   ########.fr       */
+/*   Updated: 2022/02/13 20:37:13 by jbondri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,20 +32,12 @@ int	close_fd(t_cmd *cmd)
 
 void	free_data_cmd(void)
 {
-	t_cmd	*tmp;
 	t_cmd	*cmd;
 	t_data	*data;
 
 	data = get_data(NULL);
 	cmd = data->cmd;
-	while (cmd != NULL)
-	{
-		tmp = cmd;
-		cmd = cmd->next;
-		close_fd(tmp);
-		free_tab(tmp->arg);
-		free(tmp);
-	}
+	free_all_lst_malloc();
 	free_tab(data->env);
 	close(data->save_in);
 	close(data->save_out);

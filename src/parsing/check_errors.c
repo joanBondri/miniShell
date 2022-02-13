@@ -36,7 +36,7 @@ void	parser_director(char *s, t_data **dt)
 	if (change_mind("yes", false))
 		return ;
 	divide_pip(s, dt);
-	do_all_heredoc(s, *dt);
+	do_all_heredoc(*dt);
 	if (change_mind("yes", false))
 		return ;
 	check_pips(s);
@@ -52,8 +52,15 @@ void	parser_director(char *s, t_data **dt)
 	while (buff)
 	{
 		get_redirection(buff, *dt);
+		if (change_mind("yes", false))
+			return ;
 		expand_rest_envvar(buff, *dt);
 		interprate_sequence(buff);
+		
+		/*printf("cmd = %p\n", buff);
+		printf("fin = %i | fout = %i\n", buff->infile, buff->outfile);
+		*/printf("path = %s\n, yop = %s\n", buff->path, buff->arg[0]);
+
 		buff = buff->next;
 	}
 	get_data(*dt);
@@ -138,7 +145,7 @@ void	no_such_file(char *name)
 {
 		printf("minishell: %s:  No such file or directory\n", name);
 		free_all_lst_malloc();
-		return (come_back_prompt(NULL));
+		change_mind("yes", true);
 }
 
 void	get_2_redirection(char *s, t_cmd *yop, t_token t)
@@ -180,6 +187,8 @@ void	temp_function_get_redir(char *str, int i, t_data *dt, t_cmd *focus)
 	else
 		assemblage_file_name_red(str + i + 1, &t, dt);
 	get_2_redirection(str + i, focus, t);
+	if (change_mind("no", true))
+		return ;
 	if (!ft_strncmp(">>", str + i, 2) || !ft_strncmp("<<", str + i, 2))
 		focus->path = ft_strlreplace(str, "", i, t.length + 2);
 	else
@@ -207,7 +216,7 @@ void	get_redirection(t_cmd *focus, t_data *dt)
 			temp_function_get_redir(focus->path, i, dt, focus);
 		else
 			i++;
-		if (change_mind("no", NULL))
+		if (change_mind("no", false))
 			return ;
 	}
 	

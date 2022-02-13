@@ -7,7 +7,7 @@
 
 void	handler_int(int signal);
 char	*assemblage_concateneur(char *s1);
-void	do_all_heredoc(char *str, t_data *dt);
+void	do_all_heredoc(t_data *dt);
 char	*ft_strjoin_mod23(char const *str1, char const *str2);
 char	*ft_loop_strchr(const char *str, char *c);
 void	parser_director(char *s, t_data **data);

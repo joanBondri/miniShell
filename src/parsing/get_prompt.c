@@ -40,6 +40,8 @@ void	come_back_prompt(t_data **data)
 		(**data) = (t_data){0};
 		(*data)->env = env;
 		str = readline("minishell> ");
+		if (!str)
+			break ;
 		add_history(str);
 		if (!ft_loop_strchr(" \t\v\f", str))
 			parser_director(str, data);
@@ -48,5 +50,8 @@ void	come_back_prompt(t_data **data)
 			free(str);
 		str = NULL;
 	}
-	free(*data);
+	free_all_lst_malloc();
+	free(*data);	
+	printf("exit\n");
+	exit(0);
 }

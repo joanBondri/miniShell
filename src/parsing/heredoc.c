@@ -51,8 +51,9 @@ void	determine_content_herdoc(char *del, int fd, t_data *dt)
 	{
 		s = NULL;
 		line++;
-		write(1, ">", 1);
+		write(1, "> ", 2);
 		res = get_next_line(0, &s);
+		rl_on_new_line();
 		add_lst_malloc((void*)s);
 		if (res == 0)
 		{
@@ -155,14 +156,14 @@ void	catch_heredoc(char *str, t_cmd *buff, t_data *dt)
 	}
 }
 
-void	do_all_heredoc(char *str, t_data *dt)
+void	do_all_heredoc(t_data *dt)
 {
 	t_cmd	*buff;
 
 	buff = dt->cmd;
 	while (buff)
 	{
-		catch_heredoc(str, buff, dt);
+		catch_heredoc(buff->path, buff, dt);
 		if (change_mind("no", false))
 			return ;
 		buff = buff->next;
