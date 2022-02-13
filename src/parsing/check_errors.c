@@ -58,6 +58,7 @@ void	parser_director(char *s, t_data **dt)
 		interprate_sequence(buff);
 		buff = buff->next;
 	}
+	get_data(*dt);
 	exec_data(*dt, (*dt)->cmd);
 	return ;
 }
