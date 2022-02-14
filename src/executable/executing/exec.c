@@ -11,140 +11,23 @@
 /* ************************************************************************** */
 
 #include "../../../include/minishell.h"
-//static char	**ft_free20(char **tab, int o)
-//{
-//	int	i;
-//
-//	i = 0;
-//	while (i < o)
-//	{
-//		free(tab[i]);
-//		i++;
-//	}
-//	free(tab);
-//	return (NULL);
-//}
-//
-//static char	**ft_malloc20(char **tab, const char *str, int compteur, char c)
-//{
-//	int		k;
-//	int		o;
-//	int		i;
-//
-//	i = 0;
-//	k = 0;
-//	o = 0;
-//	while (str[i] && o < compteur)
-//	{
-//		while (str[i] == c && str[i])
-//			i++;
-//		k = 0;
-//		while (str[i] != c && str[i])
-//		{
-//			tab[o][k] = str[i];
-//			i++;
-//			k++;
-//		}
-//		tab[o][k] = '\0';
-//		o++;
-//	}
-//	tab[o] = 0;
-//	return (tab);
-//}
-//
-//static char	**ft_malloc_string20(
-//		char **tab, const char *str, int compteur, char c)
-//{
-//	int		k;
-//	int		o;
-//	int		i;
-//
-//	i = 0;
-//	k = 0;
-//	o = 0;
-//	while (str[i] && o < compteur)
-//	{
-//		k = 0;
-//		while (str[i] == c && str[i])
-//			i++;
-//		while (str[i] != c && str[i])
-//		{
-//			i++;
-//			k++;
-//		}
-//		tab[o] = malloc(sizeof(char) * (k + 1));
-//		if (!(tab[o]))
-//			return (ft_free20(tab, o));
-//		o++;
-//	}
-//	return (ft_malloc20(tab, str, compteur, c));
-//}
-//
-//static void	ft_assign20(int *i, int *n, int *compteur)
-//{
-//	*i = 0;
-//	*n = 0;
-//	*compteur = 0;
-//}
-//
-//char	**ft_split20(char const *s, char c)
-//{
-//	int		i;
-//	int		n;
-//	int		compteur;
-//	char	**tab;
-//
-//	ft_assign20(&i, &n, &compteur);
-//	//printf("%s\n",s);
-//	if (!s)
-//		return (NULL);
-//	while (s[i])
-//	{
-//		n = 0;
-//		while (s[i] == c && s[i])
-//			i++;
-//		while (s[i] != c && s[i])
-//		{
-//			i++;
-//			n++;
-//		}
-//		if (n > 0)
-//			compteur++;
-//	}
-//	tab = malloc(sizeof(char *) * (compteur + 1));
-//	if (!(tab))
-//		return (ft_free20(tab, 0));
-//	return (ft_malloc_string20(tab, s, compteur, c));
-//}
 
 int	pipe_even_c(t_data *data, t_cmd *cmd)
 {
 	static int	ret[8];
 
-	close(data->pipe_odd[0]);
+	ret[4] = close(data->pipe_odd[0]);
 	if (cmd->infile != -1)
-	{
 		ret[0] = dup2(cmd->infile, STDIN_FILENO);
-		//ret[4] = close(cmd->infile);
-	}
 	else
-	{
 		ret[1] = dup2(data->pipe_even[0], STDIN_FILENO);
-		//ret[5] = close(data->pipe_even[0]);
-	}
 	if (cmd->outfile != -1)
-	{
 		ret[2] = dup2(cmd->outfile, STDOUT_FILENO);
-		//ret[6] = close(cmd->outfile);
-	}
 	else
-	{
 		ret[3] = dup2(data->pipe_odd[1], STDOUT_FILENO);
-		//ret[7] = close(data->pipe_odd[1]);
-	}
 	if ((ret[0] < 0) || (ret[1] < 0) || (ret[2] < 0) || (ret[3] < 0))
 		exit(ft_error(DUP2));
-	if ((ret[4] < 0) || (ret[5] < 0) || (ret[6] < 0) || (ret[7] < 0))
+	if (ret[4] < 0)
 		exit(ft_error(CLOSE));
 	return (0);
 }
@@ -153,30 +36,18 @@ int	pipe_odd_c(t_data *data, t_cmd *cmd)
 {
 	static int	ret[8];
 
-	close(data->pipe_even[0]);
+	ret[4] = close(data->pipe_even[0]);
 	if (cmd->infile != -1)
-	{
 		ret[0] = dup2(cmd->infile, STDIN_FILENO);
-		//ret[4] = close(cmd->infile);
-	}
 	else
-	{
 		ret[1] = dup2(data->pipe_odd[0], STDIN_FILENO);
-		//ret[5] = close(data->pipe_odd[0]);
-	}
 	if (cmd->outfile != -1)
-	{
 		ret[2] = dup2(cmd->outfile, STDOUT_FILENO);
-		//ret[6] = close(cmd->outfile);
-	}
 	else
-	{
 		ret[3] = dup2(data->pipe_even[1], STDOUT_FILENO);
-		//ret[7] = close(data->pipe_even[1]);
-	}
 	if ((ret[0] < 0) || (ret[1] < 0) || (ret[2] < 0) || (ret[3] < 0))
 		exit(ft_error(DUP2));
-	if ((ret[4] < 0) || (ret[5] < 0) || (ret[6] < 0) || (ret[7] < 0))
+	if (ret[4] < 0)
 		exit(ft_error(CLOSE));
 	return (0);
 }
@@ -194,31 +65,16 @@ int	last_pipe_c(t_data *data, t_cmd *cmd, int i)
 {
 	static int	ret[8];
 
-	
 	if (i % 2 == 0)
-	{
 		ret[1] = dup2(data->pipe_even[0], STDIN_FILENO);
-		//ret[5] = close(data->pipe_even[0]);
-	}
 	if (i % 2 == 1)
-	{
 		ret[2] = dup2(data->pipe_odd[0], STDIN_FILENO);
-		//ret[6] = close(data->pipe_odd[0]);
-	}
 	if (cmd->infile != -1)
-	{	
 		ret[0] = dup2(cmd->infile, STDIN_FILENO);
-		//ret[4] = close(cmd->infile);
-	}
 	if (cmd->outfile != -1)
-	{
 		ret[3] = dup2(cmd->outfile, STDOUT_FILENO);
-		//ret[7] = close(cmd->outfile);
-	}
 	if ((ret[0] < 0) || (ret[1] < 0) || (ret[2] < 0) || (ret[3] < 0))
 		exit(ft_error(DUP2));
-	if ((ret[4] < 0) || (ret[5] < 0) || (ret[6] < 0) || (ret[7] < 0))
-		exit(ft_error(CLOSE));
 	return (0);
 }
 
@@ -228,17 +84,9 @@ int	one_pipe_close(t_data *data, t_cmd *cmd)
 
 	(void)data;
 	if (cmd->infile != -1)
-	{
-		//ret[0] = dup2(cmd->infile, STDIN_FILENO);
 		ret[0] = close(cmd->infile);
-	}
 	if (cmd->outfile != -1)
-	{
-		//ret[1] = dup2(cmd->outfile, STDOUT_FILENO);
 		ret[1] = close(cmd->outfile);
-	}
-	//if ((ret[0] < 0) || (ret[1] < 0))
-	//	exit(ft_error(DUP2));
 	if ((ret[0] < 0) || (ret[1] < 0))
 		exit(ft_error(CLOSE));
 	return (0);
@@ -250,54 +98,30 @@ int	one_pipe_dup(t_data *data, t_cmd *cmd)
 
 	(void)data;
 	if (cmd->infile != -1)
-	{
-		//printf("omg\n");
 		ret[0] = dup2(cmd->infile, STDIN_FILENO);
-		//printf("omg2\n");
-		//ret[2] = close(cmd->infile);
-	}
 	if (cmd->outfile != -1)
-	{
-		
-		//printf("omg\n");
 		ret[1] = dup2(cmd->outfile, STDOUT_FILENO);
-		//printf("omg2\n");
-		//ret[3] = close(cmd->outfile);
-	}
 	if ((ret[0] < 0) || (ret[1] < 0))
 		exit(ft_error(DUP2));
-	//if ((ret[2] < 0) || (ret[3] < 0))
-	//	exit(ft_error(CLOSE));
 	return (0);
 }
 
 int	first_pipe_c(t_data *data, t_cmd *cmd)
 {
-	static int	ret[7];
+	static int	ret[4];
 
 	
 	if (data->nbr_pipe != 0)
-		ret[6] = close(data->pipe_odd[0]);
+		ret[3] = close(data->pipe_odd[0]);
 	if (cmd->infile != -1)
-	{
 		ret[0] = dup2(cmd->infile, STDIN_FILENO);
-		//printf("%d\n", ret[0]);
-		//ret[5] = close(cmd->infile);
-	}
 	if (cmd->outfile != -1)
-	{
 		ret[1] = dup2(cmd->outfile, STDOUT_FILENO);
-		//ret[3] = close(cmd->outfile);
-	}
 	else if (data->nbr_pipe > 0)
-	{
 		ret[2] = dup2(data->pipe_odd[1], STDOUT_FILENO);
-		//ret[4] = close(data->pipe_odd[1]);
-	}
-	//ret[0] = -1;
 	if ((ret[0] < 0) || (ret[1] < 0) || (ret[2] < 0))
 		exit(ft_error(DUP2));
-	if ((ret[4] < 0) || (ret[5] < 0) || (ret[3] < 0) || (ret[6] < 0))
+	if (ret[3] <0)
 		exit(ft_error(CLOSE));
 	return (0);
 }
@@ -314,46 +138,59 @@ void	fd_pipe_child(t_data *data, t_cmd *cmd, int i)
 
 void	first_pipe_p(t_data *data, t_cmd *cmd)
 {
+	static int	ret[3];
+
 	if (data->nbr_pipe != 0)
-		close(data->pipe_odd[1]);
+		ret[0] = close(data->pipe_odd[1]);
 	if (cmd->infile != -1)
-		close(cmd->infile);
+		ret[1] = close(cmd->infile);
 	if (cmd->outfile != -1)
-		close(cmd->outfile);
+		ret[2] = close(cmd->outfile);
+	if ((ret[0] < 0) || (ret[1] < 0) || (ret[2] < 0))
+		exit(ft_error(CLOSE));
 }
 
 void	random_pipe_p(t_data *data, t_cmd *cmd, int i)
 {
+	static int	ret[6];
+
 	if (i % 2 == 0)
 	{
-		close(data->pipe_even[0]);
-		close(data->pipe_odd[1]);
+		ret[0] = close(data->pipe_even[0]);
+		ret[1] = close(data->pipe_odd[1]);
 	}
 	else
 	{
-		close(data->pipe_even[1]);
-		close(data->pipe_odd[0]);
+		ret[2] = close(data->pipe_even[1]);
+		ret[3] = close(data->pipe_odd[0]);
 	}
 	if (cmd->infile != -1)
-		close(cmd->infile);
+		ret[4] = close(cmd->infile);
 	if (cmd->outfile != -1)
-		close(cmd->outfile);
+		ret[5] = close(cmd->outfile);
+	if ((ret[0] < 0) || (ret[1] < 0) || (ret[2] < 0)
+		|| (ret[3] < 0) || (ret[4] < 0) || (ret[5] < 0))
+		exit(ft_error(CLOSE));
 }
 
 void	last_pipe_p(t_data *data, t_cmd *cmd, int i)
 {
+	static int	ret[4];
+
 	if (i % 2 == 0)
 	{
-		close(data->pipe_even[0]);
+		ret[0] = close(data->pipe_even[0]);
 	}
 	else
 	{
-		close(data->pipe_odd[0]);
+		ret[1] = close(data->pipe_odd[0]);
 	}
 	if (cmd->infile != -1)
-		close(cmd->infile);
+		ret[2] = close(cmd->infile);
 	if (cmd->outfile != -1)
-		close(cmd->outfile);
+		ret[3] = close(cmd->outfile);
+	if ((ret[0] < 0) || (ret[1] < 0) || (ret[2] < 0) || (ret[3] < 0))
+		exit(ft_error(CLOSE));
 }
 
 void	fd_pipe_parent(t_data *data, t_cmd *cmd, int i)
