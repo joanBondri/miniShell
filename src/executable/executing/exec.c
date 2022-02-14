@@ -437,7 +437,7 @@ int	loop_exec(t_data *data, t_cmd *cmd, int i, char **path)
 				print_free(ft_strjoin3("minishell: ", cmd->arg[0],
 						": command not found\n"), STDERR_FILENO);
 				close_fd(cmd);
-				exit(return_value(126, 0));
+				exit(return_value(127, 0));
 			}
 			else
 				exec_check(data, cmd);

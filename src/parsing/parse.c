@@ -22,24 +22,49 @@ t_data	*parse(char **env)
 {
 	t_data	*data;
 	int		i;
+	int		compteur;
+	char	*tmp;
 
 	i = 0;
+	compteur = 0;
+	if (!env)
+		return (NULL);
 	data = malloc(sizeof(t_data) * 1);
 	if (!data)
 		return (NULL);
 	*data = (t_data){0};
 	//a modifier avec ce que xcahhhhhhhhal a fait
+	
 	while (env[i])
 		i++;
     data->env = malloc(sizeof(char *) * (i + 1));
     i = 0;
     while (env[i])
     {
-        data->env[i] = ft_strdup(env[i]);
+		if (ft_strncmp(env[i], "SHLVL=", 6) == 0)
+		{
+			compteur = (int)ft_atoi((env[i] + 6), 0, 0, 1);
+			compteur++;
+			if (compteur >= 1000)
+			{
+				ft_putstr_fd("minishell: warning: shell level (", 2);
+				ft_putnbr_fd(compteur, 2);
+				ft_putendl_fd(") too high, resetting to 1", 2);
+				compteur = 1;
+			}
+			if (compteur < 0)
+			compteur = 0;
+			tmp = ft_itoa(compteur);
+			data->env[i] = ft_strjoin("SHLVL=", tmp);
+			free(tmp);
+		}
+		else
+        	data->env[i] = ft_strdup(env[i]);
         i++;
     }
 	data->env[i] = NULL;
-	get_data(data);
+	if (find_index_env(data, "SHLVL=") == -1)
+		add_var_tab(data, "SHLVL=1");
 	come_back_prompt(&data);
 	return (data);
 }
