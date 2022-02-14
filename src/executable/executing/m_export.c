@@ -108,13 +108,9 @@ int	m_export(t_data *data, t_cmd *cmd)
 			tab_cell = ft_strdup("");
 		else
 		{
-			printf("%s\n", env_val[1]);
 			ft_trim(env_val[1], '"');
-			printf("%s\n", env_val[1]);
 			ft_trim(env_val[1], '\'');
-			printf("%s\n", env_val[1]);
 			tab_cell = env_val[1];
-			printf("%s\n", tab_cell);
 			if (is_correct_export(env_val, tab_cell, cmd->arg[i]) == 0)
 			{
 				if (find_index_env(data, env_val[0]) >= 0)
