@@ -73,7 +73,8 @@ int	exit_arg_1(char *str, t_data *data, t_cmd *cmd)
 			return (-1);
 		i++;
 	}
-	ft_putendl_fd("exit", STDOUT_FILENO);
+	if (data->nbr_cmd == 1)
+		ft_putendl_fd("exit", STDOUT_FILENO);
 	free_data_cmd();
 	return ((unsigned int)(val));
 }
@@ -82,7 +83,8 @@ int	num_arg_error(t_data *data, t_cmd *cmd)
 {	
 	(void)data;
 	(void)cmd;
-	ft_putendl_fd("exit", STDERR_FILENO);
+	if (data->nbr_cmd == 1)
+		ft_putendl_fd("exit", STDERR_FILENO);
 	ft_putendl_fd("bash: exit: too many arguments", STDERR_FILENO);
 	free_data_cmd();
 	return (2);
@@ -91,7 +93,8 @@ int	num_arg_error(t_data *data, t_cmd *cmd)
 int	num_val_error(t_data *data, t_cmd *cmd)
 {
 	(void)data;
-	ft_putendl_fd("exit", STDERR_FILENO);
+	if (data->nbr_cmd == 1)
+		ft_putendl_fd("exit", STDERR_FILENO);
 	print_free(ft_strjoin3("bash: exit: ", cmd->arg[1],
 			" : numeric argument required\n"), STDERR_FILENO);
 	free_data_cmd();
@@ -119,8 +122,9 @@ int	m_exit(t_data *data, t_cmd *cmd)
 	}
 	else
 	{
-		ft_putendl_fd("exit", STDOUT_FILENO);
-		exit(last_status_code);
+		if (data->nbr_cmd == 1)
+			ft_putendl_fd("exit", STDOUT_FILENO);
+		exit(return_value(0, 1));
 	}
 	return (status);
 }

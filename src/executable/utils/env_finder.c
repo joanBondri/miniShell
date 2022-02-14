@@ -17,6 +17,8 @@ int	is_valid_var(char *str)
 	int	i;
 
 	i = 0;
+	if (ft_strcmp(str, "") == 0)
+		return (1);
 	while (str[i])
 	{
 		if (i != 0)
