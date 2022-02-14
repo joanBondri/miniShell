@@ -44,16 +44,13 @@ int	add_var_tab(t_data *data, char *str)
 	tmp = loop_env(data, tmp, &o, i);
 	if (tmp == NULL)
 		return (-1);
-	printf("LALLALALLALALALALA == %d\n", o);
 	tmp[o] = ft_strdup(str);
-	printf("LALLALALLALALALALA == %s\n", tmp[o]);
 	if (!tmp[o])
 	{
 		free_tab(tmp);
 		return (-1);
 	}
 	tmp[++o] = NULL;
-	printf("LALLALALLALALALALA == %d\n", o);
 	free_tab(data->env);
 	data->env = tmp;
 	return (1);

@@ -251,12 +251,17 @@ int	one_pipe_dup(t_data *data, t_cmd *cmd)
 	(void)data;
 	if (cmd->infile != -1)
 	{
+		//printf("omg\n");
 		ret[0] = dup2(cmd->infile, STDIN_FILENO);
+		//printf("omg2\n");
 		//ret[2] = close(cmd->infile);
 	}
 	if (cmd->outfile != -1)
 	{
+		
+		//printf("omg\n");
 		ret[1] = dup2(cmd->outfile, STDOUT_FILENO);
+		//printf("omg2\n");
 		//ret[3] = close(cmd->outfile);
 	}
 	if ((ret[0] < 0) || (ret[1] < 0))
@@ -394,8 +399,12 @@ int	loop_exec(t_data *data, t_cmd *cmd, int i, char **path)
 	{
 		signal(SIGINT, handler_int);
 		signal(SIGQUIT, handler_int);
+		data->save_out = dup(STDOUT_FILENO);
+		data->save_in = dup(STDIN_FILENO);
 		one_pipe_dup(data, cmd);
 		return_value(call_builtin(data, cmd, 0), 0);
+		dup2(data->save_out, STDOUT_FILENO);
+		dup2(data->save_in, STDIN_FILENO);
 		one_pipe_close(data, cmd);
 		return (return_value(0, 1));
 	}

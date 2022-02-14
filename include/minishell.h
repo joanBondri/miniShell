@@ -13,6 +13,7 @@
 #include <sys/wait.h>
 #include <sys/stat.h>
 #include <fcntl.h>
+# include <stdbool.h>
 //#include <readline/readline.h>
 //#include <readline/history.h>
 
@@ -62,6 +63,7 @@ typedef struct	s_data
 	t_cmd	*cmd;
 }		t_data;
 
+bool    ft_trim(char *s, char c);
 t_data	*get_data(t_data *dt);
 int	ft_error(int number);
 int	return_value(int status, int i);
