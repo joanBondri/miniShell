@@ -173,6 +173,11 @@ void	get_2_redirection(char *s, t_cmd *yop, t_token t)
 	fd = open(t.copy, O_RDONLY);
 	if (fd < 1)
 		return (no_such_file(t.copy));
+	if (yop->change_in)
+	{
+		close(fd);
+		return ;
+	}
 	if (yop->infile > -1)
 		close(yop->infile);
 	yop->infile = fd;

@@ -42,6 +42,7 @@ enum	error
 
 typedef struct	s_cmd
 {
+	bool		change_in;
 	char		*path;
 	char		**arg;
 	int		infile;

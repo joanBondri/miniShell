@@ -27,10 +27,13 @@ char	*switch_varenv(char *str, t_data *dt)
 				continue ;
 			}
 			res = ft_strlreplace(str, t.copy, i, t.length);
-			free(str);
+			add_lst_malloc((void*)res);
 			free(t.copy);
 			if (!res)
+			{
 				ft_exit_malloc();
+				return (NULL);
+			}
 			str = res;
 			i += t.length;
 		}
@@ -64,7 +67,8 @@ void	determine_content_herdoc(char *del, int fd, t_data *dt)
 		if (res == -1 || (!ft_strncmp(s, del, ft_strlen(s)) &&
 					!ft_strncmp(s, del, ft_strlen(del))))
 			break ;
-		write(fd, switch_varenv(s, dt), ft_strlen(s));
+		s = switch_varenv(s, dt);
+		write(fd, s, ft_strlen(s));
 		write(fd, "\n", 1);
 	}
 	if (res == -1)
@@ -125,6 +129,24 @@ int	go_heredoc(char *str, t_cmd *buff, t_data *dt)
 	close(pip[1]);
 	return (tt.length);
 }
+void	check_if_here_last(char *str, t_cmd *buff)
+{
+	int		i;
+
+	i = 0;
+	buff->change_in = false;
+	while (str[i])
+	{
+		if (!ft_strncmp("<<", str + i, 2))
+		{
+			i++;
+			buff->change_in = true;
+		}
+		else if (!ft_strncmp("<", str + i, 1))
+			buff->change_in = false;
+		i++;
+	}
+}
 
 void	catch_heredoc(char *str, t_cmd *buff, t_data *dt)
 {
@@ -163,6 +185,7 @@ void	do_all_heredoc(t_data *dt)
 	buff = dt->cmd;
 	while (buff)
 	{
+		check_if_here_last(buff->path, buff);
 		catch_heredoc(buff->path, buff, dt);
 		if (change_mind("no", false))
 			return ;
