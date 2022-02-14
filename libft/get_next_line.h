@@ -6,13 +6,14 @@
 /*   By: xchalle <xchalle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/07 17:46:29 by xchalle           #+#    #+#             */
-/*   Updated: 2020/12/08 17:38:42 by xchalle          ###   ########.fr       */
+/*   Updated: 2022/02/14 16:58:03 by jbondri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 # include <stdlib.h>
+# include "libft.h"
 # include <unistd.h>
 # define BUFFER_SIZE 1000
 

@@ -1,0 +1,15 @@
+a
+b
+exit
+f
+fd
+file
+include
+libft
+libft.a
+Makefile
+minishell
+README.md
+src
+test\
+test.sh

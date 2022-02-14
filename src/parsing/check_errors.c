@@ -59,8 +59,11 @@ void	parser_director(char *s, t_data **dt)
 		
 		/*printf("cmd = %p\n", buff);
 		printf("fin = %i | fout = %i\n", buff->infile, buff->outfile);
-		printf("path = %s\n, yop = %s\n", buff->path, buff->arg[0]);
-*/
+		*/
+		int	i = -1;
+		while (buff->arg[++i])
+			printf("buff->path = %s, arg[%i] = %s\n", buff->path, i, buff->arg[i]);
+
 		buff = buff->next;
 	}
 	get_data(*dt);
@@ -121,7 +124,9 @@ void	expand_rest_envvar(t_cmd *buff, t_data *dt)
 	{
 		t = (t_token){0};
 		next_token(buff->path + i, &t, dt);
-		if (t.status == MSVARENV || t.status == MSDQUOTE || t.status == MSQUOTE)
+
+
+		if (t.status == MSVARENV || t.status == MSDQUOTE)
 		{
 			if (t.status == MSDQUOTE
 					&& (t.sub_status != MSVOID || t.sub_status != MSNONE))
