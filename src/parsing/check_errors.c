@@ -59,8 +59,8 @@ void	parser_director(char *s, t_data **dt)
 		
 		/*printf("cmd = %p\n", buff);
 		printf("fin = %i | fout = %i\n", buff->infile, buff->outfile);
-		*/printf("path = %s\n, yop = %s\n", buff->path, buff->arg[0]);
-
+		printf("path = %s\n, yop = %s\n", buff->path, buff->arg[0]);
+*/
 		buff = buff->next;
 	}
 	get_data(*dt);
@@ -131,6 +131,7 @@ void	expand_rest_envvar(t_cmd *buff, t_data *dt)
 				t.copy = buff_s;
 			}
 			buff_s = ft_strlreplace(buff->path, t.copy, i, t.length);
+			add_lst_malloc(buff_s);
 			i+= ft_strlen(t.copy);
 			buff->path = buff_s;
 		}
@@ -254,6 +255,7 @@ void	ambigus_redirect(char *s)
 	free(res);
 	free_all_lst_malloc();
 	change_mind("yes", true);
+	return_value(1, 0);
 }
 
 char	*assemblage_concateneur(char *s1)
@@ -433,11 +435,30 @@ void	develope_quote(t_token *t, char *s)
 	return ;
 }
 
+char	*interrog(void)
+{
+	char	*res;
+
+	res = ft_itoa(return_value(0, 1));
+	if (!res)
+		ft_error(MALLOC);
+	return (res);
+}
+
 void	develope_varenv(t_token *t, char *s, t_data *dt)
 {
 	char	*res;
 	int		i;
-
+	
+	if (!ft_strncmp("$?", s, 2) || !ft_strncmp("${?}", s, 4))
+	{
+		*t = (t_token){.copy = interrog(),
+			.status = MSVARENV, .sub_status = MSWORD};
+		t->length = 4;
+		if (!ft_strncmp("$?", s, 2))
+			t->length = 2;
+		return ;
+	}
 	t->length = find_variable_in_str(s, &(t->copy));
 	if (-1 == t->length)
 	{
@@ -483,7 +504,7 @@ void	find_type_token(char *tb, char *s, t_token *t, t_data *dt)
 	if (!ft_strchr("<>|$\'\"", s[0]))
 		t->status = MSWORD;
 	else if (s[0] == '$'
-			&& (!s[1] || (!ft_isalnum(s[1]) && !ft_strchr("_{", s[1]))))
+			&& (!s[1] || (!ft_isalnum(s[1]) && !ft_strchr("_{?", s[1]))))
 		t->status = MSWORD;
 	if (t->status == MSVARENV)
 		return (develope_varenv(t, s, dt));
@@ -497,6 +518,14 @@ void	find_type_token(char *tb, char *s, t_token *t, t_data *dt)
 		return (develope_redirection(t, s));
 }
 
+void	change_interrog(int res)
+{
+	t_data	*dt;
+
+	dt = get_data(NULL);
+	dt->return_value = res;
+}
+
 void	ft_unexpected_token(char c, char *s)
 {
 		(void)s;
@@ -505,6 +534,7 @@ void	ft_unexpected_token(char c, char *s)
 		else
 			printf("minishell: syntax error near unexpected token `%c'\n", c);
 		free_all_lst_malloc();
+		return_value(2, 0);
 		change_mind("yes", true);
 }
 
@@ -534,6 +564,7 @@ void	ft_bad_substitution(char *s)
 	printf("minishell: %s: bad substitution\n", res);
 	free(res);
 	free_all_lst_malloc();
+	return_value(1, 0);
 	change_mind("yes", true);
 }
 
@@ -555,7 +586,8 @@ void	check_par(char *s)
 					break ;
 				if (i == j + 2 && ft_isdigit(s[i]))
 					return (ft_bad_substitution(s + j));
-				if (!ft_isalnum(s[i]) && s[i] != '_')
+				if (!ft_isalnum(s[i]) && s[i] != '_'
+						&& (i != j + 2 && s[i] != '$'))
 					return (ft_bad_substitution(s + j));
 			}	
 		}

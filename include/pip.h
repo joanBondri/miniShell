@@ -5,6 +5,8 @@
 # include "libft.h"
 # include "get_next_line.h"
 
+void	change_interrog(int res);
+char	*interrog(void);
 void	handler_int(int signal);
 char	*assemblage_concateneur(char *s1);
 void	do_all_heredoc(t_data *dt);

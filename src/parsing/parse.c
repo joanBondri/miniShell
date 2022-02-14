@@ -39,6 +39,7 @@ t_data	*parse(char **env)
         i++;
     }
 	data->env[i] = NULL;
+	get_data(data);
 	come_back_prompt(&data);
 	return (data);
 }

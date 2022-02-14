@@ -31,14 +31,17 @@ void	come_back_prompt(t_data **data)
 {
 	char	*str;
 	char	**env;
+	int		inter;
 
 	while (true)
 	{
 		signal(SIGINT, handler_int);
 		signal(SIGQUIT, SIG_IGN);
+		inter = (*data)->return_value;
 		env = (*data)->env;
 		(**data) = (t_data){0};
 		(*data)->env = env;
+		(*data)->return_value = inter;
 		str = readline("minishell> ");
 		if (!str)
 			break ;
