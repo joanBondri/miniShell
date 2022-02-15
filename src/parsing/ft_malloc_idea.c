@@ -2,7 +2,7 @@
 
 t_list	**add_lst_malloc(void *mem)
 {
-	static	t_list	*one = NULL;
+	static t_list	*one = NULL;
 
 	if (mem)
 		ft_lstadd_front(&one, ft_lstnew(mem));

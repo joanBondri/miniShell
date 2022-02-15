@@ -78,7 +78,7 @@ static char	**fill_tab(char **tab, char *s, char *c,
 	return (tab);
 }
 
-char	**ft_split_func(char *s, char *c, bool (check)(char *, int , char *))
+char	**ft_split_func(char *s, char *c, bool (check)(char *, int, char *))
 {
 	char	**tab;
 

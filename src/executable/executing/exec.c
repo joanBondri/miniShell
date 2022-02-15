@@ -91,7 +91,7 @@ int	loop_exec(t_data *data, t_cmd *cmd, int i, char **path)
 				//if (i == data->nbr_cmd - 1)
 				//	return_value(value, 0);
 				//exit(return_value(0, 1));
-					exit(return_value(value, 0));
+				exit(return_value(value, 0));
 			}
 		}
 		else
@@ -128,7 +128,6 @@ int	loop_exec(t_data *data, t_cmd *cmd, int i, char **path)
 	}
 	if (i == data->nbr_cmd - 1)
 		return_value(value, 0);
-	printf("i = %i\n",  i);
 	return (return_value(0, 1));
 }
 

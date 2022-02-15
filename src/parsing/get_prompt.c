@@ -51,7 +51,7 @@ void	come_back_prompt(t_data **data)
 		str = NULL;
 	}
 	free_all_lst_malloc();
-	free(*data);	
+	free(*data);
 	printf("exit\n");
 	exit(0);
 }

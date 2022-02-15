@@ -27,7 +27,7 @@ char	*switch_varenv(char *str, t_data *dt)
 				continue ;
 			}
 			res = ft_strlreplace(str, t.copy, i, t.length);
-			add_lst_malloc((void*)res);
+			add_lst_malloc((void *)res);
 			free(t.copy);
 			if (!res)
 			{
@@ -57,15 +57,15 @@ void	determine_content_herdoc(char *del, int fd, t_data *dt)
 		write(1, "> ", 2);
 		res = get_next_line(0, &s);
 		rl_on_new_line();
-		add_lst_malloc((void*)s);
+		add_lst_malloc((void *)s);
 		if (res == 0)
 		{
 			printf("minishell: warning: heredocument at line ");
 			printf("%d delimited by end-of-file (wanted `%s')\n", line, del);
 			return ;
 		}
-		if (res == -1 || (!ft_strncmp(s, del, ft_strlen(s)) &&
-					!ft_strncmp(s, del, ft_strlen(del))))
+		if (res == -1 || (!ft_strncmp(s, del, ft_strlen(s))
+				&& !ft_strncmp(s, del, ft_strlen(del))))
 			break ;
 		s = switch_varenv(s, dt);
 		write(fd, s, ft_strlen(s));
@@ -90,9 +90,9 @@ char	*next_del(char *s, t_token *tt, t_data *dt)
 			develope_word(&t, s);
 		else
 			next_token(s + i, &t, dt);
-		add_lst_malloc((void*)t.copy);
+		add_lst_malloc((void *)t.copy);
 		if ((t.status >= MSPIP && t.status <= MSRED_OUT)
-				|| t.status == MSWHITESPACE)
+			|| t.status == MSWHITESPACE)
 			break ;
 		i += t.length;
 		if (t.copy)
@@ -100,7 +100,7 @@ char	*next_del(char *s, t_token *tt, t_data *dt)
 	}
 	tt->copy = assemblage_concateneur(NULL);
 	tt->length = i;
-	if(!(tt->copy))
+	if (!(tt->copy))
 	{
 		near_token(s, dt);
 		return (0);
@@ -125,10 +125,10 @@ int	go_heredoc(char *str, t_cmd *buff, t_data *dt)
 	buff->infile = pip[0];
 	determine_content_herdoc(del, pip[1], dt);
 	free(del);
-	
 	close(pip[1]);
 	return (tt.length);
 }
+
 void	check_if_here_last(char *str, t_cmd *buff)
 {
 	int		i;
@@ -170,7 +170,7 @@ void	catch_heredoc(char *str, t_cmd *buff, t_data *dt)
 			if (res == 0)
 				return ;
 			buff->path = ft_strlreplace(str, "", i, res);
-			add_lst_malloc((void*)buff->path);
+			add_lst_malloc((void *)buff->path);
 			str = buff->path;
 			i--;
 		}

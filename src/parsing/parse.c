@@ -3,13 +3,15 @@
 void	know_your_token(char *s, t_data *dt)
 {
 	t_token		t;
-	int			i = 0;
+	int			i;
 
+	i = 0;
 	while (s[i])
 	{
 		t = (t_token){0};
 		next_token(s + i, &t, dt);
-		printf("whats poppin, status = %i, substatus = %i, copy = %s, t_len = %i\n", t.status, t.sub_status, t.copy, t.length);
+		printf("whats poppin, status = %i,
+				substatus = %i, copy = %s, t_len = %i\n", t.status, t.sub_status, t.copy, t.length);
 		if (t.copy)
 			free(t.copy);
 		if (t.length == 0)
@@ -33,14 +35,12 @@ t_data	*parse(char **env)
 	if (!data)
 		return (NULL);
 	*data = (t_data){0};
-	//a modifier avec ce que xcahhhhhhhhal a fait
-	
 	while (env[i])
 		i++;
-    data->env = malloc(sizeof(char *) * (i + 1));
-    i = 0;
-    while (env[i])
-    {
+	data->env = malloc(sizeof(char *) * (i + 1));
+	i = 0;
+	while (env[i])
+	{
 		if (ft_strncmp(env[i], "SHLVL=", 6) == 0)
 		{
 			compteur = (int)ft_atoi((env[i] + 6), 0, 0, 1);
@@ -53,15 +53,15 @@ t_data	*parse(char **env)
 				compteur = 1;
 			}
 			if (compteur < 0)
-			compteur = 0;
+				compteur = 0;
 			tmp = ft_itoa(compteur);
 			data->env[i] = ft_strjoin("SHLVL=", tmp);
 			free(tmp);
 		}
 		else
-        	data->env[i] = ft_strdup(env[i]);
-        i++;
-    }
+			data->env[i] = ft_strdup(env[i]);
+		i++;
+	}
 	data->env[i] = NULL;
 	if (find_index_env(data, "SHLVL=") == -1)
 		add_var_tab(data, "SHLVL=1");

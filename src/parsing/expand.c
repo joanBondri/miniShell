@@ -114,7 +114,6 @@ char	*get_variable_first_time(char *val, int msg, t_data *dt)
 	while (ft_strchr(" \t\n\f\v", str[i]))
 		i++;
 	str_2 = ft_strdup(str);
-	
 	if (!str_2[0])
 		return (str_2);
 	i = 0;

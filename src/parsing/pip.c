@@ -95,14 +95,14 @@ void	ft_exit(char *str)
 	exit (0);
 }
 
-int		count_double_tab(char **strs)
+int	count_double_tab(char **strs)
 {
 	int		i;
 
 	i = 0;
 	while (strs[i])
 	{
-		add_lst_malloc((void*)strs[i]);
+		add_lst_malloc((void *)strs[i]);
 		i++;
 	}
 	return (i);
@@ -114,7 +114,7 @@ void	divide_pip(char *s, t_data **data)
 	t_cmd	**pips;
 
 	strs = ft_split_func(s, "|", &divide_with_quotes);
-	pips = malloc(sizeof(t_cmd*));
+	pips = malloc(sizeof(t_cmd *));
 	if (!strs || !pips)
 		ft_exit("error_malloc\n");
 	*pips = NULL;
