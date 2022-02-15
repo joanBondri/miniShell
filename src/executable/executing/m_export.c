@@ -12,88 +12,70 @@
 
 #include "../../../include/minishell.h"
 
-void	print_export_error(char *str)
+int	export_modif_tab(t_data *data, char **env_val)
 {
-	print_free(ft_strjoin3("minishell: export: « ", str,
-			" » : identifiant non valable\n"), STDERR_FILENO);
+	char	*tmp;
+	int		return_status;
+
+	return_status = 0;
+	if (find_index_env(data, env_val[0]) >= 0)
+	{
+		tmp = data->env[find_index_env(data, env_val[0])];
+		data->env[find_index_env(data, env_val[0])]
+			= ft_strjoin3(env_val[0], "=", env_val[1]);
+		free(tmp);
+	}
+	else
+	{
+		return_status = add_var_tab(data,
+				ft_strjoin3(env_val[0], "=", env_val[1]));
+		if (return_status == -1)
+			return_status = 1;
+		else
+			return_status = 0;
+	}
+	return (return_status);
 }
 
-void	print_tab(t_data *data, int *tab, int lenght)
+int	loop_export(t_data *data, t_cmd *cmd, int i)
 {
-	int	i;
-	int	j;
+	char	**env_val;
+	char	*tab_cell;
+	int		return_status;
 
-	i = 0;
-	j = 0;
-	while (i < lenght)
+	return_status = 0;
+	env_val = ft_split2(cmd->arg[i], '=');
+	if (is_valid_var(env_val[0]) == 1)
+		return (print_export_error(env_val[0]));
+	if (ft_strfind(cmd->arg[i], '=') == -1)
+		return (0);
+	if (!env_val[1])
+		tab_cell = ft_strdup("");
+	else
 	{
-		j = 0;
-		while (j < lenght)
-		{
-			if (tab[j] == i)
-			{
-				tab[j] = -1;
-				print_free(ft_strjoin3("export ",
-						data->env[j], "\n"), STDOUT_FILENO);
-				i = -1;
-				break ;
-			}
-			j++;
-		}
-		i++;
+		ft_trim(env_val[1], '"');
+		ft_trim(env_val[1], '\'');
+		tab_cell = env_val[1];
+		if (is_correct_export(env_val, tab_cell, cmd->arg[i]) == 0)
+			return_status = export_modif_tab(data, env_val);
+		else
+			return_status = print_export_error(cmd->arg[i]);
 	}
-	free(tab);
-}
-
-void	iteration_export(int *iter, int lenght, int *tab, t_data *data)
-{
-	iter[0] = 0;
-	while (iter[0] < lenght)
-	{
-		iter[1] = 0;
-		while (iter[1] < lenght)
-		{
-			if (ft_strcmp(data->env[iter[0]], data->env[iter[1]]) > 0)
-				tab[iter[0]] = tab[iter[0]] + 1;
-			iter[1]++;
-		}
-		iter[0]++;
-	}
-	print_tab(data, tab, lenght);
-}
-
-void	print_export_env(t_data *data)
-{
-	int	*tab;
-	int	lenght;
-	int	iter[3];
-
-	iter[0] = 0;
-	while (data->env[iter[0]])
-		iter[0]++;
-	lenght = iter[0];
-	tab = malloc(sizeof(int) * lenght);
-	if (!tab)
-		ft_error(MALLOC);
-	iter[0] = 0;
-	while (iter[0] < lenght)
-	{
-		tab[iter[0]] = 0;
-		iter[0]++;
-	}
-	iteration_export(iter, lenght, tab, data);
+	if (!env_val[1])
+		free(tab_cell);
+	free_tab(env_val);
+	return (return_status);
 }
 
 int	m_export(t_data *data, t_cmd *cmd)
 {
-	char	*tmp;
-	char	**env_val;
-	char	*tab_cell;
 	int		i;
+	int		secure;
 	int		return_status;
 
 	i = 1;
 	return_status = 0;
+	secure = 0;
 	if (!cmd->arg[1])
 	{
 		if (data->env == NULL)
@@ -103,42 +85,10 @@ int	m_export(t_data *data, t_cmd *cmd)
 	}
 	while (cmd->arg[i])
 	{
-		env_val = ft_split2(cmd->arg[i], '=');
-		if (!env_val[1])//uselss
-			tab_cell = ft_strdup("");
-		else
-		{
-			ft_trim(env_val[1], '"');
-			ft_trim(env_val[1], '\'');
-			tab_cell = env_val[1];
-			if (is_correct_export(env_val, tab_cell, cmd->arg[i]) == 0)
-			{
-				if (find_index_env(data, env_val[0]) >= 0)
-				{
-					tmp = data->env[find_index_env(data, env_val[0])];
-					data->env[find_index_env(data, env_val[0])]
-						= ft_strjoin3(env_val[0], "=", env_val[1]);
-					free(tmp);
-				}
-				else
-				{
-					return_status = add_var_tab(data, ft_strjoin3(env_val[0], "=", env_val[1]));
-					if (return_status == -1)
-						return_status = 1;
-					else
-						return_status = 0;
-				}
-			}
-			else
-			{
-				print_export_error(cmd->arg[i]);
-				return_status = 1;
-			}
-		}
-		if (!env_val[1])
-			free(tab_cell);
-		free_tab(env_val);
+		return_status = loop_export(data, cmd, i);
+		if (return_status > 0)
+			secure = 1;
 		i++;
 	}
-	return (return_status);
+	return (secure);
 }

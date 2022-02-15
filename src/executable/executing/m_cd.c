@@ -12,23 +12,27 @@
 
 #include "../../../include/minishell.h"
 
-int	free_cd(char *new, char *old, int ret)
+int	apply_cd(t_data *data, char *old, char *new, int lenght)
 {
-	free(new);
-	free(old);
-	return (ret);
-}
-
-int	go_to_dir(char *new, char *old)
-{
-	if (chdir(new) == -1)
-	{
-		if (errno == ENOENT)
-			print_free(ft_strjoin3("minishell: cd: ", new,
-					": Aucun fichier ou dossier de ce type\n"), STDERR_FILENO);
+	if (!new)
 		return (free_cd(new, old, 1));
+	if (go_to_dir(new, old) == 1)
+		return (1);
+	new = realloc(new, lenght);
+	new = getcwd(new, lenght);
+	while ((!new) && (errno == ERANGE))
+	{
+		lenght = lenght * 2;
+		new = realloc(new, lenght);
+		new = getcwd(new, lenght);
 	}
-	return (0);
+	if (!new)
+		return (free_cd(new, old, 1));
+	if (put_val_tab(data, "PWD", new) == -1)
+		return (free_cd(new, old, 1));
+	if (put_val_tab(data, "OLDPWD", old) == -1)
+		return (free_cd(new, old, 1));
+	return (free_cd(new, old, 0));
 }
 
 int	m_cd(t_data *data, t_cmd *cmd)
@@ -56,23 +60,5 @@ int	m_cd(t_data *data, t_cmd *cmd)
 		new = ft_strdup(cmd->arg[1]);
 	else
 		new = find_env("HOME", data);
-	if (!new)
-		return (free_cd(new, old, 1));
-	if (go_to_dir(new, old) == 1)
-		return (1);
-	new = realloc(new, lenght);
-	new = getcwd(new, lenght);
-	while ((!new) && (errno == ERANGE))
-	{
-		lenght = lenght * 2;
-		new = realloc(new, lenght);
-		new = getcwd(new, lenght);
-	}
-	if (!new)
-		return (free_cd(new, old, 1));
-	if (put_val_tab(data, "PWD", new) == -1)
-		return (free_cd(new, old, 1));
-	if (put_val_tab(data, "OLDPWD", old) == -1)
-		return (free_cd(new, old, 1));
-	return (free_cd(new, old, 0));
+	return (apply_cd(data, old, new, lenght));
 }

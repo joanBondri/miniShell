@@ -74,4 +74,4 @@ int	put_val_tab(t_data *data, char *var, char *new)
 			return (-1);
 	}
 	return (0);
-	}
+}

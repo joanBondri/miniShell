@@ -14,10 +14,10 @@
 
 int	m_echo(t_data *data, t_cmd *cmd)
 {
-	(void)data;
 	int	n_option;
 	int	i;
 
+	(void)data;
 	i = 1;
 	n_option = 0;
 	if (cmd->arg[1])

@@ -12,120 +12,6 @@
 
 #include "../../../include/minishell.h"
 
-int	pipe_even_c(t_data *data, t_cmd *cmd)
-{
-	static int	ret[8];
-
-	ret[4] = close(data->pipe_odd[0]);
-	if (cmd->infile != -1)
-		ret[0] = dup2(cmd->infile, STDIN_FILENO);
-	else
-		ret[1] = dup2(data->pipe_even[0], STDIN_FILENO);
-	if (cmd->outfile != -1)
-		ret[2] = dup2(cmd->outfile, STDOUT_FILENO);
-	else
-		ret[3] = dup2(data->pipe_odd[1], STDOUT_FILENO);
-	if ((ret[0] < 0) || (ret[1] < 0) || (ret[2] < 0) || (ret[3] < 0))
-		exit(ft_error(DUP2));
-	if (ret[4] < 0)
-		exit(ft_error(CLOSE));
-	return (0);
-}
-
-int	pipe_odd_c(t_data *data, t_cmd *cmd)
-{
-	static int	ret[8];
-
-	ret[4] = close(data->pipe_even[0]);
-	if (cmd->infile != -1)
-		ret[0] = dup2(cmd->infile, STDIN_FILENO);
-	else
-		ret[1] = dup2(data->pipe_odd[0], STDIN_FILENO);
-	if (cmd->outfile != -1)
-		ret[2] = dup2(cmd->outfile, STDOUT_FILENO);
-	else
-		ret[3] = dup2(data->pipe_even[1], STDOUT_FILENO);
-	if ((ret[0] < 0) || (ret[1] < 0) || (ret[2] < 0) || (ret[3] < 0))
-		exit(ft_error(DUP2));
-	if (ret[4] < 0)
-		exit(ft_error(CLOSE));
-	return (0);
-}
-
-int	random_pipe_c(t_data *data, t_cmd *cmd, int i)
-{
-	if ((i % 2) == 0)
-		pipe_even_c(data, cmd);
-	if ((i % 2) == 1)
-		pipe_odd_c(data, cmd);
-	return (0);
-}
-
-int	last_pipe_c(t_data *data, t_cmd *cmd, int i)
-{
-	static int	ret[8];
-
-	if (i % 2 == 0)
-		ret[1] = dup2(data->pipe_even[0], STDIN_FILENO);
-	if (i % 2 == 1)
-		ret[2] = dup2(data->pipe_odd[0], STDIN_FILENO);
-	if (cmd->infile != -1)
-		ret[0] = dup2(cmd->infile, STDIN_FILENO);
-	if (cmd->outfile != -1)
-		ret[3] = dup2(cmd->outfile, STDOUT_FILENO);
-	if ((ret[0] < 0) || (ret[1] < 0) || (ret[2] < 0) || (ret[3] < 0))
-		exit(ft_error(DUP2));
-	return (0);
-}
-
-int	one_pipe_close(t_data *data, t_cmd *cmd)
-{
-	static int	ret[2];
-
-	(void)data;
-	if (cmd->infile != -1)
-		ret[0] = close(cmd->infile);
-	if (cmd->outfile != -1)
-		ret[1] = close(cmd->outfile);
-	if ((ret[0] < 0) || (ret[1] < 0))
-		exit(ft_error(CLOSE));
-	return (0);
-}
-
-int	one_pipe_dup(t_data *data, t_cmd *cmd)
-{
-	static int	ret[2];
-
-	(void)data;
-	if (cmd->infile != -1)
-		ret[0] = dup2(cmd->infile, STDIN_FILENO);
-	if (cmd->outfile != -1)
-		ret[1] = dup2(cmd->outfile, STDOUT_FILENO);
-	if ((ret[0] < 0) || (ret[1] < 0))
-		exit(ft_error(DUP2));
-	return (0);
-}
-
-int	first_pipe_c(t_data *data, t_cmd *cmd)
-{
-	static int	ret[4];
-
-	
-	if (data->nbr_pipe != 0)
-		ret[3] = close(data->pipe_odd[0]);
-	if (cmd->infile != -1)
-		ret[0] = dup2(cmd->infile, STDIN_FILENO);
-	if (cmd->outfile != -1)
-		ret[1] = dup2(cmd->outfile, STDOUT_FILENO);
-	else if (data->nbr_pipe > 0)
-		ret[2] = dup2(data->pipe_odd[1], STDOUT_FILENO);
-	if ((ret[0] < 0) || (ret[1] < 0) || (ret[2] < 0))
-		exit(ft_error(DUP2));
-	if (ret[3] <0)
-		exit(ft_error(CLOSE));
-	return (0);
-}
-
 void	fd_pipe_child(t_data *data, t_cmd *cmd, int i)
 {
 	if (i == 0)
@@ -134,63 +20,6 @@ void	fd_pipe_child(t_data *data, t_cmd *cmd, int i)
 		last_pipe_c(data, cmd, i);
 	else
 		random_pipe_c(data, cmd, i);
-}
-
-void	first_pipe_p(t_data *data, t_cmd *cmd)
-{
-	static int	ret[3];
-
-	if (data->nbr_pipe != 0)
-		ret[0] = close(data->pipe_odd[1]);
-	if (cmd->infile != -1)
-		ret[1] = close(cmd->infile);
-	if (cmd->outfile != -1)
-		ret[2] = close(cmd->outfile);
-	if ((ret[0] < 0) || (ret[1] < 0) || (ret[2] < 0))
-		exit(ft_error(CLOSE));
-}
-
-void	random_pipe_p(t_data *data, t_cmd *cmd, int i)
-{
-	static int	ret[6];
-
-	if (i % 2 == 0)
-	{
-		ret[0] = close(data->pipe_even[0]);
-		ret[1] = close(data->pipe_odd[1]);
-	}
-	else
-	{
-		ret[2] = close(data->pipe_even[1]);
-		ret[3] = close(data->pipe_odd[0]);
-	}
-	if (cmd->infile != -1)
-		ret[4] = close(cmd->infile);
-	if (cmd->outfile != -1)
-		ret[5] = close(cmd->outfile);
-	if ((ret[0] < 0) || (ret[1] < 0) || (ret[2] < 0)
-		|| (ret[3] < 0) || (ret[4] < 0) || (ret[5] < 0))
-		exit(ft_error(CLOSE));
-}
-
-void	last_pipe_p(t_data *data, t_cmd *cmd, int i)
-{
-	static int	ret[4];
-
-	if (i % 2 == 0)
-	{
-		ret[0] = close(data->pipe_even[0]);
-	}
-	else
-	{
-		ret[1] = close(data->pipe_odd[0]);
-	}
-	if (cmd->infile != -1)
-		ret[2] = close(cmd->infile);
-	if (cmd->outfile != -1)
-		ret[3] = close(cmd->outfile);
-	if ((ret[0] < 0) || (ret[1] < 0) || (ret[2] < 0) || (ret[3] < 0))
-		exit(ft_error(CLOSE));
 }
 
 void	fd_pipe_parent(t_data *data, t_cmd *cmd, int i)
@@ -251,20 +80,18 @@ int	loop_exec(t_data *data, t_cmd *cmd, int i, char **path)
 		exit(ft_error(FORK));
 	else if (child == 0)
 	{
-		//signal(SIGINT, SIG_IGN);
-		//signal(SIGQUIT, SIG_IGN);
 		signal(SIGINT, handler_int);
 		signal(SIGQUIT, handler_int);
-		//if (data->nbr_pipe != 0)
 		fd_pipe_child(data, cmd, i);
 		if (is_builtin(cmd->arg[0]) == 1)
 		{
 			value = call_builtin(data, cmd, 0);
 			if (value > -1)
 			{
-				if (i == data->nbr_cmd - 1)
-					return_value(value, 0);
-				exit(return_value(0, 1));
+				//if (i == data->nbr_cmd - 1)
+				//	return_value(value, 0);
+				//exit(return_value(0, 1));
+					exit(return_value(value, 0));
 			}
 		}
 		else
@@ -284,7 +111,6 @@ int	loop_exec(t_data *data, t_cmd *cmd, int i, char **path)
 	}
 	else
 	{
-		
 		fd_pipe_parent(data, cmd, i);
 		if (i < data->nbr_cmd - 1)
 		{
@@ -297,13 +123,12 @@ int	loop_exec(t_data *data, t_cmd *cmd, int i, char **path)
 		{
 			if (WIFSIGNALED(wstatus) == 1)
 				ft_putendl_fd("\n", STDOUT_FILENO);
-			value = WEXITSTATUS(wstatus);//error_code
-			//if (value == 130)
-			//	exit(ft_error(130));
+			value = WEXITSTATUS(wstatus);
 		}
 	}
 	if (i == data->nbr_cmd - 1)
 		return_value(value, 0);
+	printf("i = %i\n",  i);
 	return (return_value(0, 1));
 }
 
@@ -316,7 +141,6 @@ int	exec_data(t_data *data, t_cmd *cmd)
 	i = 0;
 	while (data->env[i])
 	{
-		//printf("%s\n", data->env[i]);
 		if (ft_strncmp(data->env[i], "PATH=", 5) == 0)
 			break ;
 		i++;

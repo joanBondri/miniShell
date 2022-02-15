@@ -12,10 +12,16 @@ SRC = \
 		executable/envp.c \
 		executable/error.c \
 		executable/executing/exec.c \
+		executable/executing/io_builtin.c \
+		executable/executing/child_pipe.c \
+		executable/executing/parent_pipe.c \
+		executable/utils/utils_cd.c \
 		executable/executing/m_cd.c \
 		executable/executing/m_echo.c \
 		executable/executing/m_env.c \
+		executable/utils/utils_exit.c \
 		executable/executing/m_exit.c \
+		executable/utils/utils_export.c \
 		executable/executing/m_export.c \
 		executable/executing/m_pwd.c \
 		executable/executing/m_unset.c \

@@ -1,25 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   utils_cd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: xchalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/15 12:24:39 by xchalle           #+#    #+#             */
-/*   Updated: 2022/02/15 12:25:14 by xchalle          ###   ########.fr       */
+/*   Created: 2022/02/15 12:09:24 by xchalle           #+#    #+#             */
+/*   Updated: 2022/02/15 12:09:58 by xchalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pip.h"
+#include "../../../include/minishell.h"
 
-int	main(int argc, char **argv, char **envp)
+int	free_cd(char *new, char *old, int ret)
 {
-	t_data	*data;
+	free(new);
+	free(old);
+	return (ret);
+}
 
-	(void)argv;
-	(void)argc;
-	data = parse(envp);
-	if (!data)
-		return (1);
+int	go_to_dir(char *new, char *old)
+{
+	if (chdir(new) == -1)
+	{
+		if (errno == ENOENT)
+			print_free(ft_strjoin3("minishell: cd: ", new,
+					": Aucun fichier ou dossier de ce type\n"), STDERR_FILENO);
+		return (free_cd(new, old, 1));
+	}
 	return (0);
 }

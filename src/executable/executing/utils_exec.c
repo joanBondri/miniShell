@@ -14,10 +14,10 @@
 
 void	exec_check(t_data *data, t_cmd *cmd)
 {
-	(void)data;
 	struct stat	stat1;
 	struct stat	stat2;
 
+	(void)data;
 	if (stat(cmd->arg[0], &stat1) != 0)
 	{
 		print_free(ft_strjoin3("minishell: ",
