@@ -10,8 +10,7 @@ void	know_your_token(char *s, t_data *dt)
 	{
 		t = (t_token){0};
 		next_token(s + i, &t, dt);
-		printf("whats poppin, status = %i,
-				substatus = %i, copy = %s, t_len = %i\n", t.status, t.sub_status, t.copy, t.length);
+	//	printf("whats poppin, status = %i, substatus = %i, copy = %s, t_len = %i\n", t.status, t.sub_status, t.copy, t.length);
 		if (t.copy)
 			free(t.copy);
 		if (t.length == 0)

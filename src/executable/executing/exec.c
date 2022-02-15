@@ -61,10 +61,12 @@ int	loop_exec(t_data *data, t_cmd *cmd, int i, char **path)
 	int	value;
 
 	i++;
+	signal(SIGINT, handler_int);
+	signal(SIGQUIT, handler_quit);
 	if (data->nbr_cmd == 1 && is_builtin(cmd->arg[0]) == 1)
 	{
-		signal(SIGINT, handler_int);
-		signal(SIGQUIT, handler_int);
+	//	signal(SIGINT, handler_int);
+	//	signal(SIGQUIT, handler_int);
 		data->save_out = dup(STDOUT_FILENO);
 		data->save_in = dup(STDIN_FILENO);
 		one_pipe_dup(data, cmd);
@@ -80,8 +82,8 @@ int	loop_exec(t_data *data, t_cmd *cmd, int i, char **path)
 		exit(ft_error(FORK));
 	else if (child == 0)
 	{
-		signal(SIGINT, handler_int);
-		signal(SIGQUIT, handler_int);
+	//	signal(SIGINT, handler_int);
+	//	signal(SIGQUIT, handler_quit);
 		fd_pipe_child(data, cmd, i);
 		if (is_builtin(cmd->arg[0]) == 1)
 		{
