@@ -87,7 +87,6 @@ void	interprate_sequence(t_cmd *buff, t_data *dt)
 		assemblage_file_name_red(buff->path + i, &t, dt);
 		if (change_mind("no", false))
 			return ;
-		add_lst_malloc(t.copy);
 		if (t.status != MSWHITESPACE)
 			add_lst_arg(t.copy, false);
 		i += t.length;
@@ -163,8 +162,6 @@ void	expand_rest_envvar(t_cmd *buff, t_data *dt)
 		}
 		else
 			i += t.length;
-		if (t.status != MSWHITESPACE)
-			free(t.copy);
 	}
 }
 
@@ -226,7 +223,6 @@ void	temp_function_get_redir(char *str, int i, t_data *dt, t_cmd *focus)
 	else
 		focus->path = ft_strlreplace(str, "", i, t.length + 1);
 	add_lst_malloc((void*)focus->path);
-	free(t.copy);
 }
 
 void	get_redirection(t_cmd *focus, t_data *dt)
@@ -301,8 +297,8 @@ char	*assemblage_concateneur(char *s1)
 		return (res);
 	}
 	res = ft_strjoin_mod23(str, s1);
-	free(str);
 	str = res;
+	add_lst_malloc(str);
 	return (NULL);
 }
 
@@ -320,7 +316,6 @@ void	assemblage_file_name_red(char *s, t_token *tt,  t_data *dt)
 	{
 		t = (t_token){0};
 		next_token(s + i, &t, dt);
-		add_lst_malloc((void*)t.copy);
 		if ((t.status >= MSPIP && t.status <= MSRED_OUT)
 				|| t.status == MSWHITESPACE)
 			break ;
@@ -418,10 +413,8 @@ void	develope_dquote(t_token *t, char *s, t_data *dt)
 			res = ft_strlreplace(t->copy, tok.copy, i - 1, tok.length);
 			if (!res)
 				return((void)printf("malloc wsh\n"));
-			//printf("status = %i and sub = %i, str = %s\n", tok.status, tok.sub_status, tok.copy);
-			//printf("res = %s\n", res);
-			free(t->copy);
-			free(tok.copy);
+			if (t->copy)
+				free(t->copy);
 			t->copy = res;
 		}
 	}
@@ -648,6 +641,7 @@ void	next_token(char *s, t_token *t, t_data *dt)
 		if (t->start)
 			break ;
 	}
+	add_lst_malloc(t->copy);
 }
 
 int		check_redirection_file(char *str, t_data *dt)
@@ -672,8 +666,6 @@ int		check_redirection_file(char *str, t_data *dt)
 	else
 		len = 1;
 	assemblage_file_name_red(str + len, &t, dt);
-	if (t.copy)
-		free(t.copy);
 	t.copy = NULL;
 	return (len);
 }
