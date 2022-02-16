@@ -5,6 +5,7 @@
 # include "libft.h"
 # include "get_next_line.h"
 
+char	**add_lst_arg(char *mem, bool stop_stack);
 void	change_interrog(int res);
 char	*interrog(void);
 void	handler_int(int signal);
@@ -13,7 +14,7 @@ void	do_all_heredoc(t_data *dt);
 char	*ft_strjoin_mod23(char const *str1, char const *str2);
 char	*ft_loop_strchr(const char *str, char *c);
 void	parser_director(char *s, t_data **data);
-void	interprate_sequence(t_cmd *buff);
+void	interprate_sequence(t_cmd *buff, t_data *dt);
 char	*ft_strjoin_three(char *s1, char *s2, char *s3);
 void	expand_rest_envvar(t_cmd *buff, t_data *dt);
 void	no_such_file(char *name);

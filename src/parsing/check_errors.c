@@ -55,15 +55,9 @@ void	parser_director(char *s, t_data **dt)
 		if (change_mind("yes", false))
 			return ;
 		expand_rest_envvar(buff, *dt);
-		interprate_sequence(buff);
-		
-		/*printf("cmd = %p\n", buff);
-		printf("fin = %i | fout = %i\n", buff->infile, buff->outfile);
-		*/
-		int	i = -1;
-		while (buff->arg[++i])
-			printf("buff->path = %s, arg[%i] = %s\n", buff->path, i, buff->arg[i]);
-
+		interprate_sequence(buff, *dt);
+		if (change_mind("yes", false))
+			return ;	
 		buff = buff->next;
 	}
 	get_data(*dt);
@@ -77,27 +71,30 @@ bool	ft_trim(char *s, char c)
 		return (false);
 	ft_strlcpy(s, s + 1, ft_strlen(s + 1) + 1);
 	s[ft_strlen(s) - 1] = (char)0;
-	//printf("%s\n", s);
 	return (true);
 }	
 
-void	interprate_sequence(t_cmd *buff)
+void	interprate_sequence(t_cmd *buff, t_data *dt)
 {
-	char	**strs;
 	int		i;
+	t_token	t;
 
-	strs = ft_split_func(buff->path, " ", divide_with_quotes);
-	if (!strs)
-		ft_exit("error_malloc\n");
-	i = -1;
-	add_lst_malloc((void*)strs);
-	while (strs[++i])
+	i = 0;
+	add_lst_arg(NULL, false);
+	while (buff->path[i])
 	{
-		add_lst_malloc((void*)strs[i]);
-		if (!ft_trim(strs[i], '\''))
-			ft_trim(strs[i], '\"');
+		t = (t_token){0};
+		assemblage_file_name_red(buff->path + i, &t, dt);
+		if (change_mind("no", false))
+			return ;
+		add_lst_malloc(t.copy);
+		if (t.status != MSWHITESPACE)
+			add_lst_arg(t.copy, false);
+		i += t.length;
+		while (buff->path[i] && ft_strchr(" \t\v\f", buff->path[i]))
+			i++;
 	}
-	buff->arg = strs;
+	buff->arg = add_lst_arg(NULL, true);
 }
 
 char	*ft_strjoin_three(char *s1, char *s2, char *s3)
@@ -113,6 +110,39 @@ char	*ft_strjoin_three(char *s1, char *s2, char *s3)
 	return (buff2);
 }
 
+char	**add_lst_arg(char *mem, bool stop_stack)
+{
+	static t_list	*one = NULL;
+	char			**strs;
+	t_list			*buff;
+	int				i;
+
+	if (!mem && !stop_stack)
+		one = NULL;
+	else if (mem)
+	{
+		buff = ft_lstnew(mem);
+		add_lst_malloc(buff);
+		ft_lstadd_front(&one, buff);
+	}
+	if (!stop_stack)
+		return (NULL);
+	strs = ft_malloc_conditional(sizeof(char*) * (ft_lstsize(one) + 1));
+	if (!strs)
+		return (NULL);
+	buff = one;
+	strs[ft_lstsize(one)] = NULL;
+	i = ft_lstsize(one) - 1;
+	while (buff && i > -1)
+	{
+		strs[i] = (char*)buff->content;
+		buff = buff->next;
+		i--;
+	}
+	one = NULL;
+	return (strs);
+}
+
 void	expand_rest_envvar(t_cmd *buff, t_data *dt)
 {
 	int		i;
@@ -124,17 +154,8 @@ void	expand_rest_envvar(t_cmd *buff, t_data *dt)
 	{
 		t = (t_token){0};
 		next_token(buff->path + i, &t, dt);
-
-
-		if (t.status == MSVARENV || t.status == MSDQUOTE)
+		if (t.status == MSVARENV)
 		{
-			if (t.status == MSDQUOTE
-					&& (t.sub_status != MSVOID || t.sub_status != MSNONE))
-			{
-				buff_s = ft_strjoin_three("\"", t.copy, "\"");
-				free(t.copy);
-				t.copy = buff_s;
-			}
 			buff_s = ft_strlreplace(buff->path, t.copy, i, t.length);
 			add_lst_malloc(buff_s);
 			i+= ft_strlen(t.copy);
@@ -315,9 +336,7 @@ void	assemblage_file_name_red(char *s, t_token *tt,  t_data *dt)
 	tt->copy = assemblage_concateneur(NULL);
 	tt->length = i;
 	if (p)
-	{
 		ambigus_redirect(s);
-	}
 	else if(!(tt->copy))
 		near_token(s, dt);
 }
