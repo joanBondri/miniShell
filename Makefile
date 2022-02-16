@@ -46,7 +46,7 @@ NAME = minishell
 
 CC = clang
 
-CFLAGS = -Wall -Wextra -Werror -I./include/ -I./libft/ -I./src/libft/
+CFLAGS = -Wall -Wextra -Werror -I./include/ -I./libft/ -I./src/libft/ -g3 -fsanitize=address
 
 RM = rm -rf
 
@@ -56,7 +56,7 @@ RM = rm -rf
 $(NAME): $(OBJS)
 	make -C libft
 	mv libft/libft.a ./libft.a
-	$(CC) -o $(NAME) $(OBJS) libft.a -lreadline
+	$(CC) -o $(NAME) $(OBJS) libft.a -lreadline -g3 -fsanitize=address
 
 all: $(NAME)
 

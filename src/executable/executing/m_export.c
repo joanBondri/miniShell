@@ -33,6 +33,7 @@ int	export_modif_tab(t_data *data, char **env_val)
 			return_status = 1;
 		else
 			return_status = 0;
+		free(tmp);
 	}
 	return (return_status);
 }
