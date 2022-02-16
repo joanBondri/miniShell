@@ -90,7 +90,6 @@ char	*next_del(char *s, t_token *tt, t_data *dt)
 			develope_word(&t, s);
 		else
 			next_token(s + i, &t, dt);
-		add_lst_malloc((void *)t.copy);
 		if ((t.status >= MSPIP && t.status <= MSRED_OUT)
 			|| t.status == MSWHITESPACE)
 			break ;
@@ -124,7 +123,6 @@ int	go_heredoc(char *str, t_cmd *buff, t_data *dt)
 		close(buff->infile);
 	buff->infile = pip[0];
 	determine_content_herdoc(del, pip[1], dt);
-	free(del);
 	close(pip[1]);
 	return (tt.length);
 }
