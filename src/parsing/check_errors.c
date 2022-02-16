@@ -58,6 +58,8 @@ void	parser_director(char *s, t_data **dt)
 		interprate_sequence(buff, *dt);
 		if (change_mind("yes", false))
 			return ;	
+		printf("arg[0] = %s\n", buff->arg[0]);
+		printf("nbr_cmd = %i\n", (*dt)->nbr_cmd);
 		buff = buff->next;
 	}
 	get_data(*dt);
@@ -83,6 +85,10 @@ void	interprate_sequence(t_cmd *buff, t_data *dt)
 	add_lst_arg(NULL, false);
 	while (buff->path[i])
 	{
+		while (buff->path[i] && ft_strchr(" \t\v\f", buff->path[i]))
+			i++;
+		if (!buff->path[i])
+			break ;
 		t = (t_token){0};
 		assemblage_file_name_red(buff->path + i, &t, dt);
 		if (change_mind("no", false))
@@ -90,8 +96,6 @@ void	interprate_sequence(t_cmd *buff, t_data *dt)
 		if (t.status != MSWHITESPACE)
 			add_lst_arg(t.copy, false);
 		i += t.length;
-		while (buff->path[i] && ft_strchr(" \t\v\f", buff->path[i]))
-			i++;
 	}
 	buff->arg = add_lst_arg(NULL, true);
 }
@@ -167,8 +171,9 @@ void	expand_rest_envvar(t_cmd *buff, t_data *dt)
 
 void	no_such_file(char *name)
 {
-		printf("minishell: %s:  No such file or directory\n", name);
+		printf("minishell: %s: No such file or directory\n", name);
 		free_all_lst_malloc();
+		return_value(1, 0);
 		change_mind("yes", true);
 }
 
