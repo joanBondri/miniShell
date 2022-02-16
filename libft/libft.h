@@ -6,7 +6,7 @@
 /*   By: xchalle <xchalle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 12:31:04 by xchalle           #+#    #+#             */
-/*   Updated: 2022/02/14 17:06:00 by jbondri          ###   ########.fr       */
+/*   Updated: 2022/02/16 23:08:11 by xchalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ int				ft_putchar_fd_returnvalue(char c, int fd);
 void			ft_putstr_fd(char *s, int fd);
 int				ft_putstr_fd_returnvalue(char *s, int fd, int length);
 void			ft_putendl_fd(char *s, int fd);
+int				ft_putendlre_fd(char *s, int fd, int ret);
 void			ft_putnbr_fd(int n, int fd);
 long long		ft_putnbr_fd_returnvalue(long long n, int fd);
 int			ft_strcmp(const char *s1, const char *s2);

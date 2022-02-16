@@ -25,7 +25,8 @@ void	print_env(t_data *data)
 	i = 0;
 	while (data->env[i])
 	{
-		ft_putendl_fd(data->env[i], STDOUT_FILENO);
+		if (ft_strfind(data->env[i], '=') != -1)
+			ft_putendl_fd(data->env[i], STDOUT_FILENO);
 		i++;
 	}
 }

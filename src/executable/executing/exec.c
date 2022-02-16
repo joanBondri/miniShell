@@ -65,8 +65,6 @@ int	loop_exec(t_data *data, t_cmd *cmd, int i, char **path)
 	signal(SIGQUIT, handler_quit);
 	if (data->nbr_cmd == 1 && is_builtin(cmd->arg[0]) == 1)
 	{
-	//	signal(SIGINT, handler_int);
-	//	signal(SIGQUIT, handler_int);
 		data->save_out = dup(STDOUT_FILENO);
 		data->save_in = dup(STDIN_FILENO);
 		one_pipe_dup(data, cmd);
@@ -76,15 +74,12 @@ int	loop_exec(t_data *data, t_cmd *cmd, int i, char **path)
 		one_pipe_close(data, cmd);
 		return (return_value(0, 1));
 	}
-	// printf("LALALALALALALALALAL\n");
 	piper(data, i);
 	child = fork();
 	if (child == -1)
 		exit(ft_error(FORK));
 	else if (child == 0)
 	{
-	//	signal(SIGINT, handler_int);
-	//	signal(SIGQUIT, handler_quit);
 		fd_pipe_child(data, cmd, i);
 		if (is_builtin(cmd->arg[0]) == 1)
 		{
@@ -99,6 +94,12 @@ int	loop_exec(t_data *data, t_cmd *cmd, int i, char **path)
 		}
 		else
 		{
+			if (path == NULL)
+			{
+				print_free(ft_strjoin3("minishell: ", cmd->arg[0],
+						": No such file or directory\n"), STDERR_FILENO);
+				exit(return_value(127, 0));
+			}
 			if (put_prepath(cmd, path) == 0)
 			{
 				print_free(ft_strjoin3("minishell: ", cmd->arg[0],
@@ -147,11 +148,22 @@ int	exec_data(t_data *data, t_cmd *cmd)
 			break ;
 		i++;
 	}
-	path = ft_split2(data->env[i] + 5, ':');
-	if (!path)
-		exit(ft_error(MALLOC));
+	if (data->env[i] == NULL)
+	{
+		path = NULL;
+		//print_free(ft_strjoin3("minishell: ", cmd->arg[0],
+		//		": No such file or directory\n"), STDERR_FILENO);
+		//return (return_value(127, 0));
+	}
+	else
+	{
+		path = ft_split2(data->env[i] + 5, ':');
+		if (!path)
+			exit(ft_error(MALLOC));
+	}
 	i = -1;
 	value = loop_exec(data, cmd, i, path);
-	free_tab(path);
+	if (path != NULL)
+		free_tab(path);
 	return (return_value(0, 1));
 }

@@ -16,6 +16,7 @@ int	print_export_error(char *str)
 {
 	print_free(ft_strjoin3("minishell: export: « ", str,
 			" » : identifiant non valable\n"), STDERR_FILENO);
+	
 	return (1);
 }
 

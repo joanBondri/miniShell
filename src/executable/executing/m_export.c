@@ -27,14 +27,42 @@ int	export_modif_tab(t_data *data, char **env_val)
 	}
 	else
 	{
-		return_status = add_var_tab(data,
-				ft_strjoin3(env_val[0], "=", env_val[1]));
+		tmp = ft_strjoin3(env_val[0], "=", env_val[1]);
+		return_status = add_var_tab(data, tmp);
 		if (return_status == -1)
 			return_status = 1;
 		else
 			return_status = 0;
 	}
 	return (return_status);
+}
+
+int	export_only_var(t_data *data, char	**env_val)
+{
+	int	return_status;
+
+	return_status = 0;
+	if (is_valid_var(env_val[0]) == 1)
+	{
+		print_export_error(env_val[0]);
+		free_tab(env_val);
+		return (1);
+	}
+	if (find_index_env(data, env_val[0]) >= 0)
+	{
+		free_tab(env_val);
+		return (0);
+	}
+	else
+	{
+		return_status = add_var_tab(data, env_val[0]);
+		free_tab(env_val);
+		if (return_status == -1)
+			return (ft_putendlre_fd(
+					"minishell: export: Can't export variable", STDERR_FILENO, 1));
+		else
+			return (0);
+	}
 }
 
 int	loop_export(t_data *data, t_cmd *cmd, int i)
@@ -45,16 +73,12 @@ int	loop_export(t_data *data, t_cmd *cmd, int i)
 
 	return_status = 0;
 	env_val = ft_split2(cmd->arg[i], '=');
-	if (is_valid_var(env_val[0]) == 1)
-		return (print_export_error(env_val[0]));
 	if (ft_strfind(cmd->arg[i], '=') == -1)
-		return (0);
+		return (export_only_var(data, env_val));
 	if (!env_val[1])
 		tab_cell = ft_strdup("");
 	else
 	{
-		ft_trim(env_val[1], '"');
-		ft_trim(env_val[1], '\'');
 		tab_cell = env_val[1];
 		if (is_correct_export(env_val, tab_cell, cmd->arg[i]) == 0)
 			return_status = export_modif_tab(data, env_val);

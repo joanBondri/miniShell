@@ -39,6 +39,7 @@ ft_printf.c \
 ft_putchar_fd.c \
 ft_putchar_returnvalue.c \
 ft_putendl_fd.c \
+ft_putendlre_fd.c \
 ft_putnbr_fd.c \
 ft_putnbr_returnvalue.c \
 ft_putstr_fd.c \

@@ -56,6 +56,7 @@ int	m_exit(t_data *data, t_cmd *cmd)
 	{
 		if (data->nbr_cmd == 1)
 			ft_putendl_fd("exit", STDOUT_FILENO);
+		free_data_cmd();
 		exit(return_value(0, 1));
 	}
 	return (status);
