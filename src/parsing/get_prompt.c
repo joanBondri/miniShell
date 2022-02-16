@@ -39,7 +39,7 @@ void	come_back_prompt(t_data **data)
 		env = (*data)->env;
 		(**data) = (t_data){0};
 		(*data)->env = env;
-		str = readline("minishell> ");
+		str = readline("minishell$ ");
 		if (!str)
 			break ;
 		add_history(str);

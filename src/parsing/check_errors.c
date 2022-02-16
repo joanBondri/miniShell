@@ -58,8 +58,6 @@ void	parser_director(char *s, t_data **dt)
 		interprate_sequence(buff, *dt);
 		if (change_mind("yes", false))
 			return ;	
-		printf("arg[0] = %s\n", buff->arg[0]);
-		printf("nbr_cmd = %i\n", (*dt)->nbr_cmd);
 		buff = buff->next;
 	}
 	get_data(*dt);

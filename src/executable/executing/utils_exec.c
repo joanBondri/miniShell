@@ -79,6 +79,10 @@ int	loop_path(char **path, char **cmd)
 
 int	put_prepath(t_cmd *cmd, char **path)
 {
+	if (cmd->arg[0] == NULL)
+		exit(0);
+	if (ft_strcmp(cmd->arg[0], "") == 0)
+		return (0);
 	if (abs_path(cmd) == 1)
 		return (1);
 	if (loop_path(path, &cmd->arg[0]) == 0)

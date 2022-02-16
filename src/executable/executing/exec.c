@@ -76,6 +76,7 @@ int	loop_exec(t_data *data, t_cmd *cmd, int i, char **path)
 		one_pipe_close(data, cmd);
 		return (return_value(0, 1));
 	}
+	// printf("LALALALALALALALALAL\n");
 	piper(data, i);
 	child = fork();
 	if (child == -1)
