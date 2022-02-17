@@ -6,7 +6,7 @@
 /*   By: xchalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 12:23:21 by xchalle           #+#    #+#             */
-/*   Updated: 2022/02/15 12:23:28 by xchalle          ###   ########.fr       */
+/*   Updated: 2022/02/17 17:49:41 by xchalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,56 @@ int	one_pipe_dup(t_data *data, t_cmd *cmd)
 	if ((ret[0] < 0) || (ret[1] < 0))
 		exit(ft_error(DUP2));
 	return (0);
+}
+
+int	is_builtin(char *str)
+{
+	int		i;
+	char	*builtin_id[7];
+
+	i = 0;
+	builtin_id[CD] = "cd";
+	builtin_id[ECHO] = "echo";
+	builtin_id[ENV] = "env";
+	builtin_id[EXIT] = "exit";
+	builtin_id[EXPORT] = "export";
+	builtin_id[PWD] = "pwd";
+	builtin_id[UNSET] = "unset";
+	while (i < 7)
+	{
+		if (ft_strcmp(str, builtin_id[i]) == 0)
+		{
+			return (1);
+		}
+		i++;
+	}
+	return (-1);
+}
+
+int	call_builtin(t_data *data, t_cmd *cmd, int i)
+{
+	int		(*builtin[7])(t_data *data, t_cmd *cmd);
+	char	*builtin_id[7];
+
+	builtin_id[CD] = "cd";
+	builtin_id[ECHO] = "echo";
+	builtin_id[ENV] = "env";
+	builtin_id[EXIT] = "exit";
+	builtin_id[EXPORT] = "export";
+	builtin_id[PWD] = "pwd";
+	builtin_id[UNSET] = "unset";
+	builtin[CD] = m_cd;
+	builtin[ECHO] = m_echo;
+	builtin[ENV] = m_env;
+	builtin[EXIT] = m_exit;
+	builtin[EXPORT] = m_export;
+	builtin[PWD] = m_pwd;
+	builtin[UNSET] = m_unset;
+	while (i < 7)
+	{
+		if (ft_strcmp(cmd->arg[0], builtin_id[i]) == 0)
+			return ((*builtin[i])(data, cmd));
+		i++;
+	}
+	return (-1);
 }

@@ -19,12 +19,32 @@ int	print_export_error(char *str)
 	return (1);
 }
 
-void	print_tab(t_data *data, int *tab, int lenght)
+int	export_print_line(t_data *data, int j)
 {
 	int	i;
-	int	j;
 
 	i = 0;
+	ft_putstr_fd("export ", STDOUT_FILENO);
+	while (data->env[j][i] && data->env[j][i] != '=')
+	{
+		ft_putchar_fd(data->env[j][i], STDOUT_FILENO);
+		i++;
+	}
+	ft_putstr_fd("=\"", STDOUT_FILENO);
+	i++;
+	while (data->env[j][i])
+	{
+		ft_putchar_fd(data->env[j][i], STDOUT_FILENO);
+		i++;
+	}
+	ft_putstr_fd("\"\n", STDOUT_FILENO);
+	return (0);
+}
+
+void	print_tab(t_data *data, int *tab, int lenght, int i)
+{
+	int	j;
+
 	j = 0;
 	while (i < lenght)
 	{
@@ -34,8 +54,11 @@ void	print_tab(t_data *data, int *tab, int lenght)
 			if (tab[j] == i)
 			{
 				tab[j] = -1;
-				print_free(ft_strjoin3("export ",
-						data->env[j], "\n"), STDOUT_FILENO);
+				if (ft_strfind(data->env[j], '=') != -1)
+					export_print_line(data, j);
+				else
+					print_free(ft_strjoin3("export ",
+							data->env[j], "\n"), STDOUT_FILENO);
 				i = -1;
 				break ;
 			}
@@ -60,7 +83,7 @@ void	iteration_export(int *iter, int lenght, int *tab, t_data *data)
 		}
 		iter[0]++;
 	}
-	print_tab(data, tab, lenght);
+	print_tab(data, tab, lenght, 0);
 }
 
 void	print_export_env(t_data *data)

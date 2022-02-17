@@ -59,8 +59,8 @@ int	export_only_var(t_data *data, char	**env_val)
 		return_status = add_var_tab(data, env_val[0]);
 		free_tab(env_val);
 		if (return_status == -1)
-			return (ft_putendlre_fd(
-					"minishell: export: Can't export variable", STDERR_FILENO, 1));
+			return (ft_putendlre_fd("minishell: export: Can't export variable",
+					STDERR_FILENO, 1));
 		else
 			return (0);
 	}

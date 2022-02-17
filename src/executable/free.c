@@ -44,3 +44,16 @@ void	free_data_cmd(void)
 	close(data->save_out);
 	free(data);
 }
+
+void	free_data_cmd2(t_data *data)
+{
+	t_cmd	*cmd;
+
+	cmd = data->cmd;
+	free_all_lst_malloc();
+	change_mind("yes", true);
+	free_tab(data->env);
+	close(data->save_in);
+	close(data->save_out);
+	free(data);
+}

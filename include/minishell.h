@@ -6,7 +6,7 @@
 /*   By: jbondri <jbondri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 07:18:16 by jbondri           #+#    #+#             */
-/*   Updated: 2022/02/17 07:21:40 by jbondri          ###   ########.fr       */
+/*   Updated: 2022/02/17 18:14:35 by xchalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ typedef struct	s_data
 	t_cmd	*cmd;
 }		t_data;
 
+void	handler_int_child(int signal);
 int		atoi_arg(char *str, int *i, int sign, int val);
 void	last_pipe_p(t_data *data, t_cmd *cmd, int i);
 void	random_pipe_p(t_data *data, t_cmd *cmd, int i);
@@ -104,7 +105,9 @@ char	*find_env(char *var, t_data *data);
 int		add_var_tab(t_data *data, char *str);
 int		change_val_var(t_data *data, char *str, int i);
 int		print_export_error(char *str);
-void	print_tab(t_data *data, int *tab, int lenght);
+void	print_tab(t_data *data, int *tab, int lenght, int i);
+int		loop_exec(t_data *data, t_cmd *cmd, int i, char **path);
+void	free_data_cmd2(t_data *data);
 void	iteration_export(int *iter, int lenght, int *tab, t_data *data);
 void	print_export_env(t_data *data);
 char	**free_tab(char **tab);
