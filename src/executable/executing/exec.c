@@ -95,7 +95,7 @@ int	parent_process(t_data *data, int i, int child)
 	}
 	else if (WIFSIGNALED(wstatus) == 1)
 	{
-		if (WTERMSIG(wstatus))
+		if (WTERMSIG(wstatus) == 2 || WTERMSIG(wstatus) == 3)
 		{
 			ft_putendl_fd("", STDOUT_FILENO);
 			return (return_value(WTERMSIG(wstatus) + 128, 0));
@@ -152,7 +152,11 @@ int	loop_exec(t_data *data, t_cmd *cmd, int i, char **path)
 	signal(SIGQUIT, handler_quit);
 	if (data->nbr_cmd == 1 && is_builtin(cmd->arg[0]) == 1)
 		return (one_builtin(data, cmd));
-	child = pipe_fork(data, i, 0);
+	piper(data, i);
+	child = fork();
+	if (child == -1)
+		exit(ft_error(FORK));
+	//child = pipe_fork(data, i, 0);
 	if (child == 0)
 	{
 		fd_pipe_child(data, cmd, i);
