@@ -6,7 +6,7 @@
 /*   By: xchalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 13:17:38 by xchalle           #+#    #+#             */
-/*   Updated: 2022/02/15 13:22:17 by xchalle          ###   ########.fr       */
+/*   Updated: 2022/02/17 07:25:27 by jbondri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ int	print_export_error(char *str)
 {
 	print_free(ft_strjoin3("minishell: export: « ", str,
 			" » : identifiant non valable\n"), STDERR_FILENO);
-	
 	return (1);
 }
 
