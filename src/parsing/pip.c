@@ -6,7 +6,7 @@
 /*   By: jbondri <jbondri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 04:40:05 by jbondri           #+#    #+#             */
-/*   Updated: 2022/02/17 05:09:46 by jbondri          ###   ########.fr       */
+/*   Updated: 2022/02/17 20:21:00 by jbondri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,19 +17,14 @@ bool	check_pip_double(char *s)
 	int		i;
 
 	i = 0;
-	if (ft_strchr(" \t\v\f\n", s[i]))
-	{
-		while (s[i] && ft_strchr(" \t\v\f\n", s[i]))
-			i++;
-		if (s[i] == '|')
-			return (true);
-	}
+	while (s[i] && ft_strchr(" \t\v\f\n", s[i]))
+		i++;
+	if (s[i] == '|')
+		return (true);
 	while (s[++i])
 	{
 		if (s[i] == '|')
 		{
-			if (i == 0)
-				return (true);
 			i++;
 			while (s[i] && ft_strchr(" \t\v\f\n", s[i]))
 				i++;
