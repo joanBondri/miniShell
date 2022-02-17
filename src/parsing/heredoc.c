@@ -59,7 +59,6 @@ void	next_del2(char *s, int *i, t_data *dt)
 			develope_word(&t, s);
 		else
 			next_token(s + *i, &t, dt);
-		printf("t_copy = %s, %i, %s\n", t.copy, *i, s + *i);
 		if ((t.status >= MSPIP && t.status <= MSRED_OUT)
 			|| t.status == MSWHITESPACE)
 			return ;
@@ -81,7 +80,7 @@ char	*next_del(char *s, t_token *tt, t_data *dt)
 	tt->length = i;
 	if (!(tt->copy))
 	{
-		near_token(s, dt);
+		near_token(s + 2, dt);
 		return (0);
 	}
 	return (tt->copy);

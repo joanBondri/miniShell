@@ -71,7 +71,7 @@ int	check_redirection_file(char *str, t_data *dt)
 	int		len;
 	t_token	t;
 
-	if (ft_strlen(str) < 1)
+	if (ft_strlen(str) < 2)
 	{
 		ft_unexpected_token((char)0, strdup("newline"));
 		return (0);
