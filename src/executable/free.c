@@ -6,7 +6,7 @@
 /*   By: xchalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 13:32:49 by xchalle           #+#    #+#             */
-/*   Updated: 2022/02/13 20:37:13 by jbondri          ###   ########.fr       */
+/*   Updated: 2022/02/17 05:04:30 by jbondri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void	free_data_cmd(void)
 	data = get_data(NULL);
 	cmd = data->cmd;
 	free_all_lst_malloc();
+	change_mind("yes", true);
 	free_tab(data->env);
 	close(data->save_in);
 	close(data->save_out);

@@ -7,7 +7,18 @@ SRC = \
 		main.c \
 		parsing/parse.c \
 		parsing/heredoc.c \
+		parsing/heredoc_util1.c \
+		parsing/heredoc_util2.c \
 		parsing/pip.c \
+		parsing/algo_1.c \
+		parsing/algo_2.c \
+		parsing/algo_3.c \
+		parsing/algo_4.c \
+		parsing/algo_5.c \
+		parsing/algo_6.c \
+		parsing/algo_7.c \
+		parsing/algo_8.c \
+		parsing/pip_utils.c \
 		signal/handler.c \
 		executable/envp.c \
 		executable/error.c \

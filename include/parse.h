@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jbondri <jbondri@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/02/17 06:59:48 by jbondri           #+#    #+#             */
+/*   Updated: 2022/02/17 07:00:33 by jbondri          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef PARSE_H
 # define PARSE_H
 
@@ -23,11 +35,11 @@
 # define MSAMBIGOUSR 84
 # define MSAMBIGOUSLR 85
 # define MSWORD 86
-#include <readline/readline.h>
-#include <readline/history.h>
+# include <readline/readline.h>
+# include <readline/history.h>
 # include <stdbool.h>
 
-typedef struct	s_cell
+typedef struct s_cell
 {
 	int				separator;
 	int				type;
@@ -35,7 +47,7 @@ typedef struct	s_cell
 	struct s_cell	*next;
 }				t_cell;
 
-typedef struct	s_token
+typedef struct s_token
 {
 	char		*start;
 	char		*copy;

@@ -1,21 +1,31 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   pip.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jbondri <jbondri@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/02/17 04:40:05 by jbondri           #+#    #+#             */
+/*   Updated: 2022/02/17 05:09:46 by jbondri          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "pip.h"
 
 bool	check_pip_double(char *s)
 {
 	int		i;
 
-	i = -1;
+	i = 0;
+	if (ft_strchr(" \t\v\f\n", s[i]))
+	{
+		while (s[i] && ft_strchr(" \t\v\f\n", s[i]))
+			i++;
+		if (s[i] == '|')
+			return (true);
+	}
 	while (s[++i])
 	{
-		if (ft_strchr(" \t\v\f\n", s[i]) && i == 0)
-		{
-			while (s[i] && ft_strchr(" \t\v\f\n", s[i]))
-				i++;
-			if (!s[i])
-				ft_exit("empty_line");
-			if (s[i] == '|')
-				return (true);
-		}
 		if (s[i] == '|')
 		{
 			if (i == 0)
@@ -59,42 +69,6 @@ bool	divide_with_quotes(char *str, int index, char *c)
 	return (!q && !dq);
 }
 
-void	generate_cmds_strs(t_cmd **pips, char **strs, t_data *dt)
-{
-	t_cmd	*buff;
-	t_cmd	*prev;
-	t_cmd	**end;
-	int		i;
-
-	i = -1;
-	end = pips;
-	prev = NULL;
-	while (strs[++i])
-	{
-		buff = ft_malloc_conditional(sizeof(t_cmd));
-		if (!buff)
-			ft_exit("malloc foire");
-		*buff = (t_cmd){0};
-		buff->infile = -1;
-		buff->outfile = -1;
-		buff->path = strs[i];
-		*end = buff;
-		buff->prev = prev;
-		prev = buff;
-		end = &(buff->next);
-		buff = NULL;
-	}
-	dt->nbr_pipe = i - 1;
-	free(strs);
-	*end = NULL;
-}
-
-void	ft_exit(char *str)
-{
-	printf("%s\n", str);
-	exit (0);
-}
-
 int	count_double_tab(char **strs)
 {
 	int		i;
@@ -116,10 +90,12 @@ void	divide_pip(char *s, t_data **data)
 	strs = ft_split_func(s, "|", &divide_with_quotes);
 	pips = malloc(sizeof(t_cmd *));
 	if (!strs || !pips)
-		ft_exit("error_malloc\n");
+		return ((void)ft_error(MALLOC));
 	*pips = NULL;
 	(*data)->nbr_cmd = count_double_tab(strs);
 	generate_cmds_strs(pips, strs, *data);
+	if (change_mind("no", false))
+		return ;
 	(*data)->cmd = *pips;
 	free(pips);
 }

@@ -371,8 +371,6 @@ echo bonjour > test; echo salut > je ; cat<test<je
 echo bonjour 1> "$PATHH"
 echo bonjour 1> "$PAT\H"
 echo bonjour 2> "$PAT\H"
-
-#########Environnement#########
 echo "$'PATH'"
 echo $"coucou"
 echo $PATH
@@ -384,11 +382,6 @@ coucou$PWD test$COLORTERMlol lol$HOME
 echo "bonjour$PATH$PWD"
 echo "bonjour\$PATH$PWD"
 echo $PATH"coucou"
-echo $\PATH
-echo $\c
-$\PATH
-echo $cou\cou
-$cou\cou
 echo $coucou"hey"
 $coucou"hey"
 echo bonjour 1>$"COLORTERM"
@@ -402,26 +395,16 @@ echo $COLORTERM$hey
 echo $$$$$$$$
 $$$
 $
-echo "$PAT\H"
-echo $PAT\H
+echo "$PATH"
+echo $PATH
 echo $cnwvwevlvlk a
 echo $A$B
-echo $coucou\"
-echo "|$TEST\""
+echo $coucou
+echo "|$TEST"
 echo "|$TEST|"
-
-#########Pipes et Séparations#########
-echo "bonjou\"r" ; echo coucou
 echo "ceci n'est pas | un pipe"
-echo \"  "< ceci | n\'est pas un pipe"
-echo \"  " lol n\' ; coucou \"  "
-echo \'   "< ceci | n\'est pas un pipe et ceci" ; echo "ceci est bien une séparation >\'"
-echo \' "coucou" ; echo coucou
-echo \" "coucou\"\"\" ; hey" ; "ech"o \" hey
 echo bonjour | asdf
 echo bonjour; ls doesnotexists
-echo \ \ jesuis\; \ charles
-export BONJOUR\;JESUIS=a
 
 #########Erreurs A renvoyer#########
 #syntax error near unexpected token `|'
@@ -451,16 +434,12 @@ echo foo >>>> bar
 echo foo >>>>> bar
 echo bonjour > bar ; cat << < bar 
 cho bonjour > bar ; cat <<<<< bar
-echo ''echo '\'''echo ""echo ''''''''''''''''''''''''''''''''''''''''''''
-echo "\\"""
-echo "AH\""
+echo ''echo '''echo ""echo ''''''''''''''''''''''''''''''''''''''''''''
 echo """" 
 echo co'c'o'u' 
-echo c'o\'u'cou' 
 echo "bon"jour"" 
 echo bonjour 1>cou"cou" 
 echo bonjour 2> cou'cou'
-echo bonjour <\weshh #no such file or directory si weshh existe pas
 echz
 echo foo >>>>> bar
 echo <coucou

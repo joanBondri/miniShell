@@ -129,5 +129,6 @@ int	is_correct_export(char **env_val, char *tab_cell, char *str);
 int	is_valid_var(char *str);
 int	exec_data(t_data *data, t_cmd *cmd);
 void	free_all_lst_malloc(void);
+bool	change_mind(char *change, bool bo);
 
 #endif
