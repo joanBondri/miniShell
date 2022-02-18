@@ -86,19 +86,23 @@ int	parent_process(t_data *data, int i, int child)
 		// loop_exec(data, cmd->next, i, path);
 	signal(SIGINT, SIG_IGN);
 	signal(SIGQUIT, SIG_IGN);
+	// printf("%d\n", child);
 	waitpid(child, &wstatus, 0);
 	if (WIFEXITED(wstatus))
 	{
 		// value = WEXITSTATUS(wstatus);
 		if (i == data->nbr_cmd - 1)
 			return_value(WEXITSTATUS(wstatus), 0);
+		if (WEXITSTATUS(wstatus) == 131 || WEXITSTATUS(wstatus) == 130)
+			exit(return_value(0,1));
 	}
 	else if (WIFSIGNALED(wstatus) == 1)
 	{
 		if (WTERMSIG(wstatus) == 2 || WTERMSIG(wstatus) == 3)
 		{
+			// kill(-(child), SIGINT);
 			ft_putendl_fd("", STDOUT_FILENO);
-			return (return_value(WTERMSIG(wstatus) + 128, 0));
+			return_value(WTERMSIG(wstatus) + 128, 0);
 		}
 	}
 	else
