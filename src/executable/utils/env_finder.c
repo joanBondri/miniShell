@@ -6,7 +6,7 @@
 /*   By: xchalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 13:44:13 by xchalle           #+#    #+#             */
-/*   Updated: 2022/02/10 14:00:02 by xchalle          ###   ########.fr       */
+/*   Updated: 2022/02/17 23:12:35 by jbondri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,10 +72,9 @@ int	find_index_env(t_data *data, char *str)
 		return (-2);
 	while (data->env[i])
 	{
-		if (ft_strncmp(data->env[i], str, ft_strlen(str)) == 0)
-		{
+		if (ft_strncmp(data->env[i], str, ft_strlen(str)) == 0
+				&& data->env[i][ft_strlen(str)] == '=')
 			return (i);
-		}
 		i++;
 	}
 	return (-1);

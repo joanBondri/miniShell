@@ -6,11 +6,21 @@
 /*   By: jbondri <jbondri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 04:28:28 by jbondri           #+#    #+#             */
-/*   Updated: 2022/02/17 04:29:57 by jbondri          ###   ########.fr       */
+/*   Updated: 2022/02/18 01:53:55 by jbondri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pip.h"
+
+bool	break_loop(bool yop)
+{
+	bool		swap;
+	static bool	not_end = true;
+
+	swap = not_end;
+	not_end = yop;
+	return (swap);
+}
 
 void	print_varenv(char *s, int fd, t_data *dt)
 {
@@ -28,25 +38,23 @@ void	print_error_heredoc(int line, char *del)
 void	determine_content_herdoc(char *del, int fd, t_data *dt)
 {
 	char	*s;
-	int		res;
 	int		line;
 
 	line = 0;
-	while (true)
+	break_loop(true);
+	while (break_loop(true))
 	{
 		s = NULL;
 		line++;
-		write(1, "> ", 2);
-		res = get_next_line(0, &s);
+		s = readline("> ");
+		printf("%s\n", s);
 		rl_on_new_line();
 		add_lst_malloc((void *)s);
-		if (res == 0)
+		if (!s)
 			return (print_error_heredoc(line, del));
-		if (res == -1 || (!ft_strncmp(s, del, ft_strlen(s))
+		if ((!ft_strncmp(s, del, ft_strlen(s))
 				&& !ft_strncmp(s, del, ft_strlen(del))))
-			break ;
+			return ;
 		print_varenv(s, fd, dt);
 	}
-	if (res == -1)
-		change_mind("yes", true);
 }

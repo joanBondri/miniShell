@@ -6,7 +6,7 @@
 /*   By: xchalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 11:46:25 by xchalle           #+#    #+#             */
-/*   Updated: 2022/02/15 11:48:00 by xchalle          ###   ########.fr       */
+/*   Updated: 2022/02/18 01:38:32 by jbondri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ void	handler_int(int signal)
 	ft_putendl_fd("", STDOUT_FILENO);
 	rl_replace_line ("", 0);
 	rl_redisplay();
+	change_mind("yes", true);
+	break_loop(false);
 	return_value(130, 0);
 }
 

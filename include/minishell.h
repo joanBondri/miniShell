@@ -6,7 +6,7 @@
 /*   By: jbondri <jbondri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 07:18:16 by jbondri           #+#    #+#             */
-/*   Updated: 2022/02/17 18:14:35 by xchalle          ###   ########.fr       */
+/*   Updated: 2022/02/18 01:41:39 by jbondri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ typedef struct	s_data
 	t_cmd	*cmd;
 }		t_data;
 
+bool	break_loop(bool yop);
 void	handler_int_child(int signal);
 int		atoi_arg(char *str, int *i, int sign, int val);
 void	last_pipe_p(t_data *data, t_cmd *cmd, int i);
