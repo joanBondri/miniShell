@@ -12,7 +12,7 @@
 
 #include "../../../include/minishell.h"
 
-int	export_modif_tab(t_data *data, char **env_val)
+int	export_modif_tab(t_data *data, char **env_val, char *tab_cell)
 {
 	char	*tmp;
 	int		return_status;
@@ -22,12 +22,12 @@ int	export_modif_tab(t_data *data, char **env_val)
 	{
 		tmp = data->env[find_index_env(data, env_val[0])];
 		data->env[find_index_env(data, env_val[0])]
-			= ft_strjoin3(env_val[0], "=", env_val[1]);
+			= ft_strjoin3(env_val[0], "=", tab_cell);
 		free(tmp);
 	}
 	else
 	{
-		tmp = ft_strjoin3(env_val[0], "=", env_val[1]);
+		tmp = ft_strjoin3(env_val[0], "=", tab_cell);
 		return_status = add_var_tab(data, tmp);
 		if (return_status == -1)
 			return_status = 1;
@@ -66,6 +66,55 @@ int	export_only_var(t_data *data, char	**env_val)
 	}
 }
 
+int	is_strjoin(char **env_val, char *tab_cell, char *str)
+{
+	char *tmp;
+	char *tmp2;
+
+	if (env_val[0][ft_strlen(env_val[0]) - 1] == '+')
+	{
+		tmp = env_val[0];
+		env_val[0] = ft_strtrim(env_val[0], "+");
+		if (!env_val[0])
+			exit(ft_error(MALLOC));
+		if (is_correct_export(env_val, tab_cell, str) == 0)
+		{
+			free(tmp);
+			return (0);
+		}
+		tmp2 = env_val[0];
+		env_val[0] = tmp;
+		free(tmp2);
+	}
+	return (1);
+}
+
+int	export_join_tab(t_data *data, char **env_val, char *tab_cell)
+{
+	char	*tmp;
+	int		return_status;
+
+	return_status = 0;
+	if (find_index_env(data, env_val[0]) >= 0)
+	{
+		tmp = data->env[find_index_env(data, env_val[0])];
+		data->env[find_index_env(data, env_val[0])]
+			= ft_strjoin(tmp, tab_cell);
+		free(tmp);
+	}
+	else
+	{
+		tmp = ft_strjoin3(env_val[0], "=", tab_cell);
+		return_status = add_var_tab(data, tmp);
+		if (return_status == -1)
+			return_status = 1;
+		else
+			return_status = 0;
+		free(tmp);
+	}
+	return (return_status);
+}
+
 int	loop_export(t_data *data, t_cmd *cmd, int i)
 {
 	char	**env_val;
@@ -74,18 +123,20 @@ int	loop_export(t_data *data, t_cmd *cmd, int i)
 
 	return_status = 0;
 	env_val = ft_split2(cmd->arg[i], '=');
+	if (!env_val[0])
+		return (print_export_error_free("=", env_val));
 	if (ft_strfind(cmd->arg[i], '=') == -1)
 		return (export_only_var(data, env_val));
 	if (!env_val[1])
 		tab_cell = ft_strdup("");
 	else
-	{
 		tab_cell = env_val[1];
-		if (is_correct_export(env_val, tab_cell, cmd->arg[i]) == 0)
-			return_status = export_modif_tab(data, env_val);
-		else
-			return_status = print_export_error(cmd->arg[i]);
-	}
+	if (is_strjoin(env_val, tab_cell, cmd->arg[i]) == 0)
+		return_status = export_join_tab(data, env_val, tab_cell);
+	else if (is_correct_export(env_val, tab_cell, cmd->arg[i]) == 0)
+		return_status = export_modif_tab(data, env_val, tab_cell);
+	else
+		return_status = print_export_error(cmd->arg[i]);
 	if (!env_val[1])
 		free(tab_cell);
 	free_tab(env_val);

@@ -19,6 +19,14 @@ int	print_export_error(char *str)
 	return (1);
 }
 
+int	print_export_error_free(char *str, char **tab)
+{
+	free_tab(tab);
+	print_free(ft_strjoin3("minishell: export: « ", str,
+			" » : identifiant non valable\n"), STDERR_FILENO);
+	return (1);
+}
+
 int	export_print_line(t_data *data, int j)
 {
 	int	i;

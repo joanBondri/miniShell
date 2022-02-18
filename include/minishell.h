@@ -106,6 +106,7 @@ char	*find_env(char *var, t_data *data);
 int		add_var_tab(t_data *data, char *str);
 int		change_val_var(t_data *data, char *str, int i);
 int		print_export_error(char *str);
+int		print_export_error_free(char *str, char **tab);
 void	print_tab(t_data *data, int *tab, int lenght, int i);
 int		loop_exec(t_data *data, t_cmd *cmd, int i, char **path);
 void	free_data_cmd2(t_data *data);
