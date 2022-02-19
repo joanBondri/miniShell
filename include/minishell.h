@@ -74,8 +74,10 @@ typedef struct	s_data
 	t_cmd	*cmd;
 }		t_data;
 
+void	come_back_prompt(t_data **data);
 bool	break_loop(bool yop);
 void	handler_int_child(int signal);
+void	handler_int_heredoc(int signal);
 int		atoi_arg(char *str, int *i, int sign, int val);
 void	last_pipe_p(t_data *data, t_cmd *cmd, int i);
 void	random_pipe_p(t_data *data, t_cmd *cmd, int i);
@@ -101,6 +103,7 @@ void	exec_check(t_data *data, t_cmd *cmd);
 void	handler_int(int signal);
 void	handler_quit(int signal);
 int		put_val_tab(t_data *data, char *var, char *new);
+int		put_val_tab_existing(t_data *data, char *var, char *new);
 int		is_builtin(char *str);
 char	*find_env(char *var, t_data *data);
 int		add_var_tab(t_data *data, char *str);

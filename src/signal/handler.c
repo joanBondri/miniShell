@@ -15,7 +15,19 @@
 void	handler_int_child(int signal)
 {
 	(void)signal;
-	kill(-1, SIGTERM);
+	//kill(-1, SIGTERM);
+	rl_on_new_line();
+	ft_putendl_fd("", STDOUT_FILENO);
+	rl_replace_line ("", 0);
+	rl_redisplay();
+	// rl_redisplay();
+	exit(return_value(130, 0));
+}
+
+void	handler_int_heredoc(int signal)
+{
+	(void)signal;
+	//kill(-1, SIGTERM);
 	rl_on_new_line();
 	ft_putendl_fd("", STDOUT_FILENO);
 	rl_replace_line ("", 0);

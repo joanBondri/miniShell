@@ -82,7 +82,7 @@ t_data	*parse(char **env)
 		i++;
 	data->env = malloc(sizeof(char *) * (i + 1));
 	manage_shlvl(env, data);
-	if (find_index_env(data, "SHLVL=") == -1)
+	if (find_index_env(data, "SHLVL") == -1)
 		add_var_tab(data, "SHLVL=1");
 	come_back_prompt(&data);
 	return (data);

@@ -103,6 +103,7 @@ int	parent_process(t_data *data, int i, int child)
 			// kill(-(child), SIGINT);
 			ft_putendl_fd("", STDOUT_FILENO);
 			return_value(WTERMSIG(wstatus) + 128, 0);
+			come_back_prompt(&data);
 		}
 	}
 	else
@@ -127,6 +128,12 @@ void	exec_builtin(t_data *data, t_cmd *cmd)
 
 void	exec_other_cmd(t_data *data, t_cmd *cmd, char **path)
 {
+	if (ft_strfind(cmd->arg[0], '/') != -1)
+	{
+		exec_check(data, cmd);
+		if (execve(cmd->arg[0], cmd->arg, data->env) == -1)
+			exit(ft_error(EXECVE));
+	}
 	if (path == NULL)
 	{
 		print_free(ft_strjoin3("minishell: ", cmd->arg[0],
@@ -144,6 +151,43 @@ void	exec_other_cmd(t_data *data, t_cmd *cmd, char **path)
 		exec_check(data, cmd);
 	if (execve(cmd->arg[0], cmd->arg, data->env) == -1)
 		exit(ft_error(EXECVE));
+}
+
+int loop_exec2(t_data *data, t_cmd *cmd, int i, char **path)
+{
+	int	child;
+	// int	wstatus;
+	// int	value;
+	while (i < data->nbr_cmd)
+	{
+		signal(SIGINT, handler_int_child);
+		signal(SIGQUIT, handler_quit);
+		if (data->nbr_cmd == 1 && is_builtin(cmd->arg[0]) == 1)
+			return (one_builtin(data, cmd));
+		piper(data, i);
+		child = fork();
+		if (child == -1)
+			exit(ft_error(FORK));
+		//child = pipe_fork(data, i, 0);
+		if (child == 0)
+		{
+			fd_pipe_child(data, cmd, i);
+			if (is_builtin(cmd->arg[0]) == 1)
+				exec_builtin(data, cmd);
+			else
+				exec_other_cmd(data, cmd, path);
+		}
+		else
+		{
+			fd_pipe_parent(data, cmd, i);
+			// if (i < data->nbr_cmd - 1)
+				// loop_exec(data, cmd->next, i, path);
+			parent_process(data, i, child);
+		}	
+		i++;
+		cmd = cmd->next;
+	}
+	return (return_value(0, 1));
 }
 
 int	loop_exec(t_data *data, t_cmd *cmd, int i, char **path)
@@ -257,7 +301,8 @@ int	exec_data(t_data *data, t_cmd *cmd)
 			exit(ft_error(MALLOC));
 	}
 	i = -1;
-	loop_exec(data, cmd, i, path);
+	// loop_exec(data, cmd, i, path);
+	loop_exec2(data, cmd, 0, path);
 	if (path != NULL)
 		free_tab(path);
 	return (return_value(0, 1));

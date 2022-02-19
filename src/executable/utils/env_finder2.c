@@ -53,8 +53,32 @@ int	add_var_tab(t_data *data, char *str)
 	tmp[++o] = NULL;
 	free_tab(data->env);
 	data->env = tmp;
+	
 	return (1);
 }
+
+int	put_val_tab_existing(t_data *data, char *var, char *new)
+{
+	char	*tmp;
+
+	tmp = ft_strjoin3(var, "=", new);
+	if (!tmp)
+		return (-1);
+	printf("%d\n", find_index_env(data, var));
+	if (find_index_env(data, var) == -1)
+	{
+		free(tmp);
+		return (0);
+	}
+	if (change_val_var(data, tmp, find_index_env(data, var)) == -1)
+	{
+		free(tmp);
+		return (-1);
+	}
+	// free(tmp);
+	return (0);
+}
+
 
 int	put_val_tab(t_data *data, char *var, char *new)
 {
@@ -66,12 +90,19 @@ int	put_val_tab(t_data *data, char *var, char *new)
 	if (find_index_env(data, var) == -1)
 	{
 		if (add_var_tab(data, tmp) == -1)
+		{
+			free(tmp);
 			return (-1);
+		}
 	}
 	else
 	{
 		if (change_val_var(data, tmp, find_index_env(data, var)) == -1)
+		{
+			free(tmp);
 			return (-1);
+		}
 	}
+	free(tmp);
 	return (0);
 }

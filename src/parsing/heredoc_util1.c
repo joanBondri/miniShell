@@ -25,6 +25,8 @@ int	go_heredoc(char *str, t_cmd *buff, t_data *dt)
 	static int	pip[2];
 	char		*del;
 	t_token		tt;
+	int			child;
+	int			wstatus;
 
 	tt = (t_token){0};
 	del = next_del(str, &tt, dt);
@@ -36,7 +38,19 @@ int	go_heredoc(char *str, t_cmd *buff, t_data *dt)
 	if (buff->infile != -1)
 		close(buff->infile);
 	buff->infile = pip[0];
-	determine_content_herdoc(del, pip[1], dt);
+	child = fork();
+	if (child == -1)
+		exit(ft_error(FORK));
+	if (child == 0)
+		determine_content_herdoc(del, pip[1], dt);
+	
+	else
+	{
+		waitpid(child, &wstatus, 0);
+		if (WIFSIGNALED(wstatus) == 1 && (WTERMSIG(wstatus) == 2 || WTERMSIG(wstatus) == 3))
+			return_value(WTERMSIG(wstatus) + 128, 0);
+		come_back_prompt(&dt);
+	}
 	close(pip[1]);
 	return (tt.length);
 }

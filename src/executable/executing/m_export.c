@@ -95,11 +95,18 @@ int	export_join_tab(t_data *data, char **env_val, char *tab_cell)
 	int		return_status;
 
 	return_status = 0;
-	if (find_index_env(data, env_val[0]) >= 0)
+	if (find_index_env(data, env_val[0]) >= 0 && ft_strfind(data->env[find_index_env(data, env_val[0])], '=') != -1)
 	{
 		tmp = data->env[find_index_env(data, env_val[0])];
 		data->env[find_index_env(data, env_val[0])]
 			= ft_strjoin(tmp, tab_cell);
+		free(tmp);
+	}
+	else if (find_index_env(data, env_val[0]) >= 0 && ft_strfind(data->env[find_index_env(data, env_val[0])], '=') == -1)
+	{
+		tmp = data->env[find_index_env(data, env_val[0])];
+		data->env[find_index_env(data, env_val[0])]
+			= ft_strjoin3(env_val[0], "=", tab_cell);
 		free(tmp);
 	}
 	else
