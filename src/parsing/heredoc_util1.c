@@ -38,6 +38,7 @@ int	go_heredoc(char *str, t_cmd *buff, t_data *dt)
 	if (buff->infile != -1)
 		close(buff->infile);
 	buff->infile = pip[0];
+	signal(SIGINT, SIG_IGN);
 	child = fork();
 	if (child == -1)
 		exit(ft_error(FORK));
@@ -49,10 +50,12 @@ int	go_heredoc(char *str, t_cmd *buff, t_data *dt)
 		if (WIFSIGNALED(wstatus) == 1 && (WTERMSIG(wstatus) == 2 || WTERMSIG(wstatus) == 3))
 		{
 			return_value(WTERMSIG(wstatus) + 128, 0);
-			come_back_prompt(&dt);
+			change_mind("yes", true);
+			return (-1);
 		}
 	}
 	close(pip[1]);
+	signal(SIGINT, handler_int);
 	return (tt.length);
 }
 
