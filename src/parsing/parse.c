@@ -84,6 +84,7 @@ t_data	*parse(char **env)
 	manage_shlvl(env, data);
 	if (find_index_env(data, "SHLVL") == -1)
 		add_var_tab(data, "SHLVL=1");
+	get_data(data);
 	come_back_prompt(&data);
 	return (data);
 }

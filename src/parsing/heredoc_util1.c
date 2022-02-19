@@ -43,13 +43,14 @@ int	go_heredoc(char *str, t_cmd *buff, t_data *dt)
 		exit(ft_error(FORK));
 	if (child == 0)
 		determine_content_herdoc(del, pip[1], dt);
-	
 	else
 	{
 		waitpid(child, &wstatus, 0);
 		if (WIFSIGNALED(wstatus) == 1 && (WTERMSIG(wstatus) == 2 || WTERMSIG(wstatus) == 3))
+		{
 			return_value(WTERMSIG(wstatus) + 128, 0);
-		come_back_prompt(&dt);
+			come_back_prompt(&dt);
+		}
 	}
 	close(pip[1]);
 	return (tt.length);

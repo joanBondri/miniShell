@@ -84,8 +84,6 @@ int	parent_process(t_data *data, int i, int child)
 	// fd_pipe_parent(data, cmd, i);
 	// if (i < data->nbr_cmd - 1)
 		// loop_exec(data, cmd->next, i, path);
-	signal(SIGINT, SIG_IGN);
-	signal(SIGQUIT, SIG_IGN);
 	// printf("%d\n", child);
 	waitpid(child, &wstatus, 0);
 	if (WIFEXITED(wstatus))
@@ -158,10 +156,9 @@ int loop_exec2(t_data *data, t_cmd *cmd, int i, char **path)
 	int	child;
 	// int	wstatus;
 	// int	value;
+	printf("====MTN===\n");
 	while (i < data->nbr_cmd)
 	{
-		signal(SIGINT, handler_int_child);
-		signal(SIGQUIT, handler_quit);
 		if (data->nbr_cmd == 1 && is_builtin(cmd->arg[0]) == 1)
 			return (one_builtin(data, cmd));
 		piper(data, i);
@@ -171,6 +168,8 @@ int loop_exec2(t_data *data, t_cmd *cmd, int i, char **path)
 		//child = pipe_fork(data, i, 0);
 		if (child == 0)
 		{
+			signal(SIGINT, handler_int_child);
+			signal(SIGQUIT, handler_quit);
 			fd_pipe_child(data, cmd, i);
 			if (is_builtin(cmd->arg[0]) == 1)
 				exec_builtin(data, cmd);
@@ -179,6 +178,8 @@ int loop_exec2(t_data *data, t_cmd *cmd, int i, char **path)
 		}
 		else
 		{
+			signal(SIGINT, SIG_IGN);
+			signal(SIGQUIT, SIG_IGN);
 			fd_pipe_parent(data, cmd, i);
 			// if (i < data->nbr_cmd - 1)
 				// loop_exec(data, cmd->next, i, path);
