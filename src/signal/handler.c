@@ -37,9 +37,9 @@ void	handler_int_heredoc(int signal)
 
 void	handler_int(int signal)
 {
-	t_data *data;
+	// t_data *data;
 
-	data = get_data(NULL);
+	// data = get_data(NULL);
 	(void)signal;
 	rl_on_new_line();
 	ft_putendl_fd("", STDOUT_FILENO);
@@ -52,7 +52,41 @@ void	handler_int(int signal)
 	// parse(data->env);
 }
 
-void	handler_quit(int signal)
+void	handler_int_parser(int signal)
+{
+	// t_data *data;
+
+	// data = get_data(NULL);
+	(void)signal;
+	// rl_on_new_line();
+	// ft_putendl_fd("", STDOUT_FILENO);
+	// rl_replace_line ("", 0);
+	// rl_redisplay();
+	// change_mind("yes", true);
+	// break_loop(false);
+	return_value(-117, 0);
+	// come_back_prompt(&data);
+	// parse(data->env);
+}
+
+void	handler_quit_parser(int signal)
+{
+	// t_data *data;
+
+	// data = get_data(NULL);
+	(void)signal;
+	rl_on_new_line();
+	ft_putendl_fd("", STDOUT_FILENO);
+	rl_replace_line ("", 0);
+	rl_redisplay();
+	// change_mind("yes", true);
+	// break_loop(false);
+	return_value(-118, 0);
+	// come_back_prompt(&data);
+	// parse(data->env);
+}
+
+void	handler_quit_child(int signal)
 {
 	(void)signal;
 	rl_on_new_line();

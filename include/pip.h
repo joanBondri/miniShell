@@ -54,7 +54,7 @@ void	divide_pip(char *s, t_data **data);
 void	ft_exit(char *str);
 char	*ft_strjoin_mod23(char const *str1, char const *str2);
 void	parser_director_2(t_data **dt);
-void	parser_director(char *s, t_data **dt);
+int		parser_director(char *s, t_data **dt);
 bool	ft_trim(char *s, char c);
 void	interprate_sequence(t_cmd *buff, t_data *dt);
 char	*ft_strjoin_three(char *s1, char *s2, char *s3);

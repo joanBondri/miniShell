@@ -58,30 +58,36 @@ void	parser_director_2(t_data **dt)
 	}
 }
 
-void	parser_director(char *s, t_data **dt)
+int	parser_director(char *s, t_data **dt)
 {
+	signal(SIGINT, handler_int_parser);
+	signal(SIGQUIT, handler_quit_parser);
 	check_quotes(s);
 	if (change_mind("yes", false))
-		return ;
+		return (0);
 	divide_pip(s, dt);
 	do_all_heredoc(*dt);
 	if (change_mind("yes", false))
-		return ;
+		return (0);
 	check_pips(s);
 	if (change_mind("yes", false))
-		return ;
+		return (0);
 	check_par(s);
 	if (change_mind("yes", false))
-		return ;
+		return (0);
+	if(return_value(0, 1) == -117 || return_value(0, 1) == -118)
+		return (return_value(return_value(0, 1) + 247 , 0));
 	check_redirection(s, *dt);
 	if (change_mind("yes", false))
-		return ;
+		return (0);
 	parser_director_2(dt);
 	if (change_mind("yes", false))
-		return ;
+		return (0);
 	get_data(*dt);
+	if(return_value(0, 1) == -117 || return_value(0, 1) == -118)
+		return (return_value(return_value(0, 1) + 247 , 0));
 	exec_data(*dt, (*dt)->cmd);
-	return ;
+	return (0);
 }
 
 bool	ft_trim(char *s, char c)

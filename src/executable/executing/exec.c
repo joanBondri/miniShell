@@ -156,7 +156,6 @@ int loop_exec2(t_data *data, t_cmd *cmd, int i, char **path)
 	int	child;
 	// int	wstatus;
 	// int	value;
-	printf("====MTN===\n");
 	while (i < data->nbr_cmd)
 	{
 		if (data->nbr_cmd == 1 && is_builtin(cmd->arg[0]) == 1)
@@ -169,7 +168,7 @@ int loop_exec2(t_data *data, t_cmd *cmd, int i, char **path)
 		if (child == 0)
 		{
 			signal(SIGINT, handler_int_child);
-			signal(SIGQUIT, handler_quit);
+			signal(SIGQUIT, handler_quit_child);
 			fd_pipe_child(data, cmd, i);
 			if (is_builtin(cmd->arg[0]) == 1)
 				exec_builtin(data, cmd);
@@ -198,7 +197,7 @@ int	loop_exec(t_data *data, t_cmd *cmd, int i, char **path)
 	// int	value;
 	i++;
 	signal(SIGINT, handler_int_child);
-	signal(SIGQUIT, handler_quit);
+	signal(SIGQUIT, handler_quit_child);
 	if (data->nbr_cmd == 1 && is_builtin(cmd->arg[0]) == 1)
 		return (one_builtin(data, cmd));
 	piper(data, i);
