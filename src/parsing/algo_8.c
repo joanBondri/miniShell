@@ -6,7 +6,7 @@
 /*   By: jbondri <jbondri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 07:04:33 by jbondri           #+#    #+#             */
-/*   Updated: 2022/02/21 13:18:42 by jbondri          ###   ########.fr       */
+/*   Updated: 2022/02/21 14:07:36 by jbondri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,11 +67,8 @@ int	parser_director(char *s, t_data **dt)
 		return (0);
 	divide_pip(s, dt);
 	do_all_heredoc(*dt);
-	printf("salut = %i\n", change_mind("no", false));
 	if (change_mind("yes", false))
-	{
 		return (0);
-	}
 	check_pips(s);
 	if (change_mind("yes", false))
 		return (0);
