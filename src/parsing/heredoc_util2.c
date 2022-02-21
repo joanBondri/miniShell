@@ -6,7 +6,7 @@
 /*   By: jbondri <jbondri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 04:28:28 by jbondri           #+#    #+#             */
-/*   Updated: 2022/02/18 01:53:55 by jbondri          ###   ########.fr       */
+/*   Updated: 2022/02/21 15:43:52 by jbondri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ void	print_varenv(char *s, int fd, t_data *dt)
 	s = switch_varenv(s, dt);
 	write(fd, s, ft_strlen(s));
 	write(fd, "\n", 1);
-	// close(fd);
 }
 
 int	print_error_heredoc(int line, char *del)

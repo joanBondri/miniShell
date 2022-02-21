@@ -6,7 +6,7 @@
 /*   By: jbondri <jbondri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 06:53:08 by jbondri           #+#    #+#             */
-/*   Updated: 2022/02/17 06:58:13 by jbondri          ###   ########.fr       */
+/*   Updated: 2022/02/21 15:49:46 by jbondri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,12 @@ void	generate_cmds_strs(t_cmd **pips, char **strs, t_data *dt);
 void	divide_pip(char *s, t_data **data);
 void	ft_exit(char *str);
 char	*ft_strjoin_mod23(char const *str1, char const *str2);
-void	parser_director_2(t_data **dt);
+void	parser_director_2(char *s, t_data **dt);
 int		parser_director(char *s, t_data **dt);
 bool	ft_trim(char *s, char c);
+int		manage_parent(int pip[2]);
+int		error_pip(void);
+int		manage_pid(int pip[2], t_cmd *buff);
 void	interprate_sequence(t_cmd *buff, t_data *dt);
 char	*ft_strjoin_three(char *s1, char *s2, char *s3);
 char	**stop_stack_arg(t_list *one);

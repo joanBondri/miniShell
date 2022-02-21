@@ -6,7 +6,7 @@
 /*   By: xchalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 12:23:40 by xchalle           #+#    #+#             */
-/*   Updated: 2022/02/15 12:23:51 by xchalle          ###   ########.fr       */
+/*   Updated: 2022/02/21 15:52:00 by jbondri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,25 +18,13 @@ int	pipe_even_c(t_data *data, t_cmd *cmd)
 
 	ret[4] = close(data->pipe_odd[0]);
 	if (cmd->infile != -1)
-	{
 		ret[0] = dup2(cmd->infile, STDIN_FILENO);
-		// close(cmd->infile);
-	}
 	else
-	{
 		ret[1] = dup2(data->pipe_even[0], STDIN_FILENO);
-		// close(data->pipe_even[0]);
-	}
 	if (cmd->outfile != -1)
-	{
 		ret[2] = dup2(cmd->outfile, STDOUT_FILENO);
-		// close(cmd->outfile);
-	}
 	else
-	{
 		ret[3] = dup2(data->pipe_odd[1], STDOUT_FILENO);
-		// close(data->pipe_odd[1]);
-	}
 	if ((ret[0] < 0) || (ret[1] < 0) || (ret[2] < 0) || (ret[3] < 0))
 		exit(ft_error(DUP2));
 	if (ret[4] < 0)
@@ -50,25 +38,13 @@ int	pipe_odd_c(t_data *data, t_cmd *cmd)
 
 	ret[4] = close(data->pipe_even[0]);
 	if (cmd->infile != -1)
-	{
 		ret[0] = dup2(cmd->infile, STDIN_FILENO);
-		// close(cmd->infile);
-	}
 	else
-	{
 		ret[1] = dup2(data->pipe_odd[0], STDIN_FILENO);
-		// close(data->pipe_odd[0]);
-	}
 	if (cmd->outfile != -1)
-	{
 		ret[2] = dup2(cmd->outfile, STDOUT_FILENO);
-		// close(cmd->outfile);
-	}
 	else
-	{
 		ret[3] = dup2(data->pipe_even[1], STDOUT_FILENO);
-		// close(data->pipe_even[1]);
-	}
 	if ((ret[0] < 0) || (ret[1] < 0) || (ret[2] < 0) || (ret[3] < 0))
 		exit(ft_error(DUP2));
 	if (ret[4] < 0)
@@ -79,17 +55,9 @@ int	pipe_odd_c(t_data *data, t_cmd *cmd)
 int	random_pipe_c(t_data *data, t_cmd *cmd, int i)
 {
 	if ((i % 2) == 0)
-	{
 		pipe_even_c(data, cmd);
-		// close(data->pipe_even[0]);
-		// close(data->pipe_odd[1]);
-	}
 	if ((i % 2) == 1)
-	{
 		pipe_odd_c(data, cmd);
-		// close(data->pipe_even[1]);
-		// close(data->pipe_odd[0]);
-	}
 	return (0);
 }
 
@@ -98,25 +66,13 @@ int	last_pipe_c(t_data *data, t_cmd *cmd, int i)
 	static int	ret[8];
 
 	if (i % 2 == 0)
-	{
 		ret[1] = dup2(data->pipe_even[0], STDIN_FILENO);
-		// close(data->pipe_even[0]);
-	}
 	if (i % 2 == 1)
-	{
 		ret[2] = dup2(data->pipe_odd[0], STDIN_FILENO);
-		// close(data->pipe_odd[0]);
-	}
 	if (cmd->infile != -1)
-	{
 		ret[0] = dup2(cmd->infile, STDIN_FILENO);
-		// close(cmd->infile);
-	}
 	if (cmd->outfile != -1)
-	{
 		ret[3] = dup2(cmd->outfile, STDOUT_FILENO);
-		// close(cmd->outfile);
-	}
 	if ((ret[0] < 0) || (ret[1] < 0) || (ret[2] < 0) || (ret[3] < 0))
 		exit(ft_error(DUP2));
 	return (0);
@@ -127,24 +83,13 @@ int	first_pipe_c(t_data *data, t_cmd *cmd)
 	static int	ret[4];
 
 	if (data->nbr_pipe != 0)
-	{
 		ret[3] = close(data->pipe_odd[0]);
-	}
 	if (cmd->infile != -1)
-	{
 		ret[0] = dup2(cmd->infile, STDIN_FILENO);
-		// close(cmd->infile);
-	}
 	if (cmd->outfile != -1)
-	{
 		ret[1] = dup2(cmd->outfile, STDOUT_FILENO);
-		// close(cmd->outfile);
-	}
 	else if (data->nbr_pipe > 0)
-	{
 		ret[2] = dup2(data->pipe_odd[1], STDOUT_FILENO);
-		// close(data->pipe_odd[1]);
-	}
 	if ((ret[0] < 0) || (ret[1] < 0) || (ret[2] < 0))
 		exit(ft_error(DUP2));
 	if (ret[3] < 0)

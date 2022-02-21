@@ -6,7 +6,7 @@
 /*   By: jbondri <jbondri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 04:27:18 by jbondri           #+#    #+#             */
-/*   Updated: 2022/02/17 04:29:49 by jbondri          ###   ########.fr       */
+/*   Updated: 2022/02/21 15:44:58 by jbondri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,19 +26,14 @@ int	go_heredoc(char *str, t_cmd *buff, t_data *dt)
 	char		*del;
 	t_token		tt;
 	int			child;
-	int			wstatus;
 
 	tt = (t_token){0};
 	del = next_del(str, &tt, dt);
 	if (!del)
 		return (0);
 	signal(SIGQUIT, SIG_IGN);
-	pipe(pip);
-	if (pip[0] == -1 || pip[1] == -1)
-		return (error_pip());
-	if (buff->infile != -1)
-		close(buff->infile);
-	buff->infile = pip[0];
+	if (manage_pid(pip, buff) != 80)
+		return (0);
 	child = fork();
 	if (child == -1)
 		exit(ft_error(FORK));
@@ -46,20 +41,8 @@ int	go_heredoc(char *str, t_cmd *buff, t_data *dt)
 		determine_content_herdoc(del, pip, dt);
 	else
 	{
-		signal(SIGINT, SIG_IGN);
-		waitpid(child, &wstatus, 0);
-		// printf("done = %d, sig == %d , term = %d\n", WIFEXITED(wstatus), WIFSIGNALED(wstatus), WTERMSIG(wstatus));
-		// printf("done = %d\n", return_value(0, 1));
-		if (WIFSIGNALED(wstatus) == 1
-		 	&& (WTERMSIG(wstatus) == 2 || WTERMSIG(wstatus) == 3))
-		// if (return_value(0, 1) == 130)
-		{
-			close(pip[1]);
-			ft_putendl_fd("", STDOUT_FILENO);
-			return_value(WTERMSIG(wstatus) + 128, 0);
-			change_mind("yes", true);
+		if (!manage_parent(pip))
 			return (0);
-		}
 	}
 	close(pip[1]);
 	signal(SIGINT, handler_int);

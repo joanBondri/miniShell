@@ -6,7 +6,7 @@
 /*   By: jbondri <jbondri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 07:04:33 by jbondri           #+#    #+#             */
-/*   Updated: 2022/02/21 14:07:36 by jbondri          ###   ########.fr       */
+/*   Updated: 2022/02/21 15:42:04 by jbondri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,14 @@ char	*ft_strjoin_mod23(char const *str1, char const *str2)
 	return (res);
 }
 
-void	parser_director_2(t_data **dt)
+void	parser_director_2(char *s, t_data **dt)
 {
 	t_cmd			*buff;
 
 	buff = (*dt)->cmd;
+	check_redirection(s, *dt);
+	if (change_mind("no", false))
+		return ;
 	while (buff)
 	{
 		get_redirection(buff, *dt);
@@ -77,10 +80,7 @@ int	parser_director(char *s, t_data **dt)
 		return (0);
 	if (return_value(0, 1) == -117 || return_value(0, 1) == -118)
 		return (return_value(return_value(0, 1) + 247, 0));
-	check_redirection(s, *dt);
-	if (change_mind("yes", false))
-		return (0);
-	parser_director_2(dt);
+	parser_director_2(s, dt);
 	if (change_mind("yes", false))
 		return (0);
 	get_data(*dt);

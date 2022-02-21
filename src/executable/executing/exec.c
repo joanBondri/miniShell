@@ -6,7 +6,7 @@
 /*   By: xchalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 14:39:44 by xchalle           #+#    #+#             */
-/*   Updated: 2022/02/13 17:36:42 by jbondri          ###   ########.fr       */
+/*   Updated: 2022/02/21 15:53:37 by jbondri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,8 @@ void	child_fork(t_data *data, t_cmd *cmd, char **path, int i)
 
 int	loop_exec(t_data *data, t_cmd *cmd, int i, char **path)
 {
-	int	child;
-	t_cmd *tmp;
+	int		child;
+	t_cmd	*tmp;
 
 	tmp = cmd;
 	if (data->nbr_cmd == 1 && is_builtin(cmd->arg[0]) == 1)
@@ -81,12 +81,6 @@ int	loop_exec(t_data *data, t_cmd *cmd, int i, char **path)
 			exit(ft_error(FORK));
 		if (child == 0)
 			child_fork(data, cmd, path, i);
-		// {
-			// signal(SIGINT, handler_int_child);
-			// signal(SIGQUIT, handler_quit_child);
-			// fd_pipe_child(data, cmd, i);
-			// exec_cmd(data, cmd, path);
-		// }
 		fd_pipe_parent(data, cmd, i);
 		i++;
 		cmd = cmd->next;
@@ -95,7 +89,6 @@ int	loop_exec(t_data *data, t_cmd *cmd, int i, char **path)
 	cmd = tmp;
 	while (i < data->nbr_cmd)
 	{
-		// else
 		parent_fork(data, cmd, i, child);
 		i++;
 		cmd = cmd->next;
