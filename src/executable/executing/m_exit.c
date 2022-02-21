@@ -43,12 +43,12 @@ int	m_exit(t_data *data, t_cmd *cmd)
 	if (cmd->arg[1])
 	{
 		status = check_isvalid_num(cmd->arg[1]);
-		if (status == 0)
-			exit(exit_arg_1(cmd->arg[1], data, cmd));
+		if (cmd->arg[2])
+			exit(num_arg_error(data, cmd));
 		else if (status != 0)
 			exit(num_val_error(data, cmd));
-		else if (cmd->arg[2])
-			exit(num_arg_error(data, cmd));
+		else if (status == 0)
+			exit(exit_arg_1(cmd->arg[1], data, cmd)); 
 		else
 			return (0);
 	}
