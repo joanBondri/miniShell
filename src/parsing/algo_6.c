@@ -104,7 +104,7 @@ void	near_token(char *s, t_data *dt)
 		i++;
 	next_token(s + i, &t, dt);
 	if (!(t.copy))
-		return (ft_unexpected_token('\0', ft_strdup("newline")));
+		return (ft_unexpected_token('\0', "newline"));
 	else
 		return (ft_unexpected_token('\0', t.copy));
 }
