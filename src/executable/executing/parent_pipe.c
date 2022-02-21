@@ -74,6 +74,7 @@ int	parent_process(t_data *data, int i, int child)
 	int	wstatus;
 
 	waitpid(child, &wstatus, 0);
+		printf("done = %d, sig == %d , term = %d\n", WIFEXITED(wstatus), WIFSIGNALED(wstatus), WTERMSIG(wstatus));
 	if (WIFEXITED(wstatus))
 	{
 		if (i == data->nbr_cmd - 1)

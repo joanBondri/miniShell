@@ -73,7 +73,7 @@ int	check_redirection_file(char *str, t_data *dt)
 
 	if (ft_strlen(str) < 2)
 	{
-		ft_unexpected_token((char)0, strdup("newline"));
+		ft_unexpected_token((char)0, ft_strdup("newline"));
 		return (0);
 	}
 	if (ft_strchr("<>", str[1]))

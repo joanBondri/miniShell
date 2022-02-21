@@ -27,22 +27,24 @@ void	print_varenv(char *s, int fd, t_data *dt)
 	s = switch_varenv(s, dt);
 	write(fd, s, ft_strlen(s));
 	write(fd, "\n", 1);
+	// close(fd);
 }
 
-void	print_error_heredoc(int line, char *del)
+int	print_error_heredoc(int line, char *del)
 {
 	printf("minishell: warning: heredocument at line ");
 	printf("%d delimited by end-of-file (wanted `%s')\n", line, del);
+	return (0);
 }
 
-void	determine_content_herdoc(char *del, int fd, t_data *dt)
+void	determine_content_herdoc(char *del, int *fd, t_data *dt)
 {
 	char	*s;
 	int		line;
 
+	signal(SIGINT, SIG_DFL);
 	line = 0;
 	break_loop(true);
-	signal(SIGINT, handler_int_heredoc);
 	while (break_loop(true))
 	{
 		s = NULL;
@@ -51,10 +53,10 @@ void	determine_content_herdoc(char *del, int fd, t_data *dt)
 		rl_on_new_line();
 		add_lst_malloc((void *)s);
 		if (!s)
-			return (print_error_heredoc(line, del));
+			exit(print_error_heredoc(line, del));
 		if ((!ft_strncmp(s, del, ft_strlen(s))
 				&& !ft_strncmp(s, del, ft_strlen(del))))
-			return ;
-		print_varenv(s, fd, dt);
+			exit(0);
+		print_varenv(s, fd[1], dt);
 	}
 }

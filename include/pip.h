@@ -18,7 +18,7 @@
 # include "get_next_line.h"
 
 char	*switch_varenv(char *str, t_data *dt);
-void	determine_content_herdoc(char *del, int fd, t_data *dt);
+void	determine_content_herdoc(char *del, int *fd, t_data *dt);
 char	*next_del(char *s, t_token *tt, t_data *dt);
 void	handler_int(int signal);
 void	do_all_heredoc(t_data *dt);
