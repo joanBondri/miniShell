@@ -6,11 +6,27 @@
 /*   By: xchalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 14:15:46 by xchalle           #+#    #+#             */
-/*   Updated: 2022/02/10 14:15:48 by xchalle          ###   ########.fr       */
+/*   Updated: 2022/02/21 14:03:24 by jbondri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/minishell.h"
+
+int	good_n_option(char *yop)
+{
+	int	i;
+
+	i = 1;
+	if (ft_strlen(yop) < 2)
+		return (0);
+	if (yop[0] != '-')
+		return (0);
+	while (yop[i] && yop[i] == 'n')
+		i++;
+	if (yop[i] || i == 1)
+		return (0);
+	return (1);
+}
 
 int	m_echo(t_data *data, t_cmd *cmd)
 {
@@ -20,13 +36,15 @@ int	m_echo(t_data *data, t_cmd *cmd)
 	(void)data;
 	i = 1;
 	n_option = 0;
-	if (cmd->arg[1])
+	while (cmd->arg[i])
 	{
-		if (cmd->arg[1][0] == '-' && cmd->arg[1][1] == 'n')
+		if (good_n_option(cmd->arg[i]))
 		{
 			n_option = 1;
 			i++;
 		}
+		else
+			break ;
 	}
 	while (cmd->arg[i])
 	{
