@@ -36,15 +36,9 @@ int	is_valid_var(char *str)
 int	is_correct_export(char **env_val, char *tab_cell, char *str)
 {
 	if (!env_val || !tab_cell)
-	{
-		printf("18\n");
 		return (1);
-	}
 	if (is_valid_var(env_val[0]) == 1)
-	{
-		printf("20\n");
 		return (1);
-	}
 	if (ft_strfind(str, '=') == -1)
 		return (1);
 	return (0);

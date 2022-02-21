@@ -65,8 +65,7 @@ int	num_arg_error(t_data *data, t_cmd *cmd)
 	if (data->nbr_cmd == 1)
 		ft_putendl_fd("exit", STDERR_FILENO);
 	ft_putendl_fd("bash: exit: too many arguments", STDERR_FILENO);
-	free_data_cmd();
-	return (2);
+	return (1);
 }
 
 int	num_val_error(t_data *data, t_cmd *cmd)
