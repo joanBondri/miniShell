@@ -12,69 +12,42 @@
 
 #include "../../../include/minishell.h"
 
-int	print_export_error(char *str)
+int	is_strjoin(char **env_val, char *tab_cell, char *str)
 {
-	print_free(ft_strjoin3("minishell: export: « ", str,
-			" » : identifiant non valable\n"), STDERR_FILENO);
-	return (1);
-}
+	char	*tmp;
+	char	*tmp2;
 
-int	print_export_error_free(char *str, char **tab)
-{
-	free_tab(tab);
-	print_free(ft_strjoin3("minishell: export: « ", str,
-			" » : identifiant non valable\n"), STDERR_FILENO);
-	return (1);
-}
-
-int	export_print_line(t_data *data, int j)
-{
-	int	i;
-
-	i = 0;
-	ft_putstr_fd("export ", STDOUT_FILENO);
-	while (data->env[j][i] && data->env[j][i] != '=')
+	if (env_val[0][ft_strlen(env_val[0]) - 1] == '+')
 	{
-		ft_putchar_fd(data->env[j][i], STDOUT_FILENO);
-		i++;
-	}
-	ft_putstr_fd("=\"", STDOUT_FILENO);
-	i++;
-	while (data->env[j][i])
-	{
-		ft_putchar_fd(data->env[j][i], STDOUT_FILENO);
-		i++;
-	}
-	ft_putstr_fd("\"\n", STDOUT_FILENO);
-	return (0);
-}
-
-void	print_tab(t_data *data, int *tab, int lenght, int i)
-{
-	int	j;
-
-	j = 0;
-	while (i < lenght)
-	{
-		j = 0;
-		while (j < lenght)
+		tmp = env_val[0];
+		env_val[0] = ft_strtrim(env_val[0], "+");
+		if (!env_val[0])
+			exit(ft_error(MALLOC));
+		if (is_correct_export(env_val, tab_cell, str) == 0)
 		{
-			if (tab[j] == i)
-			{
-				tab[j] = -1;
-				if (ft_strfind(data->env[j], '=') != -1)
-					export_print_line(data, j);
-				else
-					print_free(ft_strjoin3("export ",
-							data->env[j], "\n"), STDOUT_FILENO);
-				i = -1;
-				break ;
-			}
-			j++;
+			free(tmp);
+			return (0);
 		}
-		i++;
+		tmp2 = env_val[0];
+		env_val[0] = tmp;
+		free(tmp2);
 	}
-	free(tab);
+	return (1);
+}
+
+int	case_not_existing(t_data *data, char **env_val, char *tab_cell)
+{
+	char	*tmp;
+	int		return_status;
+
+	tmp = ft_strjoin3(env_val[0], "=", tab_cell);
+	return_status = add_var_tab(data, tmp);
+	if (return_status == -1)
+		return_status = 1;
+	else
+		return_status = 0;
+	free(tmp);
+	return (return_status);
 }
 
 void	iteration_export(int *iter, int lenght, int *tab, t_data *data)

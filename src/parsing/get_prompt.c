@@ -33,7 +33,7 @@ void	come_back_prompt(t_data **data)
 {
 	char	*str;
 	char	**env;
-	
+
 	while (true)
 	{
 		signal(SIGINT, handler_int);
@@ -45,7 +45,7 @@ void	come_back_prompt(t_data **data)
 		if (!str)
 			break ;
 		if (!ft_loop_strchr(" \t\v\f", str))
-		add_history(str);
+			add_history(str);
 		if (!ft_loop_strchr(" \t\v\f", str))
 			parser_director(str, data);
 		free_all_lst_malloc();

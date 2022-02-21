@@ -1,10 +1,21 @@
-#include "libft.h"
-#include <stdio.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_strfind.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: xchalle <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/02/21 12:05:21 by xchalle           #+#    #+#             */
+/*   Updated: 2022/02/21 12:05:29 by xchalle          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-int ft_strfind(char *str, char c)
+#include "libft.h"
+
+int	ft_strfind(char *str, char c)
 {
-	int i;
-	int len;
+	int	i;
+	int	len;
 
 	i = 0;
 	len = 0;

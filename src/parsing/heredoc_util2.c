@@ -39,34 +39,22 @@ void	determine_content_herdoc(char *del, int fd, t_data *dt)
 {
 	char	*s;
 	int		line;
-	// int		child;
-	// int		wstatus;
 
 	line = 0;
 	break_loop(true);
-	// child = fork();
-	// if (child == -1)
-		// exit(ft_error(FORK));
-	// if (child == 0)
-	// {
-		signal(SIGINT, handler_int_heredoc);
-		while (break_loop(true))
-		{
-			s = NULL;
-			line++;
-			s = readline("> ");
-			// printf("%s\n", s);
-			rl_on_new_line();
-			add_lst_malloc((void *)s);
-			if (!s)
-				return (print_error_heredoc(line, del));
-			if ((!ft_strncmp(s, del, ft_strlen(s))
-					&& !ft_strncmp(s, del, ft_strlen(del))))
-				return ;
-			print_varenv(s, fd, dt);
-		}
-	// }
-	// waitpid(child, &wstatus, 0);
-	// if (WIFSIGNALED(wstatus) == 1 && (WTERMSIG(wstatus) == 2 || WTERMSIG(wstatus) == 3))
-		// return_value(WTERMSIG(wstatus) + 128, 0);
+	signal(SIGINT, handler_int_heredoc);
+	while (break_loop(true))
+	{
+		s = NULL;
+		line++;
+		s = readline("> ");
+		rl_on_new_line();
+		add_lst_malloc((void *)s);
+		if (!s)
+			return (print_error_heredoc(line, del));
+		if ((!ft_strncmp(s, del, ft_strlen(s))
+				&& !ft_strncmp(s, del, ft_strlen(del))))
+			return ;
+		print_varenv(s, fd, dt);
+	}
 }

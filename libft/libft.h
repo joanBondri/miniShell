@@ -74,7 +74,7 @@ void			ft_putendl_fd(char *s, int fd);
 int				ft_putendlre_fd(char *s, int fd, int ret);
 void			ft_putnbr_fd(int n, int fd);
 long long		ft_putnbr_fd_returnvalue(long long n, int fd);
-int			ft_strcmp(const char *s1, const char *s2);
+int				ft_strcmp(const char *s1, const char *s2);
 t_list			*ft_lstnew(void *content);
 void			ft_lstadd_front(t_list **alst, t_list *new);
 int				ft_lstsize(t_list *lst);
@@ -93,6 +93,6 @@ void			ft_size_nbr_base(long nbr, char *base, int *size);
 int				ft_is_base_valid(char *base);
 int				ft_char_in_base(char c, char *base);
 char			*ft_strcapitalize(char *s);
-int ft_strfind(char *str, char c);
+int				ft_strfind(char *str, char c);
 
 #endif

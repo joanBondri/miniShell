@@ -27,7 +27,7 @@
 # include <fcntl.h>
 # include <stdbool.h>
 
-enum	builtin
+enum	e_builtin
 {
 	CD,
 	ECHO,
@@ -38,39 +38,39 @@ enum	builtin
 	UNSET
 };
 
-enum	error
+enum	e_error
 {
-    MALLOC,
-    OPEN,
-    CLOSE,
-    DUP2,
-    FORK,
-    PIPE,
-    EXECVE,
-    DUP
+	MALLOC,
+	OPEN,
+	CLOSE,
+	DUP2,
+	FORK,
+	PIPE,
+	EXECVE,
+	DUP
 };
 
-typedef struct	s_cmd
+typedef struct s_cmd
 {
-	bool		change_in;
-	char		*path;
-	char		**arg;
-	int		infile;
-	int		outfile;
+	bool			change_in;
+	char			*path;
+	char			**arg;
+	int				infile;
+	int				outfile;
 	struct s_cmd	*next;
 	struct s_cmd	*prev;
 }		t_cmd;
 
-typedef struct	s_data
+typedef struct s_data
 {
-	int	nbr_pipe;
-	int	pipe_even[2];
-	int	pipe_odd[2];
+	int		nbr_pipe;
+	int		pipe_even[2];
+	int		pipe_odd[2];
 	char	**env;
-	int	nbr_cmd;
-	int	return_value;
-	int	save_in;
-	int	save_out;
+	int		nbr_cmd;
+	int		return_value;
+	int		save_in;
+	int		save_out;
 	t_cmd	*cmd;
 }		t_data;
 
@@ -93,19 +93,22 @@ int		one_pipe_dup(t_data *data, t_cmd *cmd);
 int		one_pipe_close(t_data *data, t_cmd *cmd);
 int		free_cd(char *new, char *old, int ret);
 int		go_to_dir(char *new, char *old);
-bool    ft_trim(char *s, char c);
+bool	ft_trim(char *s, char c);
 t_data	*get_data(t_data *dt);
 int		ft_error(int number);
 int		return_value(int status, int i);
 void	print_env(t_data *data);
 void	free_data_cmd(void);
 int		close_fd(t_cmd *cmd);
-void    print_free(char *str, int fd);
+void	exec_cmd(t_data *data, t_cmd *cmd, char **path);
+void	parent_fork(t_data *data, t_cmd *cmd, int i, int child);
+void	print_free(char *str, int fd);
 void	exec_check(t_data *data, t_cmd *cmd);
 void	handler_int(int signal);
 void	handler_quit_child(int signal);
 int		put_val_tab(t_data *data, char *var, char *new);
 int		put_val_tab_existing(t_data *data, char *var, char *new);
+int		one_builtin(t_data *data, t_cmd *cmd);
 int		is_builtin(char *str);
 char	*find_env(char *var, t_data *data);
 int		add_var_tab(t_data *data, char *str);
@@ -116,6 +119,7 @@ void	print_tab(t_data *data, int *tab, int lenght, int i);
 int		loop_exec(t_data *data, t_cmd *cmd, int i, char **path);
 void	free_data_cmd2(t_data *data);
 void	iteration_export(int *iter, int lenght, int *tab, t_data *data);
+int		case_not_existing(t_data *data, char **env_val, char *tab_cell);
 void	print_export_env(t_data *data);
 char	**free_tab(char **tab);
 int		call_builtin(t_data *data, t_cmd *cmd, int i);
@@ -128,6 +132,7 @@ int		remove_var_tab(t_data *data, char *var);
 char	**fill_new_tab(t_data *data, int index, char **temp);
 int		m_pwd(t_data *data, t_cmd *cmd);
 int		m_export(t_data *data, t_cmd *cmd);
+int		is_strjoin(char **env_val, char *tab_cell, char *str);
 int		m_exit(t_data *data, t_cmd *cmd);
 int		num_val_error(t_data *data, t_cmd *cmd);
 int		num_arg_error(t_data *data, t_cmd *cmd);

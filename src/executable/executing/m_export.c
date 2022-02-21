@@ -66,43 +66,22 @@ int	export_only_var(t_data *data, char	**env_val)
 	}
 }
 
-int	is_strjoin(char **env_val, char *tab_cell, char *str)
-{
-	char *tmp;
-	char *tmp2;
-
-	if (env_val[0][ft_strlen(env_val[0]) - 1] == '+')
-	{
-		tmp = env_val[0];
-		env_val[0] = ft_strtrim(env_val[0], "+");
-		if (!env_val[0])
-			exit(ft_error(MALLOC));
-		if (is_correct_export(env_val, tab_cell, str) == 0)
-		{
-			free(tmp);
-			return (0);
-		}
-		tmp2 = env_val[0];
-		env_val[0] = tmp;
-		free(tmp2);
-	}
-	return (1);
-}
-
 int	export_join_tab(t_data *data, char **env_val, char *tab_cell)
 {
 	char	*tmp;
 	int		return_status;
 
 	return_status = 0;
-	if (find_index_env(data, env_val[0]) >= 0 && ft_strfind(data->env[find_index_env(data, env_val[0])], '=') != -1)
+	if (find_index_env(data, env_val[0]) >= 0
+		&& ft_strfind(data->env[find_index_env(data, env_val[0])], '=') != -1)
 	{
 		tmp = data->env[find_index_env(data, env_val[0])];
 		data->env[find_index_env(data, env_val[0])]
 			= ft_strjoin(tmp, tab_cell);
 		free(tmp);
 	}
-	else if (find_index_env(data, env_val[0]) >= 0 && ft_strfind(data->env[find_index_env(data, env_val[0])], '=') == -1)
+	else if (find_index_env(data, env_val[0]) >= 0
+		&& ft_strfind(data->env[find_index_env(data, env_val[0])], '=') == -1)
 	{
 		tmp = data->env[find_index_env(data, env_val[0])];
 		data->env[find_index_env(data, env_val[0])]
@@ -110,15 +89,7 @@ int	export_join_tab(t_data *data, char **env_val, char *tab_cell)
 		free(tmp);
 	}
 	else
-	{
-		tmp = ft_strjoin3(env_val[0], "=", tab_cell);
-		return_status = add_var_tab(data, tmp);
-		if (return_status == -1)
-			return_status = 1;
-		else
-			return_status = 0;
-		free(tmp);
-	}
+		return_status = case_not_existing(data, env_val, tab_cell);
 	return (return_status);
 }
 

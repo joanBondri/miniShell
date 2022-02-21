@@ -6,7 +6,7 @@
 /*   By: xchalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 12:23:21 by xchalle           #+#    #+#             */
-/*   Updated: 2022/02/17 17:49:41 by xchalle          ###   ########.fr       */
+/*   Updated: 2022/02/21 11:21:09 by xchalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,4 +90,18 @@ int	call_builtin(t_data *data, t_cmd *cmd, int i)
 		i++;
 	}
 	return (-1);
+}
+
+int	one_builtin(t_data *data, t_cmd *cmd)
+{
+	data->save_out = dup(STDOUT_FILENO);
+	data->save_in = dup(STDIN_FILENO);
+	one_pipe_dup(data, cmd);
+	return_value(call_builtin(data, cmd, 0), 0);
+	dup2(data->save_out, STDOUT_FILENO);
+	dup2(data->save_in, STDIN_FILENO);
+	close(data->save_in);
+	close(data->save_out);
+	one_pipe_close(data, cmd);
+	return (return_value(0, 1));
 }

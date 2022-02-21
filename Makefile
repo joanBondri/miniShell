@@ -20,10 +20,12 @@ SRC = \
 		parsing/algo_8.c \
 		parsing/pip_utils.c \
 		signal/handler.c \
+		signal/handler_parsing.c \
 		executable/envp.c \
 		executable/error.c \
 		executable/executing/exec.c \
 		executable/executing/io_builtin.c \
+		executable/executing/pipe_manage.c \
 		executable/executing/child_pipe.c \
 		executable/executing/parent_pipe.c \
 		executable/utils/utils_cd.c \
@@ -33,6 +35,7 @@ SRC = \
 		executable/utils/utils_exit.c \
 		executable/executing/m_exit.c \
 		executable/utils/utils_export.c \
+		executable/utils/utils_export2.c \
 		executable/executing/m_export.c \
 		executable/executing/m_pwd.c \
 		executable/executing/m_unset.c \

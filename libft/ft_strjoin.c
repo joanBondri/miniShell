@@ -17,18 +17,16 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	int		i;
 	int		k;
 	char	*str;
-	int		l;
-	int		m;
 
-	i = 0;
-	k = 0;
 	if (!s1 || !s2)
 		return (NULL);
-	l = ft_strlen(s1);
-	m = ft_strlen(s2);
-	str = malloc(sizeof(char) * (l + m) + 1);
+	i = ft_strlen(s1);
+	k = ft_strlen(s2);
+	str = malloc(sizeof(char) * (i + k) + 1);
 	if (!(str))
 		return (0);
+	i = 0;
+	k = 0;
 	while (s1[i])
 		str[k++] = s1[i++];
 	i = 0;

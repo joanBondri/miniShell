@@ -47,7 +47,8 @@ int	go_heredoc(char *str, t_cmd *buff, t_data *dt)
 	else
 	{
 		waitpid(child, &wstatus, 0);
-		if (WIFSIGNALED(wstatus) == 1 && (WTERMSIG(wstatus) == 2 || WTERMSIG(wstatus) == 3))
+		if (WIFSIGNALED(wstatus) == 1
+			&& (WTERMSIG(wstatus) == 2 || WTERMSIG(wstatus) == 3))
 		{
 			return_value(WTERMSIG(wstatus) + 128, 0);
 			change_mind("yes", true);

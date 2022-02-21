@@ -75,8 +75,8 @@ int	parser_director(char *s, t_data **dt)
 	check_par(s);
 	if (change_mind("yes", false))
 		return (0);
-	if(return_value(0, 1) == -117 || return_value(0, 1) == -118)
-		return (return_value(return_value(0, 1) + 247 , 0));
+	if (return_value(0, 1) == -117 || return_value(0, 1) == -118)
+		return (return_value(return_value(0, 1) + 247, 0));
 	check_redirection(s, *dt);
 	if (change_mind("yes", false))
 		return (0);
@@ -84,8 +84,8 @@ int	parser_director(char *s, t_data **dt)
 	if (change_mind("yes", false))
 		return (0);
 	get_data(*dt);
-	if(return_value(0, 1) == -117 || return_value(0, 1) == -118)
-		return (return_value(return_value(0, 1) + 247 , 0));
+	if (return_value(0, 1) == -117 || return_value(0, 1) == -118)
+		return (return_value(return_value(0, 1) + 247, 0));
 	exec_data(*dt, (*dt)->cmd);
 	return (0);
 }
