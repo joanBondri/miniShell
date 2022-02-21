@@ -25,6 +25,7 @@ SRC = \
 		executable/envp.c \
 		executable/error.c \
 		executable/executing/exec.c \
+		executable/executing/cmd_exec.c \
 		executable/executing/io_builtin.c \
 		executable/executing/pipe_manage.c \
 		executable/executing/child_pipe.c \
@@ -61,7 +62,7 @@ NAME = minishell
 
 CC = clang
 
-CFLAGS = -Wall -Wextra -Werror -I./include/ -I./libft/ -I./src/libft/ -fsanitize=address -g3
+CFLAGS = -Wall -Wextra -Werror -I./include/ -I./libft/ -I./src/libft/
 
 RM = rm -rf
 
@@ -71,7 +72,7 @@ RM = rm -rf
 $(NAME): $(OBJS)
 	make -C libft
 	mv libft/libft.a ./libft.a
-	$(CC) -o $(NAME) $(OBJS) libft.a -lreadline -fsanitize=address -g3
+	$(CC) -o $(NAME) $(OBJS) libft.a -lreadline
 
 all: $(NAME)
 
