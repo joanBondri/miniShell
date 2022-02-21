@@ -73,7 +73,8 @@ int	parent_process(t_data *data, int i, int child)
 {
 	int	wstatus;
 
-	waitpid(child, &wstatus, 0);
+	(void)child;
+	wait(&wstatus);
 	if (WIFEXITED(wstatus))
 	{
 		if (i == data->nbr_cmd - 1)
@@ -97,8 +98,8 @@ int	parent_process(t_data *data, int i, int child)
 
 void	parent_fork(t_data *data, t_cmd *cmd, int i, int child)
 {
+	(void)cmd;
 	signal(SIGINT, SIG_IGN);
 	signal(SIGQUIT, SIG_IGN);
-	fd_pipe_parent(data, cmd, i);
 	parent_process(data, i, child);
 }

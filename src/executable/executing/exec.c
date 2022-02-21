@@ -57,27 +57,46 @@ void	exec_cmd(t_data *data, t_cmd *cmd, char **path)
 		exec_other_cmd(data, cmd, path);
 }
 
+void	child_fork(t_data *data, t_cmd *cmd, char **path, int i)
+{
+	signal(SIGINT, handler_int_child);
+	signal(SIGQUIT, handler_quit_child);
+	fd_pipe_child(data, cmd, i);
+	exec_cmd(data, cmd, path);
+}
+
 int	loop_exec(t_data *data, t_cmd *cmd, int i, char **path)
 {
 	int	child;
+	t_cmd *tmp;
 
+	tmp = cmd;
+	if (data->nbr_cmd == 1 && is_builtin(cmd->arg[0]) == 1)
+			return (one_builtin(data, cmd));
 	while (i < data->nbr_cmd)
 	{
-		if (data->nbr_cmd == 1 && is_builtin(cmd->arg[0]) == 1)
-			return (one_builtin(data, cmd));
 		piper(data, i);
 		child = fork();
 		if (child == -1)
 			exit(ft_error(FORK));
 		if (child == 0)
-		{
-			signal(SIGINT, handler_int_child);
-			signal(SIGQUIT, handler_quit_child);
-			fd_pipe_child(data, cmd, i);
-			exec_cmd(data, cmd, path);
-		}
-		else
-			parent_fork(data, cmd, i, child);
+			child_fork(data, cmd, path, i);
+		// {
+			// signal(SIGINT, handler_int_child);
+			// signal(SIGQUIT, handler_quit_child);
+			// fd_pipe_child(data, cmd, i);
+			// exec_cmd(data, cmd, path);
+		// }
+		fd_pipe_parent(data, cmd, i);
+		i++;
+		cmd = cmd->next;
+	}
+	i = 0;
+	cmd = tmp;
+	while (i < data->nbr_cmd)
+	{
+		// else
+		parent_fork(data, cmd, i, child);
 		i++;
 		cmd = cmd->next;
 	}
