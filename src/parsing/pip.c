@@ -6,7 +6,7 @@
 /*   By: jbondri <jbondri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 04:40:05 by jbondri           #+#    #+#             */
-/*   Updated: 2022/02/17 20:21:00 by jbondri          ###   ########.fr       */
+/*   Updated: 2022/02/22 19:03:26 by jbondri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ int	count_double_tab(char **strs)
 	i = 0;
 	while (strs[i])
 	{
+		printf("stoooop %p\n", strs[i]);
 		add_lst_malloc((void *)strs[i]);
 		i++;
 	}

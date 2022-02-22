@@ -6,7 +6,7 @@
 /*   By: jbondri <jbondri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 07:18:16 by jbondri           #+#    #+#             */
-/*   Updated: 2022/02/18 01:41:39 by jbondri          ###   ########.fr       */
+/*   Updated: 2022/02/22 18:41:36 by jbondri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,8 @@ typedef struct s_data
 }		t_data;
 
 int		parent_process(t_data *data, int i, int child);
+void	free_lst(void);
+void	print_all(void);
 void	exec_builtin(t_data *data, t_cmd *cmd);
 void	exec_other_cmd(t_data *data, t_cmd *cmd, char **path);
 void	come_back_prompt(t_data **data);

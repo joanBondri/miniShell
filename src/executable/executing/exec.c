@@ -6,7 +6,7 @@
 /*   By: xchalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 14:39:44 by xchalle           #+#    #+#             */
-/*   Updated: 2022/02/13 17:36:42 by jbondri          ###   ########.fr       */
+/*   Updated: 2022/02/22 18:34:32 by jbondri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ int	loop_exec(t_data *data, t_cmd *cmd, int i, char **path)
 			exit(ft_error(FORK));
 		if (child == 0)
 			child_fork(data, cmd, path, i);
+		free_lst();
 		fd_pipe_parent(data, cmd, i);
 		if (return_value(0, 1) == -117 || return_value(0, 1) == -116)
 			break ;

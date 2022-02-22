@@ -6,7 +6,7 @@
 /*   By: jbondri <jbondri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 07:03:33 by jbondri           #+#    #+#             */
-/*   Updated: 2022/02/22 15:10:54 by jbondri          ###   ########.fr       */
+/*   Updated: 2022/02/22 19:00:58 by jbondri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ void	next_token(char *s, t_token *t, t_data *dt)
 		if (t->start)
 			break ;
 	}
+	printf("stoooop %p\n", t->copy);
 	add_lst_malloc(t->copy);
 }
 

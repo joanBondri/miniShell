@@ -6,7 +6,7 @@
 /*   By: jbondri <jbondri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 07:04:21 by jbondri           #+#    #+#             */
-/*   Updated: 2022/02/17 07:06:03 by jbondri          ###   ########.fr       */
+/*   Updated: 2022/02/22 20:00:08 by jbondri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ void	temp_function_get_redir(char *str, int i, t_data *dt, t_cmd *focus)
 		focus->path = ft_strlreplace(str, "", i, t.length + 2);
 	else
 		focus->path = ft_strlreplace(str, "", i, t.length + 1);
+	printf("stoooop %p\n", buff);
 	add_lst_malloc((void *)focus->path);
 }
 

@@ -6,7 +6,7 @@
 /*   By: jbondri <jbondri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 04:28:28 by jbondri           #+#    #+#             */
-/*   Updated: 2022/02/22 14:39:17 by jbondri          ###   ########.fr       */
+/*   Updated: 2022/02/22 19:02:53 by jbondri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ void	determine_content_herdoc(char *del, int *fd, t_data *dt)
 		line++;
 		s = readline("> ");
 		rl_on_new_line();
+		printf("stoooop %p\n", s);
 		add_lst_malloc((void *)s);
 		if (!s)
 			exit(print_error_heredoc(line, del));

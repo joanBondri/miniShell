@@ -6,7 +6,7 @@
 /*   By: jbondri <jbondri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 00:17:19 by jbondri           #+#    #+#             */
-/*   Updated: 2022/02/22 14:34:06 by jbondri          ###   ########.fr       */
+/*   Updated: 2022/02/22 19:02:20 by jbondri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ char	*switch_varenv(char *str, t_data *dt)
 			if (t.status != MSVARENV && i++)
 				continue ;
 			res = ft_strlreplace(str, t.copy, i, t.length);
+			printf("stoooop %p\n", res);
 			add_lst_malloc((void *)res);
 			if (!res)
 			{

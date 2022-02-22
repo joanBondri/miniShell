@@ -6,7 +6,7 @@
 /*   By: xchalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 12:23:21 by xchalle           #+#    #+#             */
-/*   Updated: 2022/02/21 11:21:09 by xchalle          ###   ########.fr       */
+/*   Updated: 2022/02/22 18:38:03 by jbondri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,5 +103,6 @@ int	one_builtin(t_data *data, t_cmd *cmd)
 	close(data->save_in);
 	close(data->save_out);
 	one_pipe_close(data, cmd);
+	//free_lst();
 	return (return_value(0, 1));
 }

@@ -6,7 +6,7 @@
 /*   By: jbondri <jbondri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 07:04:27 by jbondri           #+#    #+#             */
-/*   Updated: 2022/02/22 14:29:49 by jbondri          ###   ########.fr       */
+/*   Updated: 2022/02/22 18:59:46 by jbondri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ char	**add_lst_arg(char *mem, bool stop_stack)
 	else if (mem)
 	{
 		buff = ft_lstnew(mem);
+		printf("stoooop %p\n", buff);
 		add_lst_malloc(buff);
 		ft_lstadd_front(&one, buff);
 	}
@@ -79,6 +80,7 @@ void	expand_rest_envvar(t_cmd *buff, t_data *dt)
 		if (t.status == MSVARENV)
 		{
 			buff_s = ft_strlreplace(buff->path, t.copy, i, t.length);
+			printf("stoooop %p\n", buff_s);
 			add_lst_malloc(buff_s);
 			i += ft_strlen(t.copy);
 			buff->path = buff_s;

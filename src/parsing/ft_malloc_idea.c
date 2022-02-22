@@ -6,7 +6,7 @@
 /*   By: jbondri <jbondri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 21:35:14 by jbondri           #+#    #+#             */
-/*   Updated: 2022/02/16 21:35:18 by jbondri          ###   ########.fr       */
+/*   Updated: 2022/02/22 19:01:48 by jbondri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,14 @@
 t_list	**add_lst_malloc(void *mem)
 {
 	static t_list	*one = NULL;
+	t_list			*yop;
 
 	if (mem)
-		ft_lstadd_front(&one, ft_lstnew(mem));
+	{
+		yop = ft_lstnew(mem);
+		printf("ADD\tlist(%p) -> %p\n", yop, mem);
+		ft_lstadd_back(&one, yop);
+	}
 	return (&one);
 }
 
@@ -27,8 +32,27 @@ void	*ft_malloc_conditional(size_t len)
 
 	mem = malloc(len);
 	if (mem)
+	{
+		printf("stoooop %p\n", mem);
 		add_lst_malloc(mem);
+	}
 	return (mem);
+}
+
+void	print_all(void)
+{
+	t_list	**all;
+	t_list	*tmp;
+	int		i;
+
+	all = add_lst_malloc(NULL);
+	tmp = *all;
+	i = -1;
+	while (tmp)
+	{
+		printf("%i\tlst = %p\n", ++i, tmp);
+		tmp = tmp->next;
+	}
 }
 
 void	free_all_lst_malloc(void)

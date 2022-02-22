@@ -6,7 +6,7 @@
 /*   By: xchalle <xchalle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 12:31:04 by xchalle           #+#    #+#             */
-/*   Updated: 2022/02/16 23:08:11 by xchalle          ###   ########.fr       */
+/*   Updated: 2022/02/22 18:28:02 by jbondri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ typedef struct s_flag
 	char	*str;
 }				t_flag;
 
+void			*ft_malloc_conditional(size_t len);
 void			*ft_malloc_3434(size_t si);
 char			*ft_strjoin3(char *s1, char *s2, char *s3);
 char			**ft_split2(char const *s, char c);

@@ -6,7 +6,7 @@
 /*   By: jbondri <jbondri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 05:16:45 by jbondri           #+#    #+#             */
-/*   Updated: 2022/02/17 07:12:34 by jbondri          ###   ########.fr       */
+/*   Updated: 2022/02/22 19:03:47 by jbondri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ char	*assemblage_concateneur(char *s1)
 	}
 	res = ft_strjoin_mod23(str, s1);
 	str = res;
+	printf("stoooop %p\n", str);
 	add_lst_malloc(str);
 	return (NULL);
 }

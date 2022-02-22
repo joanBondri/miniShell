@@ -6,7 +6,7 @@
 /*   By: jbondri <jbondri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 04:27:18 by jbondri           #+#    #+#             */
-/*   Updated: 2022/02/22 14:34:50 by jbondri          ###   ########.fr       */
+/*   Updated: 2022/02/22 19:03:02 by jbondri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ void	catch_heredoc(char *str, t_cmd *buff, t_data *dt)
 			if (res == 0)
 				return ;
 			buff->path = ft_strlreplace(str, "", i, res);
+			printf("stoooop %p\n", buff->path);
 			add_lst_malloc((void *)buff->path);
 			str = buff->path;
 			i--;
