@@ -27,6 +27,8 @@ int	m_pwd(t_data *data, t_cmd *cmd)
 		lenght = lenght * 2;
 		print = getcwd(print, lenght);
 	}
+	if (!print)
+		perror("minishell: pwd: ");
 	if ((!print) && (errno != ERANGE))
 		return (0);
 	ft_putendl_fd(print, STDOUT_FILENO);

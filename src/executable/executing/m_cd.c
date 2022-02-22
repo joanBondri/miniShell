@@ -27,6 +27,8 @@ int	apply_cd(t_data *data, char *old, char *new, int lenght)
 		new = getcwd(new, lenght);
 	}
 	if (!new)
+		perror("minishell: cd: ");
+	if (!new)
 		return (free_cd(new, old, 1));
 	if (put_val_tab_existing(data, "PWD", new) == -1)
 		return (free_cd(new, old, 1));

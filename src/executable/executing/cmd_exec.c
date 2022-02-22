@@ -12,6 +12,22 @@
 
 #include "../../../include/minishell.h"
 
+void	no_path(t_data *data, t_cmd *cmd)
+{
+	char	*tmp;
+
+	if (execve(cmd->arg[0], cmd->arg, data->env) == -1)
+	{
+		tmp = ft_strjoin("minishell: ", cmd->arg[0]);
+		perror(tmp);
+		free(tmp);
+		if (errno == 2)
+			exit(return_value(127, 0));
+		if (errno == 13)
+			exit(return_value(126, 0));
+	}
+}
+
 void	exec_builtin(t_data *data, t_cmd *cmd)
 {
 	int	value;
@@ -31,11 +47,7 @@ void	exec_other_cmd(t_data *data, t_cmd *cmd, char **path)
 			exit(ft_error(EXECVE));
 	}
 	if (path == NULL)
-	{
-		print_free(ft_strjoin3("minishell: ", cmd->arg[0],
-				": No such file or directory\n"), STDERR_FILENO);
-		exit(return_value(127, 0));
-	}
+		no_path(data, cmd);
 	if (put_prepath(cmd, path) == 0)
 	{
 		print_free(ft_strjoin3("minishell: ", cmd->arg[0],

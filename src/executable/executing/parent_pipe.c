@@ -95,7 +95,7 @@ int	parent_process(t_data *data, int i, int child)
 	}
 	else
 		return (return_value(0, 1));
-	return (return_status);
+	return (return_value(return_status, 0));
 }
 
 void	parent_fork(t_data *data, t_cmd *cmd, int i, int child)
