@@ -37,7 +37,6 @@ void	free_data_cmd(void)
 
 	data = get_data(NULL);
 	cmd = data->cmd;
-	free_all_lst_malloc();
 	change_mind("yes", true);
 	free_tab(data->env);
 	close(data->save_in);
@@ -50,7 +49,6 @@ void	free_data_cmd2(t_data *data)
 	t_cmd	*cmd;
 
 	cmd = data->cmd;
-	free_all_lst_malloc();
 	change_mind("yes", true);
 	free_tab(data->env);
 	close(data->save_in);

@@ -70,10 +70,20 @@ void	ft_nothing(void *mem)
 	return ;
 }
 
+void	free_lst_conditionnal(void)
+{
+	t_list	**all;
+
+	all = add_lst_malloc(NULL);
+	ft_lstclear(all, &free_or_not);
+	*all = NULL;
+}
+
 void	free_lst(void)
 {
 	t_list	**all;
 
 	all = add_lst_malloc(NULL);
 	ft_lstclear(all, ft_nothing);
+	*all = NULL;
 }

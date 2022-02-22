@@ -6,6 +6,7 @@ SRC = \
 		parsing/get_prompt.c \
 		main.c \
 		parsing/parse.c \
+		parsing/malloc_boost.c \
 		parsing/heredoc.c \
 		parsing/heredoc_util1.c \
 		parsing/heredoc_util2.c \
@@ -62,7 +63,7 @@ NAME = minishell
 
 CC = clang
 
-CFLAGS = -Wall -Wextra -Werror -I./include/ -I./libft/ -I./src/libft/
+CFLAGS = -Wall -Wextra -Werror -I./include/ -I./libft/ -I./src/libft/ -fsanitize=address
 
 RM = rm -rf
 
@@ -72,7 +73,7 @@ RM = rm -rf
 $(NAME): $(OBJS)
 	make -C libft
 	mv libft/libft.a ./libft.a
-	$(CC) -o $(NAME) $(OBJS) libft.a -lreadline
+	$(CC) -o $(NAME) $(OBJS) libft.a -lreadline -fsanitize=address
 
 all: $(NAME)
 

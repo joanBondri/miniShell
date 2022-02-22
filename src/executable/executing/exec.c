@@ -46,7 +46,6 @@ int	loop_exec(t_data *data, t_cmd *cmd, int i, char **path)
 			exit(ft_error(FORK));
 		if (child == 0)
 			child_fork(data, cmd, path, i);
-		free_lst();
 		fd_pipe_parent(data, cmd, i);
 		if (return_value(0, 1) == -117 || return_value(0, 1) == -116)
 			break ;
@@ -63,6 +62,9 @@ int	exec_data(t_data *data, t_cmd *cmd)
 	char	**path;
 
 	i = 0;
+	check_t_free(data, NULL);
+	printf("MONSIEUR\n");
+	free_lst_conditionnal();
 	while (data->env[i])
 	{
 		if (ft_strncmp(data->env[i], "PATH=", 5) == 0)
