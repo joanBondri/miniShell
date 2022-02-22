@@ -82,7 +82,7 @@ int	parent_process(t_data *data, int i, int child)
 		if (i == data->nbr_cmd - 1)
 			return_status = WEXITSTATUS(wstatus);
 		if (WEXITSTATUS(wstatus) == -116 || WEXITSTATUS(wstatus) == -117)
-			exit(return_value(0, 1));
+			exit(return_value(WEXITSTATUS(wstatus) + 247, 0));
 	}
 	else if (WIFSIGNALED(wstatus) == 1)
 	{
@@ -90,7 +90,7 @@ int	parent_process(t_data *data, int i, int child)
 		{
 			rl_on_new_line();
 			rl_replace_line ("", 0);
-			return_value(WTERMSIG(wstatus) + 128, 0);
+			return_status = return_value(WTERMSIG(wstatus) + 128, 0);
 		}
 	}
 	else
