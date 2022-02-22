@@ -62,9 +62,9 @@ int	exec_data(t_data *data, t_cmd *cmd)
 	char	**path;
 
 	i = 0;
-	check_t_free(data, NULL);
-	printf("MONSIEUR\n");
-	free_lst_conditionnal();
+	//check_t_free(data, NULL);
+	//printf("MONSIEUR\n");
+	//free_lst_conditionnal();
 	while (data->env[i])
 	{
 		if (ft_strncmp(data->env[i], "PATH=", 5) == 0)
