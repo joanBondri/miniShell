@@ -48,7 +48,7 @@ int	m_exit(t_data *data, t_cmd *cmd)
 		else if (cmd->arg[2])
 			status = num_arg_error(data, cmd);
 		else if (status == 0)
-			exit(exit_arg_1(cmd->arg[1], data, cmd)); 
+			exit(exit_arg_1(cmd->arg[1], data, cmd));
 		else
 			return (0);
 	}

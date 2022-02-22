@@ -72,31 +72,25 @@ void	last_pipe_p(t_data *data, t_cmd *cmd, int i)
 int	parent_process(t_data *data, int i, int child)
 {
 	int	wstatus;
-	int return_status;
+	int	return_status;
 
 	return_status = 0;
 	(void)child;
 	wait(&wstatus);
 	if (WIFEXITED(wstatus))
 	{
-		// printf("good\n");
 		if (i == data->nbr_cmd - 1)
 			return_status = WEXITSTATUS(wstatus);
-		if (WEXITSTATUS(wstatus) == -118 || WEXITSTATUS(wstatus) == -117)
-		{
-			// printf("LSLSLSLSSLSL\n");
+		if (WEXITSTATUS(wstatus) == -116 || WEXITSTATUS(wstatus) == -117)
 			exit(return_value(0, 1));
-		}
 	}
 	else if (WIFSIGNALED(wstatus) == 1)
 	{
-		// printf("bad\n");
 		if (WTERMSIG(wstatus) == 2 || WTERMSIG(wstatus) == 3)
 		{
 			rl_on_new_line();
 			rl_replace_line ("", 0);
-			// ft_putendl_fd("", STDOUT_FILENO);
-			return_status = WTERMSIG(wstatus) + 128;
+			return_value(WTERMSIG(wstatus) + 128, 0);
 		}
 	}
 	else

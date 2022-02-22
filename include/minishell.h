@@ -74,6 +74,9 @@ typedef struct s_data
 	t_cmd	*cmd;
 }		t_data;
 
+int		parent_process(t_data *data, int i, int child);
+void	exec_builtin(t_data *data, t_cmd *cmd);
+void	exec_other_cmd(t_data *data, t_cmd *cmd, char **path);
 void	come_back_prompt(t_data **data);
 bool	break_loop(bool yop);
 void	handler_int_child(int signal);
