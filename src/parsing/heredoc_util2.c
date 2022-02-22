@@ -6,7 +6,7 @@
 /*   By: jbondri <jbondri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 04:28:28 by jbondri           #+#    #+#             */
-/*   Updated: 2022/02/21 15:43:52 by jbondri          ###   ########.fr       */
+/*   Updated: 2022/02/22 13:43:53 by jbondri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int	print_error_heredoc(int line, char *del)
 {
 	printf("minishell: warning: heredocument at line ");
 	printf("%d delimited by end-of-file (wanted `%s')\n", line, del);
+	return_value(0, 0);
 	return (0);
 }
 
