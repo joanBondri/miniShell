@@ -15,16 +15,17 @@
 void	handler_int_parser(int signal)
 {
 	(void)signal;
+	
 	return_value(-117, 0);
 }
 
 void	handler_quit_parser(int signal)
 {
 	(void)signal;
-	rl_on_new_line();
-	ft_putendl_fd("", STDOUT_FILENO);
-	rl_replace_line ("", 0);
-	rl_redisplay();
+	// rl_on_new_line();
+	// ft_putendl_fd("", STDOUT_FILENO);
+	// rl_replace_line ("", 0);
+	// rl_redisplay();
 	return_value(-118, 0);
 }
 

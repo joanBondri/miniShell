@@ -47,10 +47,11 @@ int	loop_exec(t_data *data, t_cmd *cmd, int i, char **path)
 		if (child == 0)
 			child_fork(data, cmd, path, i);
 		fd_pipe_parent(data, cmd, i);
+		if (return_value(0, 1) == -117 || return_value(0, 1) == -118)
+			break;
 		i++;
 		cmd = cmd->next;
-		if (return_value(0, 1) == -117 || return_value(0, 1) == -118)
-			return (return_value(return_value(0, 1) + 247, 0));
+		
 	}
 	parent_loop(data, tmp, 0, child);
 	return (return_value(0, 1));
@@ -76,8 +77,10 @@ int	exec_data(t_data *data, t_cmd *cmd)
 		if (!path)
 			exit(ft_error(MALLOC));
 	}
-	loop_exec(data, cmd, 0, path);
+	printf("\n==MTN==\n");
+	i = loop_exec(data, cmd, 0, path);
 	if (path != NULL)
 		free_tab(path);
-	return (return_value(0, 1));
+	// printf("\n==DONE==\n");
+	return (return_value(i, 0));
 }

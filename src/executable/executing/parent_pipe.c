@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../include/minishell.h"
+#include "pip.h"
 
 void	first_pipe_p(t_data *data, t_cmd *cmd)
 {
@@ -72,28 +72,36 @@ void	last_pipe_p(t_data *data, t_cmd *cmd, int i)
 int	parent_process(t_data *data, int i, int child)
 {
 	int	wstatus;
+	int return_status;
 
+	return_status = 0;
 	(void)child;
 	wait(&wstatus);
 	if (WIFEXITED(wstatus))
 	{
+		// printf("good\n");
 		if (i == data->nbr_cmd - 1)
-			return_value(WEXITSTATUS(wstatus), 0);
-		if (WEXITSTATUS(wstatus) == 131 || WEXITSTATUS(wstatus) == 130)
+			return_status = WEXITSTATUS(wstatus);
+		if (WEXITSTATUS(wstatus) == -118 || WEXITSTATUS(wstatus) == -117)
+		{
+			// printf("LSLSLSLSSLSL\n");
 			exit(return_value(0, 1));
+		}
 	}
 	else if (WIFSIGNALED(wstatus) == 1)
 	{
+		// printf("bad\n");
 		if (WTERMSIG(wstatus) == 2 || WTERMSIG(wstatus) == 3)
 		{
-			ft_putendl_fd("", STDOUT_FILENO);
-			return_value(WTERMSIG(wstatus) + 128, 0);
-			come_back_prompt(&data);
+			rl_on_new_line();
+			rl_replace_line ("", 0);
+			// ft_putendl_fd("", STDOUT_FILENO);
+			return_status = WTERMSIG(wstatus) + 128;
 		}
 	}
 	else
 		return (return_value(0, 1));
-	return (return_value(0, 1));
+	return (return_status);
 }
 
 void	parent_fork(t_data *data, t_cmd *cmd, int i, int child)
