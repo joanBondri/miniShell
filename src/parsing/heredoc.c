@@ -6,7 +6,7 @@
 /*   By: jbondri <jbondri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 00:17:19 by jbondri           #+#    #+#             */
-/*   Updated: 2022/02/17 04:28:00 by jbondri          ###   ########.fr       */
+/*   Updated: 2022/02/22 14:34:06 by jbondri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_exit_malloc(void)
 {
-	printf("error_malloc");
+	ft_putstr_fd("error_malloc\n", 2);
 	free_all_lst_malloc();
 	exit(1);
 }

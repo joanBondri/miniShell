@@ -6,7 +6,7 @@
 /*   By: jbondri <jbondri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 07:03:33 by jbondri           #+#    #+#             */
-/*   Updated: 2022/02/17 07:08:39 by jbondri          ###   ########.fr       */
+/*   Updated: 2022/02/22 15:10:54 by jbondri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,11 @@ void	check_par(char *s)
 					break ;
 				if (i == j + 2 && ft_isdigit(s[i]))
 					return (ft_bad_substitution(s + j));
-				if (!ft_isalnum(s[i]) && s[i] != '_'
-					&& (i != j + 2 && s[i] != '$'))
+				if (!ft_isalnum(s[i]) && s[i] != '_')
 					return (ft_bad_substitution(s + j));
-			}	
+			}
+			if (s[i] != '}' || (s[i + 1] && !ft_strchr(" \t\v\f", s[i + 1])))
+				return (ft_bad_substitution(s + j));
 		}
 	}
 	return ;

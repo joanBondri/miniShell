@@ -6,7 +6,7 @@
 /*   By: jbondri <jbondri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 07:04:27 by jbondri           #+#    #+#             */
-/*   Updated: 2022/02/17 07:05:38 by jbondri          ###   ########.fr       */
+/*   Updated: 2022/02/22 14:29:49 by jbondri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,9 @@ void	expand_rest_envvar(t_cmd *buff, t_data *dt)
 
 void	no_such_file(char *name)
 {
-	printf("minishell: %s: No such file or directory\n", name);
+	ft_putstr_fd("minishell: ", 2);
+	ft_putstr_fd(name, 2);
+	ft_putstr_fd(": No such file or directory\n", 2);
 	free_all_lst_malloc();
 	return_value(1, 0);
 	change_mind("yes", true);

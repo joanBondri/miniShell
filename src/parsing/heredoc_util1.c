@@ -6,7 +6,7 @@
 /*   By: jbondri <jbondri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 04:27:18 by jbondri           #+#    #+#             */
-/*   Updated: 2022/02/21 15:44:58 by jbondri          ###   ########.fr       */
+/*   Updated: 2022/02/22 14:34:50 by jbondri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	error_pip(void)
 {
-	printf("minishell : error pip\n");
+	ft_putstr_fd("minishell : error pip\n", 2);
 	return_value(1, 0);
 	change_mind("yes", true);
 	return (0);

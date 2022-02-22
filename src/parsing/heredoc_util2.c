@@ -6,7 +6,7 @@
 /*   By: jbondri <jbondri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 04:28:28 by jbondri           #+#    #+#             */
-/*   Updated: 2022/02/22 13:43:53 by jbondri          ###   ########.fr       */
+/*   Updated: 2022/02/22 14:39:17 by jbondri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,12 @@ void	print_varenv(char *s, int fd, t_data *dt)
 
 int	print_error_heredoc(int line, char *del)
 {
-	printf("minishell: warning: heredocument at line ");
-	printf("%d delimited by end-of-file (wanted `%s')\n", line, del);
+	ft_putstr_fd("minishell: warning: heredocument at line ", 2);
+	ft_putnbr_fd(line, 2);
+	ft_putstr_fd(" delimited by end-of-file (wanted `", 2);
+	ft_putstr_fd(del, 2);
+	ft_putstr_fd("')", 2);
+	ft_putstr_fd("\n", 1);
 	return_value(0, 0);
 	return (0);
 }

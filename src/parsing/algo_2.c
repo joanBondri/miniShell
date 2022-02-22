@@ -6,7 +6,7 @@
 /*   By: jbondri <jbondri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 07:03:42 by jbondri           #+#    #+#             */
-/*   Updated: 2022/02/17 07:08:07 by jbondri          ###   ########.fr       */
+/*   Updated: 2022/02/22 14:27:20 by jbondri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,12 @@ void	change_interrog(int res)
 void	ft_unexpected_token(char c, char *s)
 {
 	(void)s;
+	ft_putstr_fd("minishell: syntax error near unexpected token `", 2);
 	if (s)
-		printf("minishell: syntax error near unexpected token `%s'\n", s);
+		ft_putstr_fd(s, 2);
 	else
-		printf("minishell: syntax error near unexpected token `%c'\n", c);
+		ft_putchar_fd(c, 2);
+	ft_putstr_fd("'\n", 2);
 	free_all_lst_malloc();
 	return_value(2, 0);
 	change_mind("yes", true);
@@ -56,7 +58,9 @@ void	ft_unexpected_token(char c, char *s)
 
 void	print_bad_sub(char *res)
 {
-	printf("minishell: %s: bad substitution\n", res);
+	ft_putstr_fd("minishell: ", 2);
+	ft_putstr_fd(res, 2);
+	ft_putstr_fd(": bad substitution\n", 2);
 	free(res);
 	free_all_lst_malloc();
 	return_value(1, 0);

@@ -6,7 +6,7 @@
 /*   By: jbondri <jbondri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 21:05:26 by jbondri           #+#    #+#             */
-/*   Updated: 2022/02/21 14:07:01 by jbondri          ###   ########.fr       */
+/*   Updated: 2022/02/22 14:33:32 by jbondri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	find_var_par(char *prin, char **res)
 		*res = malloc(sizeof(char) * (i - 2));
 	if (!*res)
 	{
-		printf("error_malloc\n");
+		ft_putstr_fd("error_malloc\n", 2);
 		change_mind("yes", true);
 		return (-1);
 	}
@@ -94,7 +94,7 @@ int	find_variable_in_str(char *prin, char **res)
 	*res = malloc(sizeof(char) * (s + 1));
 	if (!*res)
 	{
-		printf("error_malloc\n");
+		ft_putstr_fd("error_malloc\n", 2);
 		return_value(1, 0);
 		change_mind("yes", true);
 		return (-1);

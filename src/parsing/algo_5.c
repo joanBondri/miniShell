@@ -6,7 +6,7 @@
 /*   By: jbondri <jbondri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 07:04:14 by jbondri           #+#    #+#             */
-/*   Updated: 2022/02/17 07:12:25 by jbondri          ###   ########.fr       */
+/*   Updated: 2022/02/22 14:31:12 by jbondri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,9 @@ void	ambigus_redirect(char *s)
 	while (s[i + j] && !ft_strchr(" \t\f\v", s[i + j]))
 		j++;
 	res = ft_strndup(s + i, j);
-	printf("minishell: %s: ambiguous redirect\n", res);
+	ft_putstr_fd("minishell: ", 2);
+	ft_putstr_fd(res, 2);
+	ft_putstr_fd(": ambiguous redirect\n", 2);
 	free(res);
 	free_all_lst_malloc();
 	change_mind("yes", true);
