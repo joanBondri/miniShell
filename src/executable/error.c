@@ -51,6 +51,5 @@ int	ft_error(int number)
 		ft_putendl_fd("minishell: pipe failed", STDERR_FILENO);
 	if (number == EXECVE)
 		ft_putendl_fd("minishell: execve failed", STDERR_FILENO);
-	free_data_cmd();
 	return (130);
 }

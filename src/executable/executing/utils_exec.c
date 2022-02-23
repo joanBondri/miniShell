@@ -23,21 +23,21 @@ void	exec_check(t_data *data, t_cmd *cmd)
 		print_free(ft_strjoin3("minishell: ",
 				cmd->arg[0], ": No such file or directory\n"), STDERR_FILENO);
 		close_fd(cmd);
-		exit(127);
+		ft_exit_child(127, data);
 	}
 	if (stat(cmd->arg[0], &stat2) == 0 && S_ISDIR(stat2.st_mode) == 1)
 	{
 		print_free(ft_strjoin3("minishell: ",
 				cmd->arg[0], ": is a directory\n"), STDERR_FILENO);
 		close_fd(cmd);
-		exit(126);
+		ft_exit_child(126, data);
 	}
 	if (access(cmd->arg[0], X_OK) == -1)
 	{
 		print_free(ft_strjoin3("minishell: ",
 				cmd->arg[0], ": Permission denied\n"), STDERR_FILENO);
 		close_fd(cmd);
-		exit(126);
+		ft_exit_child(126, data);
 	}
 }
 
@@ -80,7 +80,7 @@ int	loop_path(char **path, char **cmd)
 int	put_prepath(t_cmd *cmd, char **path)
 {
 	if (cmd->arg[0] == NULL)
-		exit(0);
+		ft_exit_exec(0, cmd); //attention
 	if (ft_strcmp(cmd->arg[0], "") == 0)
 		return (0);
 	if (abs_path(cmd) == 1)

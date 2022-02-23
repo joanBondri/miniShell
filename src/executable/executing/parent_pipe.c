@@ -23,7 +23,7 @@ void	first_pipe_p(t_data *data, t_cmd *cmd)
 	if (cmd->outfile != -1)
 		ret[2] = close(cmd->outfile);
 	if ((ret[0] < 0) || (ret[1] < 0) || (ret[2] < 0))
-		exit(ft_error(CLOSE));
+		ft_exit_child(ft_error(CLOSE), data);
 }
 
 void	random_pipe_p(t_data *data, t_cmd *cmd, int i)
@@ -46,7 +46,7 @@ void	random_pipe_p(t_data *data, t_cmd *cmd, int i)
 		ret[5] = close(cmd->outfile);
 	if ((ret[0] < 0) || (ret[1] < 0) || (ret[2] < 0)
 		|| (ret[3] < 0) || (ret[4] < 0) || (ret[5] < 0))
-		exit(ft_error(CLOSE));
+		ft_exit_child(ft_error(CLOSE), data);
 }
 
 void	last_pipe_p(t_data *data, t_cmd *cmd, int i)
@@ -66,7 +66,7 @@ void	last_pipe_p(t_data *data, t_cmd *cmd, int i)
 	if (cmd->outfile != -1)
 		ret[3] = close(cmd->outfile);
 	if ((ret[0] < 0) || (ret[1] < 0) || (ret[2] < 0) || (ret[3] < 0))
-		exit(ft_error(CLOSE));
+		ft_exit_child(ft_error(CLOSE), data);
 }
 
 int	parent_process(t_data *data, int i, int child)
@@ -82,7 +82,7 @@ int	parent_process(t_data *data, int i, int child)
 		if (i == data->nbr_cmd - 1)
 			return_status = WEXITSTATUS(wstatus);
 		if (WEXITSTATUS(wstatus) == -116 || WEXITSTATUS(wstatus) == -117)
-			exit(return_value(WEXITSTATUS(wstatus) + 247, 0));
+			ft_exit_child(return_value(WEXITSTATUS(wstatus) + 247, 0), data);
 	}
 	else if (WIFSIGNALED(wstatus) == 1)
 	{

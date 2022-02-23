@@ -22,7 +22,7 @@ int	one_pipe_close(t_data *data, t_cmd *cmd)
 	if (cmd->outfile != -1)
 		ret[1] = close(cmd->outfile);
 	if ((ret[0] < 0) || (ret[1] < 0))
-		exit(ft_error(CLOSE));
+		ft_exit_child(ft_error(CLOSE), data);
 	return (0);
 }
 
@@ -36,7 +36,7 @@ int	one_pipe_dup(t_data *data, t_cmd *cmd)
 	if (cmd->outfile != -1)
 		ret[1] = dup2(cmd->outfile, STDOUT_FILENO);
 	if ((ret[0] < 0) || (ret[1] < 0))
-		exit(ft_error(DUP2));
+		ft_exit_child(ft_error(DUP2), data);
 	return (0);
 }
 

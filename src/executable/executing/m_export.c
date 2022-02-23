@@ -109,7 +109,7 @@ int	loop_export(t_data *data, t_cmd *cmd, int i)
 		tab_cell = ft_strdup("");
 	else
 		tab_cell = env_val[1];
-	if (is_strjoin(env_val, tab_cell, cmd->arg[i]) == 0)
+	if (is_strjoin(env_val, tab_cell, cmd->arg[i], cmd) == 0)
 		return_status = export_join_tab(data, env_val, tab_cell);
 	else if (is_correct_export(env_val, tab_cell, cmd->arg[i]) == 0)
 		return_status = export_modif_tab(data, env_val, tab_cell);

@@ -45,12 +45,12 @@ void	piper(t_data *data, int i)
 	else if ((i % 2 == 0))
 	{
 		if (pipe(data->pipe_odd) < 0)
-			exit(ft_error(PIPE));
+			ft_exit_child(ft_error(PIPE), data);
 	}
 	else
 	{
 		if (pipe(data->pipe_even) < 0)
-			exit(ft_error(PIPE));
+			ft_exit_child(ft_error(PIPE), data);
 	}
 }
 
@@ -59,6 +59,6 @@ int	pipe_fork(t_data *data, int i, int child)
 	piper(data, i);
 	child = fork();
 	if (child == -1)
-		exit(ft_error(FORK));
+		ft_exit_child(ft_error(FORK), data);
 	return (child);
 }

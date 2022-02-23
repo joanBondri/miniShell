@@ -22,9 +22,9 @@ void	no_path(t_data *data, t_cmd *cmd)
 		perror(tmp);
 		free(tmp);
 		if (errno == 2)
-			exit(return_value(127, 0));
+			ft_exit_child(return_value(127, 0), data);
 		if (errno == 13)
-			exit(return_value(126, 0));
+			ft_exit_child(return_value(126, 0), data);
 	}
 }
 
@@ -33,9 +33,9 @@ void	exec_builtin(t_data *data, t_cmd *cmd)
 	int	value;
 
 	value = call_builtin(data, cmd, 0);
-	free_data_cmd2(data);
-	if (value > -1)
-		exit(return_value(value, 0));
+	// free_data_cmd2(data);
+	// if (value > -1)
+	ft_exit_child(return_value(value, 0), data);
 }		
 
 void	exec_other_cmd(t_data *data, t_cmd *cmd, char **path)
@@ -44,7 +44,7 @@ void	exec_other_cmd(t_data *data, t_cmd *cmd, char **path)
 	{
 		exec_check(data, cmd);
 		if (execve(cmd->arg[0], cmd->arg, data->env) == -1)
-			exit(ft_error(EXECVE));
+			ft_exit_child(ft_error(EXECVE), data);
 	}
 	if (path == NULL)
 		no_path(data, cmd);
@@ -53,12 +53,12 @@ void	exec_other_cmd(t_data *data, t_cmd *cmd, char **path)
 		print_free(ft_strjoin3("minishell: ", cmd->arg[0],
 				": command not found\n"), STDERR_FILENO);
 		close_fd(cmd);
-		exit(return_value(127, 0));
+		ft_exit_child(return_value(127, 0), data);
 	}
 	else
 		exec_check(data, cmd);
 	if (execve(cmd->arg[0], cmd->arg, data->env) == -1)
-		exit(ft_error(EXECVE));
+		ft_exit_child(ft_error(EXECVE), data);
 }
 
 void	exec_cmd(t_data *data, t_cmd *cmd, char **path)

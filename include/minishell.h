@@ -67,6 +67,7 @@ typedef struct s_data
 	int		pipe_even[2];
 	int		pipe_odd[2];
 	char	**env;
+	char	**path;
 	int		nbr_cmd;
 	int		return_value;
 	int		save_in;
@@ -75,7 +76,11 @@ typedef struct s_data
 }		t_data;
 
 int		parent_process(t_data *data, int i, int child);
+void	free_all_cmd(t_cmd *cmd);
+void	free_data(t_data *data);
 void	free_lst(void);
+void	ft_exit_exec(int val, t_cmd *cmd);
+void	ft_exit_child(int val, t_data *data);
 void	print_all(void);
 void	exec_builtin(t_data *data, t_cmd *cmd);
 void	exec_other_cmd(t_data *data, t_cmd *cmd, char **path);
@@ -141,7 +146,7 @@ int		remove_var_tab(t_data *data, char *var);
 char	**fill_new_tab(t_data *data, int index, char **temp);
 int		m_pwd(t_data *data, t_cmd *cmd);
 int		m_export(t_data *data, t_cmd *cmd);
-int		is_strjoin(char **env_val, char *tab_cell, char *str);
+int		is_strjoin(char **env_val, char *tab_cell, char *str, t_cmd *cmd);
 int		m_exit(t_data *data, t_cmd *cmd);
 int		num_val_error(t_data *data, t_cmd *cmd);
 int		num_arg_error(t_data *data, t_cmd *cmd);

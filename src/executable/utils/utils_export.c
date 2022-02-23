@@ -12,7 +12,7 @@
 
 #include "../../../include/minishell.h"
 
-int	is_strjoin(char **env_val, char *tab_cell, char *str)
+int	is_strjoin(char **env_val, char *tab_cell, char *str, t_cmd *cmd)
 {
 	char	*tmp;
 	char	*tmp2;
@@ -22,7 +22,7 @@ int	is_strjoin(char **env_val, char *tab_cell, char *str)
 		tmp = env_val[0];
 		env_val[0] = ft_strtrim(env_val[0], "+");
 		if (!env_val[0])
-			exit(ft_error(MALLOC));
+			ft_exit_exec(ft_error(MALLOC), cmd);//attention
 		if (is_correct_export(env_val, tab_cell, str) == 0)
 		{
 			free(tmp);

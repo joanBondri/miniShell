@@ -75,6 +75,6 @@ int	num_val_error(t_data *data, t_cmd *cmd)
 		ft_putendl_fd("exit", STDERR_FILENO);
 	print_free(ft_strjoin3("bash: exit: ", cmd->arg[1],
 			" : numeric argument required\n"), STDERR_FILENO);
-	free_data_cmd();
+	// free_data_cmd();
 	return (2);
 }

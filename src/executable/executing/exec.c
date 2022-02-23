@@ -43,7 +43,7 @@ int	loop_exec(t_data *data, t_cmd *cmd, int i, char **path)
 		piper(data, i);
 		child = fork();
 		if (child == -1)
-			exit(ft_error(FORK));
+			ft_exit_exec(ft_error(FORK), cmd);
 		if (child == 0)
 			child_fork(data, cmd, path, i);
 		fd_pipe_parent(data, cmd, i);
@@ -54,6 +54,32 @@ int	loop_exec(t_data *data, t_cmd *cmd, int i, char **path)
 	}
 	parent_loop(data, tmp, 0, child);
 	return (return_value(0, 1));
+}
+
+// void	put_path_cmd(t_cmd *cmd, char **path)
+// {
+	// t_cmd *tmp;
+// 
+	// tmp = cmd;
+	// while(tmp)
+	// {
+		// tmp->path = path;
+		// tmp = tmp->next;
+	// }
+// }
+
+int	exec_data_suit(t_data *data, t_cmd *cmd, char **path)
+{
+	int i;
+
+	i = 0;
+	signal(SIGINT, SIG_IGN);
+	signal(SIGQUIT, SIG_IGN);
+	i = loop_exec(data, cmd, 0, path);
+	free_all_cmd(cmd);
+	if (path != NULL)
+		free_tab(path);
+	return (return_value(i, 0));
 }
 
 int	exec_data(t_data *data, t_cmd *cmd)
@@ -76,12 +102,9 @@ int	exec_data(t_data *data, t_cmd *cmd)
 	{
 		path = ft_split2(data->env[i] + 5, ':');
 		if (!path)
-			exit(ft_error(MALLOC));
+			ft_exit_exec(ft_error(MALLOC), cmd);
 	}
-	signal(SIGINT, SIG_IGN);
-	signal(SIGQUIT, SIG_IGN);
-	i = loop_exec(data, cmd, 0, path);
-	if (path != NULL)
-		free_tab(path);
-	return (return_value(i, 0));
+	data->path = path;
+	// put_path_cmd(cmd, path);
+	return (exec_data_suit(data, cmd, path));
 }

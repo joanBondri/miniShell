@@ -16,7 +16,7 @@ char	**loop_env(t_data *data, char **tmp, int *o, int i)
 {
 	tmp = malloc(sizeof(char *) * (i + 2));
 	if (!tmp)
-		exit(ft_error(MALLOC));
+		ft_exit_child(ft_error(MALLOC), data);
 	while (data->env[*o] != NULL)
 	{
 		tmp[*o] = ft_strdup(data->env[*o]);

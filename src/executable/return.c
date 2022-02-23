@@ -20,3 +20,16 @@ int	return_value(int status, int change_val)
 		value = status;
 	return (value);
 }
+
+void	ft_exit_exec(int val, t_cmd *cmd)
+{
+	free_all_cmd(cmd);
+	exit(val);
+}
+
+void	ft_exit_child(int val, t_data *data)
+{
+	free_all_cmd(data->cmd);
+	free_data(data);
+	exit(val);
+}
