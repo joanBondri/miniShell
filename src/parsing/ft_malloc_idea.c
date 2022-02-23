@@ -20,7 +20,6 @@ t_list	**add_lst_malloc(void *mem)
 	if (mem)
 	{
 		yop = ft_lstnew(mem);
-		printf("ADD\tlist(%p) -> %p\n", yop, mem);
 		ft_lstadd_back(&one, yop);
 	}
 	return (&one);
@@ -32,10 +31,7 @@ void	*ft_malloc_conditional(size_t len)
 
 	mem = malloc(len);
 	if (mem)
-	{
-		printf("stoooop %p\n", mem);
 		add_lst_malloc(mem);
-	}
 	return (mem);
 }
 

@@ -35,7 +35,6 @@ char	*switch_varenv(char *str, t_data *dt)
 			if (t.status != MSVARENV && i++)
 				continue ;
 			res = ft_strlreplace(str, t.copy, i, t.length);
-			printf("stoooop %p\n", res);
 			add_lst_malloc((void *)res);
 			if (!res)
 			{

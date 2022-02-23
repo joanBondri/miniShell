@@ -71,7 +71,6 @@ int	count_double_tab(char **strs)
 	i = 0;
 	while (strs[i])
 	{
-		printf("stoooop %p\n", strs[i]);
 		add_lst_malloc((void *)strs[i]);
 		i++;
 	}

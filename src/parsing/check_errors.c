@@ -77,7 +77,6 @@ char	*assemblage_concateneur(char *s1)
 	}
 	res = ft_strjoin_mod23(str, s1);
 	str = res;
-	printf("stoooop %p\n", str);
 	add_lst_malloc(str);
 	return (NULL);
 }

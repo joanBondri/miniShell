@@ -55,7 +55,6 @@ void	determine_content_herdoc(char *del, int *fd, t_data *dt)
 		line++;
 		s = readline("> ");
 		rl_on_new_line();
-		printf("stoooop %p\n", s);
 		add_lst_malloc((void *)s);
 		if (!s)
 			exit(print_error_heredoc(line, del));

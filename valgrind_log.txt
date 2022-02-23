@@ -1,64 +1,186 @@
-==26476== Memcheck, a memory error detector
-==26476== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
-==26476== Using Valgrind-3.13.0 and LibVEX; rerun with -h for copyright info
-==26476== Command: ./minishell
-==26476== Parent PID: 26475
-==26476== 
-==26476== Invalid free() / delete / delete[] / realloc()
-==26476==    at 0x4C32D3B: free (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==26476==    by 0x40A3CD: ft_lstclear (in /home/jbondri/miniShell/minishell)
-==26476==    by 0x401667: free_all_lst_malloc (in /home/jbondri/miniShell/minishell)
-==26476==    by 0x401D7A: come_back_prompt (in /home/jbondri/miniShell/minishell)
-==26476==    by 0x4021EA: parse (in /home/jbondri/miniShell/minishell)
-==26476==    by 0x401E26: main (in /home/jbondri/miniShell/minishell)
-==26476==  Address 0x56cf840 is 0 bytes inside a block of size 104 free'd
-==26476==    at 0x4C32D3B: free (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==26476==    by 0x409E80: free_tab (in /home/jbondri/miniShell/minishell)
-==26476==    by 0x40612A: exec_data (in /home/jbondri/miniShell/minishell)
-==26476==    by 0x405866: parser_director (in /home/jbondri/miniShell/minishell)
-==26476==    by 0x401D6F: come_back_prompt (in /home/jbondri/miniShell/minishell)
-==26476==    by 0x4021EA: parse (in /home/jbondri/miniShell/minishell)
-==26476==    by 0x401E26: main (in /home/jbondri/miniShell/minishell)
-==26476==  Block was alloc'd at
-==26476==    at 0x4C31B0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==26476==    by 0x401584: ft_malloc_conditional (in /home/jbondri/miniShell/minishell)
-==26476==    by 0x40AA3B: ft_split2 (in /home/jbondri/miniShell/minishell)
-==26476==    by 0x4060B4: exec_data (in /home/jbondri/miniShell/minishell)
-==26476==    by 0x405866: parser_director (in /home/jbondri/miniShell/minishell)
-==26476==    by 0x401D6F: come_back_prompt (in /home/jbondri/miniShell/minishell)
-==26476==    by 0x4021EA: parse (in /home/jbondri/miniShell/minishell)
-==26476==    by 0x401E26: main (in /home/jbondri/miniShell/minishell)
-==26476== 
-==26476== 
-==26476== HEAP SUMMARY:
-==26476==     in use at exit: 138,333 bytes in 259 blocks
-==26476==   total heap usage: 439 allocs, 193 frees, 158,964 bytes allocated
-==26476== 
-==26476== 8 bytes in 1 blocks are still reachable in loss record 1 of 48
-==26476==    at 0x4C31B0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==26476==    by 0x40AD6F: ft_strjoin (in /home/jbondri/miniShell/minishell)
-==26476==    by 0x402057: manage_shlvl (in /home/jbondri/miniShell/minishell)
-==26476==    by 0x4021A2: parse (in /home/jbondri/miniShell/minishell)
-==26476==    by 0x401E26: main (in /home/jbondri/miniShell/minishell)
-==26476== 
-==26476== 512 bytes in 1 blocks are still reachable in loss record 22 of 48
-==26476==    at 0x4C31B0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==26476==    by 0x40218D: parse (in /home/jbondri/miniShell/minishell)
-==26476==    by 0x401E26: main (in /home/jbondri/miniShell/minishell)
-==26476== 
-==26476== 3,466 bytes in 62 blocks are still reachable in loss record 35 of 48
-==26476==    at 0x4C31B0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==26476==    by 0x40AB9B: ft_strdup (in /home/jbondri/miniShell/minishell)
-==26476==    by 0x402086: manage_shlvl (in /home/jbondri/miniShell/minishell)
-==26476==    by 0x4021A2: parse (in /home/jbondri/miniShell/minishell)
-==26476==    by 0x401E26: main (in /home/jbondri/miniShell/minishell)
-==26476== 
-==26476== LEAK SUMMARY:
-==26476==    definitely lost: 0 bytes in 0 blocks
-==26476==    indirectly lost: 0 bytes in 0 blocks
-==26476==      possibly lost: 0 bytes in 0 blocks
-==26476==    still reachable: 3,986 bytes in 64 blocks
-==26476==         suppressed: 134,347 bytes in 195 blocks
-==26476== 
-==26476== For counts of detected and suppressed errors, rerun with: -v
-==26476== ERROR SUMMARY: 13 errors from 1 contexts (suppressed: 0 from 0)
+==1814== Memcheck, a memory error detector
+==1814== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==1814== Using Valgrind-3.13.0 and LibVEX; rerun with -h for copyright info
+==1814== Command: ./minishell
+==1814== Parent PID: 1813
+==1814== 
+==1815== 
+==1815== HEAP SUMMARY:
+==1815==     in use at exit: 138,575 bytes in 276 blocks
+==1815==   total heap usage: 429 allocs, 153 frees, 158,831 bytes allocated
+==1815== 
+==1815== 3 bytes in 1 blocks are still reachable in loss record 3 of 54
+==1815==    at 0x4C31B0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1815==    by 0x401A46: second_alloc (in /home/jbondri/miniShell/minishell)
+==1815==    by 0x401788: ft_split_func (in /home/jbondri/miniShell/minishell)
+==1815==    by 0x40329F: divide_pip (in /home/jbondri/miniShell/minishell)
+==1815==    by 0x405944: parser_director (in /home/jbondri/miniShell/minishell)
+==1815==    by 0x401DBF: come_back_prompt (in /home/jbondri/miniShell/minishell)
+==1815==    by 0x40223A: parse (in /home/jbondri/miniShell/minishell)
+==1815==    by 0x401E76: main (in /home/jbondri/miniShell/minishell)
+==1815== 
+==1815== 3 bytes in 1 blocks are still reachable in loss record 4 of 54
+==1815==    at 0x4C31B0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1815==    by 0x40AE1B: ft_strdup (in /home/jbondri/miniShell/minishell)
+==1815==    by 0x4054C9: ft_strjoin_mod23 (in /home/jbondri/miniShell/minishell)
+==1815==    by 0x40109C: assemblage_concateneur (in /home/jbondri/miniShell/minishell)
+==1815==    by 0x404937: assem_2 (in /home/jbondri/miniShell/minishell)
+==1815==    by 0x4049EA: assemblage_file_name_red (in /home/jbondri/miniShell/minishell)
+==1815==    by 0x40584D: interprate_sequence (in /home/jbondri/miniShell/minishell)
+==1815==    by 0x4056E4: parser_director_2 (in /home/jbondri/miniShell/minishell)
+==1815==    by 0x405A39: parser_director (in /home/jbondri/miniShell/minishell)
+==1815==    by 0x401DBF: come_back_prompt (in /home/jbondri/miniShell/minishell)
+==1815==    by 0x40223A: parse (in /home/jbondri/miniShell/minishell)
+==1815==    by 0x401E76: main (in /home/jbondri/miniShell/minishell)
+==1815== 
+==1815== 8 bytes in 1 blocks are still reachable in loss record 5 of 54
+==1815==    at 0x4C31B0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1815==    by 0x40AFEF: ft_strjoin (in /home/jbondri/miniShell/minishell)
+==1815==    by 0x4020A7: manage_shlvl (in /home/jbondri/miniShell/minishell)
+==1815==    by 0x4021F2: parse (in /home/jbondri/miniShell/minishell)
+==1815==    by 0x401E76: main (in /home/jbondri/miniShell/minishell)
+==1815== 
+==1815== 16 bytes in 1 blocks are still reachable in loss record 15 of 54
+==1815==    at 0x4C31B0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1815==    by 0x405116: stop_stack_arg (in /home/jbondri/miniShell/minishell)
+==1815==    by 0x4052B7: add_lst_arg (in /home/jbondri/miniShell/minishell)
+==1815==    by 0x4058A5: interprate_sequence (in /home/jbondri/miniShell/minishell)
+==1815==    by 0x4056E4: parser_director_2 (in /home/jbondri/miniShell/minishell)
+==1815==    by 0x405A39: parser_director (in /home/jbondri/miniShell/minishell)
+==1815==    by 0x401DBF: come_back_prompt (in /home/jbondri/miniShell/minishell)
+==1815==    by 0x40223A: parse (in /home/jbondri/miniShell/minishell)
+==1815==    by 0x401E76: main (in /home/jbondri/miniShell/minishell)
+==1815== 
+==1815== 48 bytes in 1 blocks are still reachable in loss record 20 of 54
+==1815==    at 0x4C31B0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1815==    by 0x401584: ft_malloc_conditional (in /home/jbondri/miniShell/minishell)
+==1815==    by 0x405CA1: generate_cmds_strs (in /home/jbondri/miniShell/minishell)
+==1815==    by 0x40330A: divide_pip (in /home/jbondri/miniShell/minishell)
+==1815==    by 0x405944: parser_director (in /home/jbondri/miniShell/minishell)
+==1815==    by 0x401DBF: come_back_prompt (in /home/jbondri/miniShell/minishell)
+==1815==    by 0x40223A: parse (in /home/jbondri/miniShell/minishell)
+==1815==    by 0x401E76: main (in /home/jbondri/miniShell/minishell)
+==1815== 
+==1815== 56 bytes in 1 blocks are still reachable in loss record 21 of 54
+==1815==    at 0x4C31B0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1815==    by 0x402149: parse (in /home/jbondri/miniShell/minishell)
+==1815==    by 0x401E76: main (in /home/jbondri/miniShell/minishell)
+==1815== 
+==1815== 104 bytes in 1 blocks are still reachable in loss record 24 of 54
+==1815==    at 0x4C31B0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1815==    by 0x40ACBB: ft_split2 (in /home/jbondri/miniShell/minishell)
+==1815==    by 0x40632C: exec_data (in /home/jbondri/miniShell/minishell)
+==1815==    by 0x405AD6: parser_director (in /home/jbondri/miniShell/minishell)
+==1815==    by 0x401DBF: come_back_prompt (in /home/jbondri/miniShell/minishell)
+==1815==    by 0x40223A: parse (in /home/jbondri/miniShell/minishell)
+==1815==    by 0x401E76: main (in /home/jbondri/miniShell/minishell)
+==1815== 
+==1815== 172 bytes in 12 blocks are still reachable in loss record 25 of 54
+==1815==    at 0x4C31B0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1815==    by 0x40AB16: ft_malloc_string2 (in /home/jbondri/miniShell/minishell)
+==1815==    by 0x40ACF0: ft_split2 (in /home/jbondri/miniShell/minishell)
+==1815==    by 0x40632C: exec_data (in /home/jbondri/miniShell/minishell)
+==1815==    by 0x405AD6: parser_director (in /home/jbondri/miniShell/minishell)
+==1815==    by 0x401DBF: come_back_prompt (in /home/jbondri/miniShell/minishell)
+==1815==    by 0x40223A: parse (in /home/jbondri/miniShell/minishell)
+==1815==    by 0x401E76: main (in /home/jbondri/miniShell/minishell)
+==1815== 
+==1815== 512 bytes in 1 blocks are still reachable in loss record 28 of 54
+==1815==    at 0x4C31B0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1815==    by 0x4021DD: parse (in /home/jbondri/miniShell/minishell)
+==1815==    by 0x401E76: main (in /home/jbondri/miniShell/minishell)
+==1815== 
+==1815== 3,456 bytes in 62 blocks are still reachable in loss record 41 of 54
+==1815==    at 0x4C31B0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1815==    by 0x40AE1B: ft_strdup (in /home/jbondri/miniShell/minishell)
+==1815==    by 0x4020D6: manage_shlvl (in /home/jbondri/miniShell/minishell)
+==1815==    by 0x4021F2: parse (in /home/jbondri/miniShell/minishell)
+==1815==    by 0x401E76: main (in /home/jbondri/miniShell/minishell)
+==1815== 
+==1815== LEAK SUMMARY:
+==1815==    definitely lost: 0 bytes in 0 blocks
+==1815==    indirectly lost: 0 bytes in 0 blocks
+==1815==      possibly lost: 0 bytes in 0 blocks
+==1815==    still reachable: 4,378 bytes in 82 blocks
+==1815==         suppressed: 134,197 bytes in 194 blocks
+==1815== 
+==1815== For counts of detected and suppressed errors, rerun with: -v
+==1815== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==1814== 
+==1814== HEAP SUMMARY:
+==1814==     in use at exit: 138,240 bytes in 261 blocks
+==1814==   total heap usage: 404 allocs, 143 frees, 158,397 bytes allocated
+==1814== 
+==1814== 3 bytes in 1 blocks are indirectly lost in loss record 2 of 50
+==1814==    at 0x4C31B0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1814==    by 0x401A46: second_alloc (in /home/jbondri/miniShell/minishell)
+==1814==    by 0x401788: ft_split_func (in /home/jbondri/miniShell/minishell)
+==1814==    by 0x40329F: divide_pip (in /home/jbondri/miniShell/minishell)
+==1814==    by 0x405944: parser_director (in /home/jbondri/miniShell/minishell)
+==1814==    by 0x401DBF: come_back_prompt (in /home/jbondri/miniShell/minishell)
+==1814==    by 0x40223A: parse (in /home/jbondri/miniShell/minishell)
+==1814==    by 0x401E76: main (in /home/jbondri/miniShell/minishell)
+==1814== 
+==1814== 3 bytes in 1 blocks are indirectly lost in loss record 3 of 50
+==1814==    at 0x4C31B0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1814==    by 0x40AE1B: ft_strdup (in /home/jbondri/miniShell/minishell)
+==1814==    by 0x4054C9: ft_strjoin_mod23 (in /home/jbondri/miniShell/minishell)
+==1814==    by 0x40109C: assemblage_concateneur (in /home/jbondri/miniShell/minishell)
+==1814==    by 0x404937: assem_2 (in /home/jbondri/miniShell/minishell)
+==1814==    by 0x4049EA: assemblage_file_name_red (in /home/jbondri/miniShell/minishell)
+==1814==    by 0x40584D: interprate_sequence (in /home/jbondri/miniShell/minishell)
+==1814==    by 0x4056E4: parser_director_2 (in /home/jbondri/miniShell/minishell)
+==1814==    by 0x405A39: parser_director (in /home/jbondri/miniShell/minishell)
+==1814==    by 0x401DBF: come_back_prompt (in /home/jbondri/miniShell/minishell)
+==1814==    by 0x40223A: parse (in /home/jbondri/miniShell/minishell)
+==1814==    by 0x401E76: main (in /home/jbondri/miniShell/minishell)
+==1814== 
+==1814== 8 bytes in 1 blocks are still reachable in loss record 4 of 50
+==1814==    at 0x4C31B0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1814==    by 0x40AFEF: ft_strjoin (in /home/jbondri/miniShell/minishell)
+==1814==    by 0x4020A7: manage_shlvl (in /home/jbondri/miniShell/minishell)
+==1814==    by 0x4021F2: parse (in /home/jbondri/miniShell/minishell)
+==1814==    by 0x401E76: main (in /home/jbondri/miniShell/minishell)
+==1814== 
+==1814== 16 bytes in 1 blocks are indirectly lost in loss record 14 of 50
+==1814==    at 0x4C31B0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1814==    by 0x405116: stop_stack_arg (in /home/jbondri/miniShell/minishell)
+==1814==    by 0x4052B7: add_lst_arg (in /home/jbondri/miniShell/minishell)
+==1814==    by 0x4058A5: interprate_sequence (in /home/jbondri/miniShell/minishell)
+==1814==    by 0x4056E4: parser_director_2 (in /home/jbondri/miniShell/minishell)
+==1814==    by 0x405A39: parser_director (in /home/jbondri/miniShell/minishell)
+==1814==    by 0x401DBF: come_back_prompt (in /home/jbondri/miniShell/minishell)
+==1814==    by 0x40223A: parse (in /home/jbondri/miniShell/minishell)
+==1814==    by 0x401E76: main (in /home/jbondri/miniShell/minishell)
+==1814== 
+==1814== 70 (48 direct, 22 indirect) bytes in 1 blocks are definitely lost in loss record 19 of 50
+==1814==    at 0x4C31B0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1814==    by 0x401584: ft_malloc_conditional (in /home/jbondri/miniShell/minishell)
+==1814==    by 0x405CA1: generate_cmds_strs (in /home/jbondri/miniShell/minishell)
+==1814==    by 0x40330A: divide_pip (in /home/jbondri/miniShell/minishell)
+==1814==    by 0x405944: parser_director (in /home/jbondri/miniShell/minishell)
+==1814==    by 0x401DBF: come_back_prompt (in /home/jbondri/miniShell/minishell)
+==1814==    by 0x40223A: parse (in /home/jbondri/miniShell/minishell)
+==1814==    by 0x401E76: main (in /home/jbondri/miniShell/minishell)
+==1814== 
+==1814== 512 bytes in 1 blocks are still reachable in loss record 24 of 50
+==1814==    at 0x4C31B0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1814==    by 0x4021DD: parse (in /home/jbondri/miniShell/minishell)
+==1814==    by 0x401E76: main (in /home/jbondri/miniShell/minishell)
+==1814== 
+==1814== 3,456 bytes in 62 blocks are still reachable in loss record 37 of 50
+==1814==    at 0x4C31B0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1814==    by 0x40AE1B: ft_strdup (in /home/jbondri/miniShell/minishell)
+==1814==    by 0x4020D6: manage_shlvl (in /home/jbondri/miniShell/minishell)
+==1814==    by 0x4021F2: parse (in /home/jbondri/miniShell/minishell)
+==1814==    by 0x401E76: main (in /home/jbondri/miniShell/minishell)
+==1814== 
+==1814== LEAK SUMMARY:
+==1814==    definitely lost: 48 bytes in 1 blocks
+==1814==    indirectly lost: 22 bytes in 3 blocks
+==1814==      possibly lost: 0 bytes in 0 blocks
+==1814==    still reachable: 3,976 bytes in 64 blocks
+==1814==         suppressed: 134,194 bytes in 193 blocks
+==1814== 
+==1814== For counts of detected and suppressed errors, rerun with: -v
+==1814== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 0 from 0)

@@ -25,25 +25,26 @@ char	*ft_strjoin_three(char *s1, char *s2, char *s3)
 	return (buff2);
 }
 
-char	**stop_stack_arg(t_list *one)
+char	**stop_stack_arg(t_list **one)
 {
 	char	**strs;
 	t_list	*buff;
 	int		i;
 
-	strs = ft_malloc_conditional(sizeof(char *) * (ft_lstsize(one) + 1));
+	strs = malloc(sizeof(char *) * (ft_lstsize(*one) + 1));
+	add_lst_malloc(strs);
 	if (!strs)
 		return (NULL);
-	buff = one;
-	strs[ft_lstsize(one)] = NULL;
-	i = ft_lstsize(one) - 1;
+	buff = *one;
+	strs[ft_lstsize(*one)] = NULL;
+	i = ft_lstsize(*one) - 1;
 	while (buff && i > -1)
 	{
 		strs[i] = (char *)buff->content;
 		buff = buff->next;
 		i--;
 	}
-	one = NULL;
+	*one = NULL;
 	return (strs);
 }
 
@@ -57,13 +58,12 @@ char	**add_lst_arg(char *mem, bool stop_stack)
 	else if (mem)
 	{
 		buff = ft_lstnew(mem);
-		printf("stoooop %p\n", buff);
 		add_lst_malloc(buff);
 		ft_lstadd_front(&one, buff);
 	}
 	if (!stop_stack)
 		return (NULL);
-	return (stop_stack_arg(one));
+	return (stop_stack_arg(&one));
 }
 
 void	expand_rest_envvar(t_cmd *buff, t_data *dt)
@@ -80,7 +80,6 @@ void	expand_rest_envvar(t_cmd *buff, t_data *dt)
 		if (t.status == MSVARENV)
 		{
 			buff_s = ft_strlreplace(buff->path, t.copy, i, t.length);
-			printf("stoooop %p\n", buff_s);
 			add_lst_malloc(buff_s);
 			i += ft_strlen(t.copy);
 			buff->path = buff_s;

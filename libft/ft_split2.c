@@ -73,7 +73,7 @@ static char	**ft_malloc_string2(
 			i++;
 			k++;
 		}
-		tab[o] = ft_malloc_conditional(sizeof(char) * (k + 1));
+		tab[o] = malloc(sizeof(char) * (k + 1));
 		if (!(tab[o]))
 			return (ft_free2(tab, o));
 		o++;
@@ -111,7 +111,7 @@ char	**ft_split2(char const *s, char c)
 		if (n > 0)
 			compteur++;
 	}
-	tab = ft_malloc_conditional(sizeof(char *) * (compteur + 1));
+	tab = malloc(sizeof(char *) * (compteur + 1));
 	if (!(tab))
 		return (ft_free2(tab, 0));
 	return (ft_malloc_string2(tab, s, compteur, c));

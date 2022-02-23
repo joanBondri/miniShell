@@ -67,7 +67,6 @@ void	temp_function_get_redir(char *str, int i, t_data *dt, t_cmd *focus)
 		focus->path = ft_strlreplace(str, "", i, t.length + 2);
 	else
 		focus->path = ft_strlreplace(str, "", i, t.length + 1);
-	printf("stoooop %p\n", focus->path);
 	add_lst_malloc((void *)focus->path);
 }
 

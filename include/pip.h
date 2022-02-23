@@ -18,6 +18,7 @@
 # include "get_next_line.h"
 
 char	*switch_varenv(char *str, t_data *dt);
+char	**stop_stack_arg(t_list **one);
 void	determine_content_herdoc(char *del, int *fd, t_data *dt);
 char	*next_del(char *s, t_token *tt, t_data *dt);
 void	handler_int(int signal);
@@ -61,7 +62,6 @@ int		error_pip(void);
 int		manage_pid(int pip[2], t_cmd *buff);
 void	interprate_sequence(t_cmd *buff, t_data *dt);
 char	*ft_strjoin_three(char *s1, char *s2, char *s3);
-char	**stop_stack_arg(t_list *one);
 char	**add_lst_arg(char *mem, bool stop_stack);
 void	expand_rest_envvar(t_cmd *buff, t_data *dt);
 void	no_such_file(char *name);

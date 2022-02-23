@@ -90,7 +90,6 @@ void	catch_heredoc(char *str, t_cmd *buff, t_data *dt)
 			if (res == 0)
 				return ;
 			buff->path = ft_strlreplace(str, "", i, res);
-			printf("stoooop %p\n", buff->path);
 			add_lst_malloc((void *)buff->path);
 			str = buff->path;
 			i--;

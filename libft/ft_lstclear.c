@@ -25,7 +25,6 @@ void	ft_lstclear(t_list **lst, void (*del)(void*))
 	{
 		t2 = tmp->next;
 		tmp->next = NULL;
-		printf("DEL\tlist(%p) -> %p\n", tmp, tmp->content);
 		(*del)(tmp->content);
 		free(tmp);
 		tmp = t2;

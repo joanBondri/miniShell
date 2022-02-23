@@ -64,7 +64,6 @@ void	next_token(char *s, t_token *t, t_data *dt)
 		if (t->start)
 			break ;
 	}
-	printf("stoooop %p\n", t->copy);
 	add_lst_malloc(t->copy);
 }
 
