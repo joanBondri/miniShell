@@ -87,6 +87,8 @@ void	divide_pip(char *s, t_data **data)
 	if (!strs || !pips)
 		return ((void)ft_error(MALLOC));
 	*pips = NULL;
+	(*data)->save_in = -1;
+	(*data)->save_out = -1;
 	(*data)->nbr_cmd = count_double_tab(strs);
 	generate_cmds_strs(pips, strs, *data);
 	if (change_mind("no", false))
