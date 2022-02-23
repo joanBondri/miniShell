@@ -44,11 +44,11 @@ int	m_exit(t_data *data, t_cmd *cmd)
 	{
 		status = check_isvalid_num(cmd->arg[1]);
 		if (status != 0)
-			ft_exit_child(num_val_error(data, cmd), data);
+			ft_exit_child_one_builtin(num_val_error(data, cmd), data);
 		else if (cmd->arg[2])
 			status = num_arg_error(data, cmd);
 		else if (status == 0)
-			ft_exit_child(exit_arg_1(cmd->arg[1], data, cmd), data);
+			ft_exit_child_one_builtin(exit_arg_1(cmd->arg[1], data, cmd), data);
 		else
 			return (0);
 	}
@@ -56,9 +56,7 @@ int	m_exit(t_data *data, t_cmd *cmd)
 	{
 		if (data->nbr_cmd == 1)
 			ft_putendl_fd("exit", STDOUT_FILENO);
-		// free_data_cmd();
-		printf("in = %d\nout = %d", data->save_in, data->save_out);
-		ft_exit_child(return_value(0, 1), data);
+		ft_exit_child_one_builtin(return_value(0, 1), data);
 	}
 	return (status);
 }

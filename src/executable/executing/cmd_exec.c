@@ -28,14 +28,16 @@ void	no_path(t_data *data, t_cmd *cmd)
 	}
 }
 
-void	exec_builtin(t_data *data, t_cmd *cmd)
+void	exec_builtin(t_data *data, t_cmd *cmd, int i)
 {
 	int	value;
 
 	value = call_builtin(data, cmd, 0);
 	// free_data_cmd2(data);
 	// if (value > -1)
+	fd_pipe_parent(data, cmd, i);
 	ft_exit_child(return_value(value, 0), data);
+	// return_value(value, 0);
 }		
 
 void	exec_other_cmd(t_data *data, t_cmd *cmd, char **path)
@@ -61,10 +63,10 @@ void	exec_other_cmd(t_data *data, t_cmd *cmd, char **path)
 		ft_exit_child(ft_error(EXECVE), data);
 }
 
-void	exec_cmd(t_data *data, t_cmd *cmd, char **path)
+void	exec_cmd(t_data *data, t_cmd *cmd, char **path, int i)
 {
 	if (is_builtin(cmd->arg[0]) == 1)
-		exec_builtin(data, cmd);
+		exec_builtin(data, cmd, i);
 	else
 		exec_other_cmd(data, cmd, path);
 }

@@ -26,9 +26,9 @@ int	pipe_even_c(t_data *data, t_cmd *cmd)
 	else
 		ret[3] = dup2(data->pipe_odd[1], STDOUT_FILENO);
 	if ((ret[0] < 0) || (ret[1] < 0) || (ret[2] < 0) || (ret[3] < 0))
-		ft_exit_exec(ft_error(DUP2), cmd);
+		ft_exit_child(ft_error(DUP2), data);
 	if (ret[4] < 0)
-		ft_exit_exec(ft_error(CLOSE), cmd);
+		ft_exit_child(ft_error(CLOSE), data);
 	return (0);
 }
 
@@ -46,9 +46,9 @@ int	pipe_odd_c(t_data *data, t_cmd *cmd)
 	else
 		ret[3] = dup2(data->pipe_even[1], STDOUT_FILENO);
 	if ((ret[0] < 0) || (ret[1] < 0) || (ret[2] < 0) || (ret[3] < 0))
-		ft_exit_exec(ft_error(DUP2), cmd);
+		ft_exit_child(ft_error(DUP2), data);
 	if (ret[4] < 0)
-		ft_exit_exec(ft_error(CLOSE), cmd);
+		ft_exit_child(ft_error(CLOSE), data);
 	return (0);
 }
 
@@ -74,7 +74,7 @@ int	last_pipe_c(t_data *data, t_cmd *cmd, int i)
 	if (cmd->outfile != -1)
 		ret[3] = dup2(cmd->outfile, STDOUT_FILENO);
 	if ((ret[0] < 0) || (ret[1] < 0) || (ret[2] < 0) || (ret[3] < 0))
-		ft_exit_exec(ft_error(DUP2), cmd);
+		ft_exit_child(ft_error(DUP2), data);
 	return (0);
 }
 
@@ -91,8 +91,8 @@ int	first_pipe_c(t_data *data, t_cmd *cmd)
 	else if (data->nbr_pipe > 0)
 		ret[2] = dup2(data->pipe_odd[1], STDOUT_FILENO);
 	if ((ret[0] < 0) || (ret[1] < 0) || (ret[2] < 0))
-		ft_exit_exec(ft_error(DUP2), cmd);
+		ft_exit_child(ft_error(DUP2), data);
 	if (ret[3] < 0)
-		ft_exit_exec(ft_error(CLOSE), cmd);
+		ft_exit_child(ft_error(CLOSE), data);
 	return (0);
 }

@@ -54,6 +54,7 @@ void	come_back_prompt(t_data **data)
 		str = NULL;
 	}
 	free_all_lst_malloc();
+	free_tab((*data)->env);
 	free(*data);
 	exit(ft_putendlre_fd("exit", STDOUT_FILENO, 0));
 }

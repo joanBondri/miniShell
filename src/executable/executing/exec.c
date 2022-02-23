@@ -15,7 +15,7 @@
 void	child_fork(t_data *data, t_cmd *cmd, char **path, int i)
 {
 	fd_pipe_child(data, cmd, i);
-	exec_cmd(data, cmd, path);
+	exec_cmd(data, cmd, path, i);
 }
 
 void	parent_loop(t_data *data, t_cmd *cmd, int i, int child)
