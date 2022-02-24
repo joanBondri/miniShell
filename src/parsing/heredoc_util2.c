@@ -29,6 +29,14 @@ void	print_varenv(char *s, int fd, t_data *dt)
 	write(fd, "\n", 1);
 }
 
+void	ft_2_exit(int num, char *s)
+{
+	free_all_lst_malloc();
+	if (s)
+		free(s);
+	exit(num);
+}
+
 int	print_error_heredoc(int line, char *del)
 {
 	ft_putstr_fd("minishell: warning: heredocument at line ", 2);
@@ -38,6 +46,7 @@ int	print_error_heredoc(int line, char *del)
 	ft_putstr_fd("')", 2);
 	ft_putstr_fd("\n", 1);
 	return_value(0, 0);
+	ft_2_exit(0, NULL);
 	return (0);
 }
 
@@ -46,6 +55,7 @@ void	determine_content_herdoc(char *del, int *fd, t_data *dt)
 	char	*s;
 	int		line;
 
+	close(fd[0]);
 	signal(SIGINT, SIG_DFL);
 	line = 0;
 	break_loop(true);
@@ -55,12 +65,12 @@ void	determine_content_herdoc(char *del, int *fd, t_data *dt)
 		line++;
 		s = readline("> ");
 		rl_on_new_line();
-		add_lst_malloc((void *)s);
 		if (!s)
 			exit(print_error_heredoc(line, del));
 		if ((!ft_strncmp(s, del, ft_strlen(s))
 				&& !ft_strncmp(s, del, ft_strlen(del))))
-			exit(0);
+			ft_2_exit(0, s);
 		print_varenv(s, fd[1], dt);
+		free(s);
 	}
 }

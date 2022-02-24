@@ -16,12 +16,12 @@ int	manage_parent(int pip[2])
 {
 	int			wstatus;
 
+	close(pip[1]);
 	signal(SIGINT, SIG_IGN);
 	waitpid(0, &wstatus, 0);
 	if (WIFSIGNALED(wstatus) == 1
 		&& (WTERMSIG(wstatus) == 2 || WTERMSIG(wstatus) == 3))
 	{
-		close(pip[1]);
 		ft_putendl_fd("", STDOUT_FILENO);
 		return_value(WTERMSIG(wstatus) + 128, 0);
 		change_mind("yes", true);

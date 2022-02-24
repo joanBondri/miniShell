@@ -29,6 +29,7 @@ int	go_heredoc(char *str, t_cmd *buff, t_data *dt)
 
 	tt = (t_token){0};
 	del = next_del(str, &tt, dt);
+	add_lst_malloc(del);
 	if (!del)
 		return (0);
 	signal(SIGQUIT, SIG_IGN);

@@ -1,474 +1,189 @@
-==3749== Memcheck, a memory error detector
-==3749== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
-==3749== Using Valgrind-3.13.0 and LibVEX; rerun with -h for copyright info
-==3749== Command: ./minishell
-==3749== Parent PID: 3748
-==3749== 
-==3750== 
-==3750== FILE DESCRIPTORS: 4 open at exit.
-==3750== Open file descriptor 3: /home/jbondri/miniShell/valgrind_log.txt
-==3750==    <inherited from parent>
-==3750== 
-==3750== Open file descriptor 2: /dev/pts/2
-==3750==    <inherited from parent>
-==3750== 
-==3750== Open file descriptor 1: /dev/pts/2
-==3750==    <inherited from parent>
-==3750== 
-==3750== Open file descriptor 0: /dev/pts/2
-==3750==    <inherited from parent>
-==3750== 
-==3750== 
-==3750== HEAP SUMMARY:
-==3750==     in use at exit: 134,346 bytes in 196 blocks
-==3750==   total heap usage: 430 allocs, 234 frees, 158,923 bytes allocated
-==3750== 
-==3750== LEAK SUMMARY:
-==3750==    definitely lost: 0 bytes in 0 blocks
-==3750==    indirectly lost: 0 bytes in 0 blocks
-==3750==      possibly lost: 0 bytes in 0 blocks
-==3750==    still reachable: 0 bytes in 0 blocks
-==3750==         suppressed: 134,346 bytes in 196 blocks
-==3750== 
-==3750== For counts of detected and suppressed errors, rerun with: -v
-==3750== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
-==3751== 
-==3751== FILE DESCRIPTORS: 4 open at exit.
-==3751== Open file descriptor 3: /home/jbondri/miniShell/valgrind_log.txt
-==3751==    <inherited from parent>
-==3751== 
-==3751== Open file descriptor 2: /dev/pts/2
-==3751==    <inherited from parent>
-==3751== 
-==3751== Open file descriptor 1: /dev/pts/2
-==3751==    <inherited from parent>
-==3751== 
-==3751== Open file descriptor 0: /dev/pts/2
-==3751==    <inherited from parent>
-==3751== 
-==3751== 
-==3751== HEAP SUMMARY:
-==3751==     in use at exit: 134,386 bytes in 199 blocks
-==3751==   total heap usage: 466 allocs, 267 frees, 159,523 bytes allocated
-==3751== 
-==3751== LEAK SUMMARY:
-==3751==    definitely lost: 0 bytes in 0 blocks
-==3751==    indirectly lost: 0 bytes in 0 blocks
-==3751==      possibly lost: 0 bytes in 0 blocks
-==3751==    still reachable: 0 bytes in 0 blocks
-==3751==         suppressed: 134,386 bytes in 199 blocks
-==3751== 
-==3751== For counts of detected and suppressed errors, rerun with: -v
-==3751== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
-==3753== 
-==3753== FILE DESCRIPTORS: 4 open at exit.
-==3753== Open file descriptor 3: /home/jbondri/miniShell/valgrind_log.txt
-==3753==    <inherited from parent>
-==3753== 
-==3753== Open file descriptor 2: /dev/pts/2
-==3753==    <inherited from parent>
-==3753== 
-==3753== Open file descriptor 1: /dev/pts/2
-==3753==    at 0x5197A77: dup2 (syscall-template.S:78)
-==3753==    by 0x4069DC: one_builtin (in /home/jbondri/miniShell/minishell)
-==3753==    by 0x406057: loop_exec (in /home/jbondri/miniShell/minishell)
-==3753==    by 0x4061AD: exec_data_suit (in /home/jbondri/miniShell/minishell)
-==3753==    by 0x4062FF: exec_data (in /home/jbondri/miniShell/minishell)
-==3753==    by 0x4059C6: parser_director (in /home/jbondri/miniShell/minishell)
-==3753==    by 0x401D65: come_back_prompt (in /home/jbondri/miniShell/minishell)
-==3753==    by 0x4021ED: parse (in /home/jbondri/miniShell/minishell)
-==3753==    by 0x401E26: main (in /home/jbondri/miniShell/minishell)
-==3753== 
-==3753== Open file descriptor 0: /dev/pts/2
-==3753==    at 0x5197A77: dup2 (syscall-template.S:78)
-==3753==    by 0x4069ED: one_builtin (in /home/jbondri/miniShell/minishell)
-==3753==    by 0x406057: loop_exec (in /home/jbondri/miniShell/minishell)
-==3753==    by 0x4061AD: exec_data_suit (in /home/jbondri/miniShell/minishell)
-==3753==    by 0x4062FF: exec_data (in /home/jbondri/miniShell/minishell)
-==3753==    by 0x4059C6: parser_director (in /home/jbondri/miniShell/minishell)
-==3753==    by 0x401D65: come_back_prompt (in /home/jbondri/miniShell/minishell)
-==3753==    by 0x4021ED: parse (in /home/jbondri/miniShell/minishell)
-==3753==    by 0x401E26: main (in /home/jbondri/miniShell/minishell)
-==3753== 
-==3753== 
-==3753== HEAP SUMMARY:
-==3753==     in use at exit: 134,521 bytes in 208 blocks
-==3753==   total heap usage: 582 allocs, 374 frees, 161,565 bytes allocated
-==3753== 
-==3753== LEAK SUMMARY:
-==3753==    definitely lost: 0 bytes in 0 blocks
-==3753==    indirectly lost: 0 bytes in 0 blocks
-==3753==      possibly lost: 0 bytes in 0 blocks
-==3753==    still reachable: 0 bytes in 0 blocks
-==3753==         suppressed: 134,521 bytes in 208 blocks
-==3753== 
-==3753== For counts of detected and suppressed errors, rerun with: -v
-==3753== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
-==3755== 
-==3755== FILE DESCRIPTORS: 6 open at exit.
-==3755== Open file descriptor 5:
-==3755==    at 0x5197AD7: pipe (syscall-template.S:78)
-==3755==    by 0x4033C8: manage_pid (in /home/jbondri/miniShell/minishell)
-==3755==    by 0x40285E: go_heredoc (in /home/jbondri/miniShell/minishell)
-==3755==    by 0x402AE4: catch_heredoc (in /home/jbondri/miniShell/minishell)
-==3755==    by 0x402BA8: do_all_heredoc (in /home/jbondri/miniShell/minishell)
-==3755==    by 0x405840: parser_director (in /home/jbondri/miniShell/minishell)
-==3755==    by 0x401D65: come_back_prompt (in /home/jbondri/miniShell/minishell)
-==3755==    by 0x4021ED: parse (in /home/jbondri/miniShell/minishell)
-==3755==    by 0x401E26: main (in /home/jbondri/miniShell/minishell)
-==3755== 
-==3755== Open file descriptor 4:
-==3755==    at 0x5197AD7: pipe (syscall-template.S:78)
-==3755==    by 0x4033C8: manage_pid (in /home/jbondri/miniShell/minishell)
-==3755==    by 0x40285E: go_heredoc (in /home/jbondri/miniShell/minishell)
-==3755==    by 0x402AE4: catch_heredoc (in /home/jbondri/miniShell/minishell)
-==3755==    by 0x402BA8: do_all_heredoc (in /home/jbondri/miniShell/minishell)
-==3755==    by 0x405840: parser_director (in /home/jbondri/miniShell/minishell)
-==3755==    by 0x401D65: come_back_prompt (in /home/jbondri/miniShell/minishell)
-==3755==    by 0x4021ED: parse (in /home/jbondri/miniShell/minishell)
-==3755==    by 0x401E26: main (in /home/jbondri/miniShell/minishell)
-==3755== 
-==3755== Open file descriptor 3: /home/jbondri/miniShell/valgrind_log.txt
-==3755==    <inherited from parent>
-==3755== 
-==3755== Open file descriptor 2: /dev/pts/2
-==3755==    <inherited from parent>
-==3755== 
-==3755== Open file descriptor 1: /dev/pts/2
-==3755==    at 0x5197A77: dup2 (syscall-template.S:78)
-==3755==    by 0x4069DC: one_builtin (in /home/jbondri/miniShell/minishell)
-==3755==    by 0x406057: loop_exec (in /home/jbondri/miniShell/minishell)
-==3755==    by 0x4061AD: exec_data_suit (in /home/jbondri/miniShell/minishell)
-==3755==    by 0x4062FF: exec_data (in /home/jbondri/miniShell/minishell)
-==3755==    by 0x4059C6: parser_director (in /home/jbondri/miniShell/minishell)
-==3755==    by 0x401D65: come_back_prompt (in /home/jbondri/miniShell/minishell)
-==3755==    by 0x4021ED: parse (in /home/jbondri/miniShell/minishell)
-==3755==    by 0x401E26: main (in /home/jbondri/miniShell/minishell)
-==3755== 
-==3755== Open file descriptor 0: /dev/pts/2
-==3755==    at 0x5197A77: dup2 (syscall-template.S:78)
-==3755==    by 0x4069ED: one_builtin (in /home/jbondri/miniShell/minishell)
-==3755==    by 0x406057: loop_exec (in /home/jbondri/miniShell/minishell)
-==3755==    by 0x4061AD: exec_data_suit (in /home/jbondri/miniShell/minishell)
-==3755==    by 0x4062FF: exec_data (in /home/jbondri/miniShell/minishell)
-==3755==    by 0x4059C6: parser_director (in /home/jbondri/miniShell/minishell)
-==3755==    by 0x401D65: come_back_prompt (in /home/jbondri/miniShell/minishell)
-==3755==    by 0x4021ED: parse (in /home/jbondri/miniShell/minishell)
-==3755==    by 0x401E26: main (in /home/jbondri/miniShell/minishell)
-==3755== 
-==3755== 
-==3755== HEAP SUMMARY:
-==3755==     in use at exit: 139,208 bytes in 336 blocks
-==3755==   total heap usage: 704 allocs, 368 frees, 162,734 bytes allocated
-==3755== 
-==3755== 3 bytes in 1 blocks are still reachable in loss record 1 of 60
-==3755==    at 0x4C31B0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==3755==    by 0x40470C: ft_strndup (in /home/jbondri/miniShell/minishell)
-==3755==    by 0x404457: develope_word (in /home/jbondri/miniShell/minishell)
-==3755==    by 0x403AD4: find_type_token (in /home/jbondri/miniShell/minishell)
-==3755==    by 0x403718: next_token (in /home/jbondri/miniShell/minishell)
-==3755==    by 0x402615: next_del2 (in /home/jbondri/miniShell/minishell)
-==3755==    by 0x4026FA: next_del (in /home/jbondri/miniShell/minishell)
-==3755==    by 0x40281B: go_heredoc (in /home/jbondri/miniShell/minishell)
-==3755==    by 0x402AE4: catch_heredoc (in /home/jbondri/miniShell/minishell)
-==3755==    by 0x402BA8: do_all_heredoc (in /home/jbondri/miniShell/minishell)
-==3755==    by 0x405840: parser_director (in /home/jbondri/miniShell/minishell)
-==3755==    by 0x401D65: come_back_prompt (in /home/jbondri/miniShell/minishell)
-==3755== 
-==3755== 3 bytes in 1 blocks are still reachable in loss record 2 of 60
-==3755==    at 0x4C31B0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==3755==    by 0x40AF0C: ft_strdup (in /home/jbondri/miniShell/minishell)
-==3755==    by 0x4053B9: ft_strjoin_mod23 (in /home/jbondri/miniShell/minishell)
-==3755==    by 0x40109C: assemblage_concateneur (in /home/jbondri/miniShell/minishell)
-==3755==    by 0x402657: next_del2 (in /home/jbondri/miniShell/minishell)
-==3755==    by 0x4026FA: next_del (in /home/jbondri/miniShell/minishell)
-==3755==    by 0x40281B: go_heredoc (in /home/jbondri/miniShell/minishell)
-==3755==    by 0x402AE4: catch_heredoc (in /home/jbondri/miniShell/minishell)
-==3755==    by 0x402BA8: do_all_heredoc (in /home/jbondri/miniShell/minishell)
-==3755==    by 0x405840: parser_director (in /home/jbondri/miniShell/minishell)
-==3755==    by 0x401D65: come_back_prompt (in /home/jbondri/miniShell/minishell)
-==3755==    by 0x4021ED: parse (in /home/jbondri/miniShell/minishell)
-==3755== 
-==3755== 5 bytes in 1 blocks are still reachable in loss record 6 of 60
-==3755==    at 0x4C31B0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==3755==    by 0x4019E6: second_alloc (in /home/jbondri/miniShell/minishell)
-==3755==    by 0x401728: ft_split_func (in /home/jbondri/miniShell/minishell)
-==3755==    by 0x4031EF: divide_pip (in /home/jbondri/miniShell/minishell)
-==3755==    by 0x405834: parser_director (in /home/jbondri/miniShell/minishell)
-==3755==    by 0x401D65: come_back_prompt (in /home/jbondri/miniShell/minishell)
-==3755==    by 0x4021ED: parse (in /home/jbondri/miniShell/minishell)
-==3755==    by 0x401E26: main (in /home/jbondri/miniShell/minishell)
-==3755== 
-==3755== 8 bytes in 1 blocks are still reachable in loss record 7 of 60
-==3755==    at 0x4C31B0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==3755==    by 0x40B0E0: ft_strjoin (in /home/jbondri/miniShell/minishell)
-==3755==    by 0x402057: manage_shlvl (in /home/jbondri/miniShell/minishell)
-==3755==    by 0x4021A2: parse (in /home/jbondri/miniShell/minishell)
-==3755==    by 0x401E26: main (in /home/jbondri/miniShell/minishell)
-==3755== 
-==3755== 16 bytes in 1 blocks are still reachable in loss record 14 of 60
-==3755==    at 0x4C31B0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==3755==    by 0x40A77F: ft_lstnew (in /home/jbondri/miniShell/minishell)
-==3755==    by 0x4014FF: add_lst_malloc (in /home/jbondri/miniShell/minishell)
-==3755==    by 0x403196: count_double_tab (in /home/jbondri/miniShell/minishell)
-==3755==    by 0x403258: divide_pip (in /home/jbondri/miniShell/minishell)
-==3755==    by 0x405834: parser_director (in /home/jbondri/miniShell/minishell)
-==3755==    by 0x401D65: come_back_prompt (in /home/jbondri/miniShell/minishell)
-==3755==    by 0x4021ED: parse (in /home/jbondri/miniShell/minishell)
-==3755==    by 0x401E26: main (in /home/jbondri/miniShell/minishell)
-==3755== 
-==3755== 16 bytes in 1 blocks are still reachable in loss record 15 of 60
-==3755==    at 0x4C31B0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==3755==    by 0x40A77F: ft_lstnew (in /home/jbondri/miniShell/minishell)
-==3755==    by 0x4014FF: add_lst_malloc (in /home/jbondri/miniShell/minishell)
-==3755==    by 0x40155C: ft_malloc_conditional (in /home/jbondri/miniShell/minishell)
-==3755==    by 0x405B91: generate_cmds_strs (in /home/jbondri/miniShell/minishell)
-==3755==    by 0x403276: divide_pip (in /home/jbondri/miniShell/minishell)
-==3755==    by 0x405834: parser_director (in /home/jbondri/miniShell/minishell)
-==3755==    by 0x401D65: come_back_prompt (in /home/jbondri/miniShell/minishell)
-==3755==    by 0x4021ED: parse (in /home/jbondri/miniShell/minishell)
-==3755==    by 0x401E26: main (in /home/jbondri/miniShell/minishell)
-==3755== 
-==3755== 16 bytes in 1 blocks are still reachable in loss record 16 of 60
-==3755==    at 0x4C31B0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==3755==    by 0x40A77F: ft_lstnew (in /home/jbondri/miniShell/minishell)
-==3755==    by 0x4014FF: add_lst_malloc (in /home/jbondri/miniShell/minishell)
-==3755==    by 0x40373D: next_token (in /home/jbondri/miniShell/minishell)
-==3755==    by 0x402615: next_del2 (in /home/jbondri/miniShell/minishell)
-==3755==    by 0x4026FA: next_del (in /home/jbondri/miniShell/minishell)
-==3755==    by 0x40281B: go_heredoc (in /home/jbondri/miniShell/minishell)
-==3755==    by 0x402AE4: catch_heredoc (in /home/jbondri/miniShell/minishell)
-==3755==    by 0x402BA8: do_all_heredoc (in /home/jbondri/miniShell/minishell)
-==3755==    by 0x405840: parser_director (in /home/jbondri/miniShell/minishell)
-==3755==    by 0x401D65: come_back_prompt (in /home/jbondri/miniShell/minishell)
-==3755==    by 0x4021ED: parse (in /home/jbondri/miniShell/minishell)
-==3755== 
-==3755== 16 bytes in 1 blocks are still reachable in loss record 17 of 60
-==3755==    at 0x4C31B0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==3755==    by 0x40A77F: ft_lstnew (in /home/jbondri/miniShell/minishell)
-==3755==    by 0x4014FF: add_lst_malloc (in /home/jbondri/miniShell/minishell)
-==3755==    by 0x4010B9: assemblage_concateneur (in /home/jbondri/miniShell/minishell)
-==3755==    by 0x402657: next_del2 (in /home/jbondri/miniShell/minishell)
-==3755==    by 0x4026FA: next_del (in /home/jbondri/miniShell/minishell)
-==3755==    by 0x40281B: go_heredoc (in /home/jbondri/miniShell/minishell)
-==3755==    by 0x402AE4: catch_heredoc (in /home/jbondri/miniShell/minishell)
-==3755==    by 0x402BA8: do_all_heredoc (in /home/jbondri/miniShell/minishell)
-==3755==    by 0x405840: parser_director (in /home/jbondri/miniShell/minishell)
-==3755==    by 0x401D65: come_back_prompt (in /home/jbondri/miniShell/minishell)
-==3755==    by 0x4021ED: parse (in /home/jbondri/miniShell/minishell)
-==3755== 
-==3755== 48 bytes in 1 blocks are still reachable in loss record 23 of 60
-==3755==    at 0x4C31B0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==3755==    by 0x401544: ft_malloc_conditional (in /home/jbondri/miniShell/minishell)
-==3755==    by 0x405B91: generate_cmds_strs (in /home/jbondri/miniShell/minishell)
-==3755==    by 0x403276: divide_pip (in /home/jbondri/miniShell/minishell)
-==3755==    by 0x405834: parser_director (in /home/jbondri/miniShell/minishell)
-==3755==    by 0x401D65: come_back_prompt (in /home/jbondri/miniShell/minishell)
-==3755==    by 0x4021ED: parse (in /home/jbondri/miniShell/minishell)
-==3755==    by 0x401E26: main (in /home/jbondri/miniShell/minishell)
-==3755== 
-==3755== 64 bytes in 1 blocks are still reachable in loss record 24 of 60
-==3755==    at 0x4C31B0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==3755==    by 0x4020F9: parse (in /home/jbondri/miniShell/minishell)
-==3755==    by 0x401E26: main (in /home/jbondri/miniShell/minishell)
-==3755== 
-==3755== 416 bytes in 26 blocks are still reachable in loss record 33 of 60
-==3755==    at 0x4C31B0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==3755==    by 0x40A77F: ft_lstnew (in /home/jbondri/miniShell/minishell)
-==3755==    by 0x4014FF: add_lst_malloc (in /home/jbondri/miniShell/minishell)
-==3755==    by 0x402DCB: determine_content_herdoc (in /home/jbondri/miniShell/minishell)
-==3755==    by 0x4028B7: go_heredoc (in /home/jbondri/miniShell/minishell)
-==3755==    by 0x402AE4: catch_heredoc (in /home/jbondri/miniShell/minishell)
-==3755==    by 0x402BA8: do_all_heredoc (in /home/jbondri/miniShell/minishell)
-==3755==    by 0x405840: parser_director (in /home/jbondri/miniShell/minishell)
-==3755==    by 0x401D65: come_back_prompt (in /home/jbondri/miniShell/minishell)
-==3755==    by 0x4021ED: parse (in /home/jbondri/miniShell/minishell)
-==3755==    by 0x401E26: main (in /home/jbondri/miniShell/minishell)
-==3755== 
-==3755== 512 bytes in 1 blocks are still reachable in loss record 34 of 60
-==3755==    at 0x4C31B0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==3755==    by 0x40218D: parse (in /home/jbondri/miniShell/minishell)
-==3755==    by 0x401E26: main (in /home/jbondri/miniShell/minishell)
-==3755== 
-==3755== 3,466 bytes in 62 blocks are still reachable in loss record 47 of 60
-==3755==    at 0x4C31B0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==3755==    by 0x40AF0C: ft_strdup (in /home/jbondri/miniShell/minishell)
-==3755==    by 0x402086: manage_shlvl (in /home/jbondri/miniShell/minishell)
-==3755==    by 0x4021A2: parse (in /home/jbondri/miniShell/minishell)
-==3755==    by 0x401E26: main (in /home/jbondri/miniShell/minishell)
-==3755== 
-==3755== LEAK SUMMARY:
-==3755==    definitely lost: 0 bytes in 0 blocks
-==3755==    indirectly lost: 0 bytes in 0 blocks
-==3755==      possibly lost: 0 bytes in 0 blocks
-==3755==    still reachable: 4,589 bytes in 99 blocks
-==3755==         suppressed: 134,619 bytes in 237 blocks
-==3755== 
-==3755== For counts of detected and suppressed errors, rerun with: -v
-==3755== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
-==3756== 
-==3756== FILE DESCRIPTORS: 5 open at exit.
-==3756== Open file descriptor 4:
-==3756==    at 0x5197AD7: pipe (syscall-template.S:78)
-==3756==    by 0x4033C8: manage_pid (in /home/jbondri/miniShell/minishell)
-==3756==    by 0x40285E: go_heredoc (in /home/jbondri/miniShell/minishell)
-==3756==    by 0x402AE4: catch_heredoc (in /home/jbondri/miniShell/minishell)
-==3756==    by 0x402BA8: do_all_heredoc (in /home/jbondri/miniShell/minishell)
-==3756==    by 0x405840: parser_director (in /home/jbondri/miniShell/minishell)
-==3756==    by 0x401D65: come_back_prompt (in /home/jbondri/miniShell/minishell)
-==3756==    by 0x4021ED: parse (in /home/jbondri/miniShell/minishell)
-==3756==    by 0x401E26: main (in /home/jbondri/miniShell/minishell)
-==3756== 
-==3756== Open file descriptor 3: /home/jbondri/miniShell/valgrind_log.txt
-==3756==    <inherited from parent>
-==3756== 
-==3756== Open file descriptor 2: /dev/pts/2
-==3756==    <inherited from parent>
-==3756== 
-==3756== Open file descriptor 1: /dev/pts/2
-==3756==    at 0x5197A77: dup2 (syscall-template.S:78)
-==3756==    by 0x4069DC: one_builtin (in /home/jbondri/miniShell/minishell)
-==3756==    by 0x406057: loop_exec (in /home/jbondri/miniShell/minishell)
-==3756==    by 0x4061AD: exec_data_suit (in /home/jbondri/miniShell/minishell)
-==3756==    by 0x4062FF: exec_data (in /home/jbondri/miniShell/minishell)
-==3756==    by 0x4059C6: parser_director (in /home/jbondri/miniShell/minishell)
-==3756==    by 0x401D65: come_back_prompt (in /home/jbondri/miniShell/minishell)
-==3756==    by 0x4021ED: parse (in /home/jbondri/miniShell/minishell)
-==3756==    by 0x401E26: main (in /home/jbondri/miniShell/minishell)
-==3756== 
-==3756== Open file descriptor 0:
-==3756==    at 0x5197A77: dup2 (syscall-template.S:78)
-==3756==    by 0x40707B: first_pipe_c (in /home/jbondri/miniShell/minishell)
-==3756==    by 0x406A69: fd_pipe_child (in /home/jbondri/miniShell/minishell)
-==3756==    by 0x405F56: child_fork (in /home/jbondri/miniShell/minishell)
-==3756==    by 0x4060C5: loop_exec (in /home/jbondri/miniShell/minishell)
-==3756==    by 0x4061AD: exec_data_suit (in /home/jbondri/miniShell/minishell)
-==3756==    by 0x4062FF: exec_data (in /home/jbondri/miniShell/minishell)
-==3756==    by 0x4059C6: parser_director (in /home/jbondri/miniShell/minishell)
-==3756==    by 0x401D65: come_back_prompt (in /home/jbondri/miniShell/minishell)
-==3756==    by 0x4021ED: parse (in /home/jbondri/miniShell/minishell)
-==3756==    by 0x401E26: main (in /home/jbondri/miniShell/minishell)
-==3756== 
-==3756== 
-==3756== HEAP SUMMARY:
-==3756==     in use at exit: 138,883 bytes in 289 blocks
-==3756==   total heap usage: 597 allocs, 308 frees, 161,634 bytes allocated
-==3756== 
-==3756== 8 bytes in 1 blocks are still reachable in loss record 2 of 52
-==3756==    at 0x4C31B0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==3756==    by 0x40B0E0: ft_strjoin (in /home/jbondri/miniShell/minishell)
-==3756==    by 0x402057: manage_shlvl (in /home/jbondri/miniShell/minishell)
-==3756==    by 0x4021A2: parse (in /home/jbondri/miniShell/minishell)
-==3756==    by 0x401E26: main (in /home/jbondri/miniShell/minishell)
-==3756== 
-==3756== 64 bytes in 1 blocks are still reachable in loss record 16 of 52
-==3756==    at 0x4C31B0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==3756==    by 0x4020F9: parse (in /home/jbondri/miniShell/minishell)
-==3756==    by 0x401E26: main (in /home/jbondri/miniShell/minishell)
-==3756== 
-==3756== 104 bytes in 1 blocks are still reachable in loss record 21 of 52
-==3756==    at 0x4C31B0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==3756==    by 0x40ADAC: ft_split2 (in /home/jbondri/miniShell/minishell)
-==3756==    by 0x4062BC: exec_data (in /home/jbondri/miniShell/minishell)
-==3756==    by 0x4059C6: parser_director (in /home/jbondri/miniShell/minishell)
-==3756==    by 0x401D65: come_back_prompt (in /home/jbondri/miniShell/minishell)
-==3756==    by 0x4021ED: parse (in /home/jbondri/miniShell/minishell)
-==3756==    by 0x401E26: main (in /home/jbondri/miniShell/minishell)
-==3756== 
-==3756== 172 bytes in 12 blocks are still reachable in loss record 23 of 52
-==3756==    at 0x4C31B0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==3756==    by 0x40AC07: ft_malloc_string2 (in /home/jbondri/miniShell/minishell)
-==3756==    by 0x40ADE1: ft_split2 (in /home/jbondri/miniShell/minishell)
-==3756==    by 0x4062BC: exec_data (in /home/jbondri/miniShell/minishell)
-==3756==    by 0x4059C6: parser_director (in /home/jbondri/miniShell/minishell)
-==3756==    by 0x401D65: come_back_prompt (in /home/jbondri/miniShell/minishell)
-==3756==    by 0x4021ED: parse (in /home/jbondri/miniShell/minishell)
-==3756==    by 0x401E26: main (in /home/jbondri/miniShell/minishell)
-==3756== 
-==3756== 512 bytes in 1 blocks are still reachable in loss record 26 of 52
-==3756==    at 0x4C31B0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==3756==    by 0x40218D: parse (in /home/jbondri/miniShell/minishell)
-==3756==    by 0x401E26: main (in /home/jbondri/miniShell/minishell)
-==3756== 
-==3756== 3,466 bytes in 62 blocks are still reachable in loss record 39 of 52
-==3756==    at 0x4C31B0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==3756==    by 0x40AF0C: ft_strdup (in /home/jbondri/miniShell/minishell)
-==3756==    by 0x402086: manage_shlvl (in /home/jbondri/miniShell/minishell)
-==3756==    by 0x4021A2: parse (in /home/jbondri/miniShell/minishell)
-==3756==    by 0x401E26: main (in /home/jbondri/miniShell/minishell)
-==3756== 
-==3756== LEAK SUMMARY:
-==3756==    definitely lost: 0 bytes in 0 blocks
-==3756==    indirectly lost: 0 bytes in 0 blocks
-==3756==      possibly lost: 0 bytes in 0 blocks
-==3756==    still reachable: 4,326 bytes in 78 blocks
-==3756==         suppressed: 134,557 bytes in 211 blocks
-==3756== 
-==3756== For counts of detected and suppressed errors, rerun with: -v
-==3756== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
-==3749== 
-==3749== FILE DESCRIPTORS: 6 open at exit.
-==3749== Open file descriptor 5: /dev/pts/2
-==3749==    at 0x5197A47: dup (syscall-template.S:78)
-==3749==    by 0x406999: one_builtin (in /home/jbondri/miniShell/minishell)
-==3749==    by 0x406057: loop_exec (in /home/jbondri/miniShell/minishell)
-==3749==    by 0x4061AD: exec_data_suit (in /home/jbondri/miniShell/minishell)
-==3749==    by 0x4062FF: exec_data (in /home/jbondri/miniShell/minishell)
-==3749==    by 0x4059C6: parser_director (in /home/jbondri/miniShell/minishell)
-==3749==    by 0x401D65: come_back_prompt (in /home/jbondri/miniShell/minishell)
-==3749==    by 0x4021ED: parse (in /home/jbondri/miniShell/minishell)
-==3749==    by 0x401E26: main (in /home/jbondri/miniShell/minishell)
-==3749== 
-==3749== Open file descriptor 4: /dev/pts/2
-==3749==    at 0x5197A47: dup (syscall-template.S:78)
-==3749==    by 0x40698B: one_builtin (in /home/jbondri/miniShell/minishell)
-==3749==    by 0x406057: loop_exec (in /home/jbondri/miniShell/minishell)
-==3749==    by 0x4061AD: exec_data_suit (in /home/jbondri/miniShell/minishell)
-==3749==    by 0x4062FF: exec_data (in /home/jbondri/miniShell/minishell)
-==3749==    by 0x4059C6: parser_director (in /home/jbondri/miniShell/minishell)
-==3749==    by 0x401D65: come_back_prompt (in /home/jbondri/miniShell/minishell)
-==3749==    by 0x4021ED: parse (in /home/jbondri/miniShell/minishell)
-==3749==    by 0x401E26: main (in /home/jbondri/miniShell/minishell)
-==3749== 
-==3749== Open file descriptor 3: /home/jbondri/miniShell/valgrind_log.txt
-==3749==    <inherited from parent>
-==3749== 
-==3749== Open file descriptor 2: /dev/pts/2
-==3749==    <inherited from parent>
-==3749== 
-==3749== Open file descriptor 1: /dev/pts/2
-==3749==    at 0x5197A77: dup2 (syscall-template.S:78)
-==3749==    by 0x4069DC: one_builtin (in /home/jbondri/miniShell/minishell)
-==3749==    by 0x406057: loop_exec (in /home/jbondri/miniShell/minishell)
-==3749==    by 0x4061AD: exec_data_suit (in /home/jbondri/miniShell/minishell)
-==3749==    by 0x4062FF: exec_data (in /home/jbondri/miniShell/minishell)
-==3749==    by 0x4059C6: parser_director (in /home/jbondri/miniShell/minishell)
-==3749==    by 0x401D65: come_back_prompt (in /home/jbondri/miniShell/minishell)
-==3749==    by 0x4021ED: parse (in /home/jbondri/miniShell/minishell)
-==3749==    by 0x401E26: main (in /home/jbondri/miniShell/minishell)
-==3749== 
-==3749== Open file descriptor 0: /dev/pts/2
-==3749==    at 0x5197A77: dup2 (syscall-template.S:78)
-==3749==    by 0x4069ED: one_builtin (in /home/jbondri/miniShell/minishell)
-==3749==    by 0x406057: loop_exec (in /home/jbondri/miniShell/minishell)
-==3749==    by 0x4061AD: exec_data_suit (in /home/jbondri/miniShell/minishell)
-==3749==    by 0x4062FF: exec_data (in /home/jbondri/miniShell/minishell)
-==3749==    by 0x4059C6: parser_director (in /home/jbondri/miniShell/minishell)
-==3749==    by 0x401D65: come_back_prompt (in /home/jbondri/miniShell/minishell)
-==3749==    by 0x4021ED: parse (in /home/jbondri/miniShell/minishell)
-==3749==    by 0x401E26: main (in /home/jbondri/miniShell/minishell)
-==3749== 
-==3749== 
-==3749== HEAP SUMMARY:
-==3749==     in use at exit: 134,598 bytes in 214 blocks
-==3749==   total heap usage: 634 allocs, 420 frees, 162,254 bytes allocated
-==3749== 
-==3749== LEAK SUMMARY:
-==3749==    definitely lost: 0 bytes in 0 blocks
-==3749==    indirectly lost: 0 bytes in 0 blocks
-==3749==      possibly lost: 0 bytes in 0 blocks
-==3749==    still reachable: 0 bytes in 0 blocks
-==3749==         suppressed: 134,598 bytes in 214 blocks
-==3749== 
-==3749== For counts of detected and suppressed errors, rerun with: -v
-==3749== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==9953== Memcheck, a memory error detector
+==9953== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==9953== Using Valgrind-3.13.0 and LibVEX; rerun with -h for copyright info
+==9953== Command: ./minishell
+==9953== Parent PID: 9952
+==9953== 
+==9954== 
+==9954== FILE DESCRIPTORS: 5 open at exit.
+==9954== Open file descriptor 5:
+==9954==    at 0x5197AD7: pipe (syscall-template.S:78)
+==9954==    by 0x403618: manage_pid (in /home/jbondri/miniShell/minishell)
+==9954==    by 0x402A6E: go_heredoc (in /home/jbondri/miniShell/minishell)
+==9954==    by 0x402CF4: catch_heredoc (in /home/jbondri/miniShell/minishell)
+==9954==    by 0x402DB8: do_all_heredoc (in /home/jbondri/miniShell/minishell)
+==9954==    by 0x405A90: parser_director (in /home/jbondri/miniShell/minishell)
+==9954==    by 0x401D65: come_back_prompt (in /home/jbondri/miniShell/minishell)
+==9954==    by 0x4021FD: parse (in /home/jbondri/miniShell/minishell)
+==9954==    by 0x401E36: main (in /home/jbondri/miniShell/minishell)
+==9954== 
+==9954== Open file descriptor 3: /home/jbondri/miniShell/valgrind_log.txt
+==9954==    <inherited from parent>
+==9954== 
+==9954== Open file descriptor 2: /dev/pts/2
+==9954==    <inherited from parent>
+==9954== 
+==9954== Open file descriptor 1: /dev/pts/2
+==9954==    <inherited from parent>
+==9954== 
+==9954== Open file descriptor 0: /dev/pts/2
+==9954==    <inherited from parent>
+==9954== 
+==9954== 
+==9954== HEAP SUMMARY:
+==9954==     in use at exit: 138,376 bytes in 261 blocks
+==9954==   total heap usage: 404 allocs, 143 frees, 158,257 bytes allocated
+==9954== 
+==9954== 8 bytes in 1 blocks are still reachable in loss record 5 of 50
+==9954==    at 0x4C31B0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==9954==    by 0x40B450: ft_strjoin (in /home/jbondri/miniShell/minishell)
+==9954==    by 0x402067: manage_shlvl (in /home/jbondri/miniShell/minishell)
+==9954==    by 0x4021B2: parse (in /home/jbondri/miniShell/minishell)
+==9954==    by 0x401E36: main (in /home/jbondri/miniShell/minishell)
+==9954== 
+==9954== 64 bytes in 1 blocks are still reachable in loss record 18 of 50
+==9954==    at 0x4C31B0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==9954==    by 0x402109: parse (in /home/jbondri/miniShell/minishell)
+==9954==    by 0x401E36: main (in /home/jbondri/miniShell/minishell)
+==9954== 
+==9954== 512 bytes in 1 blocks are still reachable in loss record 24 of 50
+==9954==    at 0x4C31B0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==9954==    by 0x40219D: parse (in /home/jbondri/miniShell/minishell)
+==9954==    by 0x401E36: main (in /home/jbondri/miniShell/minishell)
+==9954== 
+==9954== 3,466 bytes in 62 blocks are still reachable in loss record 37 of 50
+==9954==    at 0x4C31B0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==9954==    by 0x40B27C: ft_strdup (in /home/jbondri/miniShell/minishell)
+==9954==    by 0x402096: manage_shlvl (in /home/jbondri/miniShell/minishell)
+==9954==    by 0x4021B2: parse (in /home/jbondri/miniShell/minishell)
+==9954==    by 0x401E36: main (in /home/jbondri/miniShell/minishell)
+==9954== 
+==9954== LEAK SUMMARY:
+==9954==    definitely lost: 0 bytes in 0 blocks
+==9954==    indirectly lost: 0 bytes in 0 blocks
+==9954==      possibly lost: 0 bytes in 0 blocks
+==9954==    still reachable: 4,050 bytes in 65 blocks
+==9954==         suppressed: 134,326 bytes in 196 blocks
+==9954== 
+==9954== For counts of detected and suppressed errors, rerun with: -v
+==9954== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==9955== 
+==9955== FILE DESCRIPTORS: 5 open at exit.
+==9955== Open file descriptor 4:
+==9955==    at 0x5197AD7: pipe (syscall-template.S:78)
+==9955==    by 0x403618: manage_pid (in /home/jbondri/miniShell/minishell)
+==9955==    by 0x402A6E: go_heredoc (in /home/jbondri/miniShell/minishell)
+==9955==    by 0x402CF4: catch_heredoc (in /home/jbondri/miniShell/minishell)
+==9955==    by 0x402DB8: do_all_heredoc (in /home/jbondri/miniShell/minishell)
+==9955==    by 0x405A90: parser_director (in /home/jbondri/miniShell/minishell)
+==9955==    by 0x401D65: come_back_prompt (in /home/jbondri/miniShell/minishell)
+==9955==    by 0x4021FD: parse (in /home/jbondri/miniShell/minishell)
+==9955==    by 0x401E36: main (in /home/jbondri/miniShell/minishell)
+==9955== 
+==9955== Open file descriptor 3: /home/jbondri/miniShell/valgrind_log.txt
+==9955==    <inherited from parent>
+==9955== 
+==9955== Open file descriptor 2: /dev/pts/2
+==9955==    <inherited from parent>
+==9955== 
+==9955== Open file descriptor 1: /dev/pts/2
+==9955==    <inherited from parent>
+==9955== 
+==9955== Open file descriptor 0:
+==9955==    at 0x5197A77: dup2 (syscall-template.S:78)
+==9955==    by 0x40732B: first_pipe_c (in /home/jbondri/miniShell/minishell)
+==9955==    by 0x406CE9: fd_pipe_child (in /home/jbondri/miniShell/minishell)
+==9955==    by 0x4061A6: child_fork (in /home/jbondri/miniShell/minishell)
+==9955==    by 0x406325: loop_exec (in /home/jbondri/miniShell/minishell)
+==9955==    by 0x40640D: exec_data_suit (in /home/jbondri/miniShell/minishell)
+==9955==    by 0x40655F: exec_data (in /home/jbondri/miniShell/minishell)
+==9955==    by 0x405C16: parser_director (in /home/jbondri/miniShell/minishell)
+==9955==    by 0x401D65: come_back_prompt (in /home/jbondri/miniShell/minishell)
+==9955==    by 0x4021FD: parse (in /home/jbondri/miniShell/minishell)
+==9955==    by 0x401E36: main (in /home/jbondri/miniShell/minishell)
+==9955== 
+==9955== 
+==9955== HEAP SUMMARY:
+==9955==     in use at exit: 138,670 bytes in 274 blocks
+==9955==   total heap usage: 408 allocs, 134 frees, 158,412 bytes allocated
+==9955== 
+==9955== 8 bytes in 1 blocks are still reachable in loss record 3 of 52
+==9955==    at 0x4C31B0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==9955==    by 0x40B450: ft_strjoin (in /home/jbondri/miniShell/minishell)
+==9955==    by 0x402067: manage_shlvl (in /home/jbondri/miniShell/minishell)
+==9955==    by 0x4021B2: parse (in /home/jbondri/miniShell/minishell)
+==9955==    by 0x401E36: main (in /home/jbondri/miniShell/minishell)
+==9955== 
+==9955== 64 bytes in 1 blocks are still reachable in loss record 18 of 52
+==9955==    at 0x4C31B0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==9955==    by 0x402109: parse (in /home/jbondri/miniShell/minishell)
+==9955==    by 0x401E36: main (in /home/jbondri/miniShell/minishell)
+==9955== 
+==9955== 104 bytes in 1 blocks are still reachable in loss record 22 of 52
+==9955==    at 0x4C31B0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==9955==    by 0x40B11C: ft_split2 (in /home/jbondri/miniShell/minishell)
+==9955==    by 0x40651C: exec_data (in /home/jbondri/miniShell/minishell)
+==9955==    by 0x405C16: parser_director (in /home/jbondri/miniShell/minishell)
+==9955==    by 0x401D65: come_back_prompt (in /home/jbondri/miniShell/minishell)
+==9955==    by 0x4021FD: parse (in /home/jbondri/miniShell/minishell)
+==9955==    by 0x401E36: main (in /home/jbondri/miniShell/minishell)
+==9955== 
+==9955== 172 bytes in 12 blocks are still reachable in loss record 23 of 52
+==9955==    at 0x4C31B0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==9955==    by 0x40AF77: ft_malloc_string2 (in /home/jbondri/miniShell/minishell)
+==9955==    by 0x40B151: ft_split2 (in /home/jbondri/miniShell/minishell)
+==9955==    by 0x40651C: exec_data (in /home/jbondri/miniShell/minishell)
+==9955==    by 0x405C16: parser_director (in /home/jbondri/miniShell/minishell)
+==9955==    by 0x401D65: come_back_prompt (in /home/jbondri/miniShell/minishell)
+==9955==    by 0x4021FD: parse (in /home/jbondri/miniShell/minishell)
+==9955==    by 0x401E36: main (in /home/jbondri/miniShell/minishell)
+==9955== 
+==9955== 512 bytes in 1 blocks are still reachable in loss record 26 of 52
+==9955==    at 0x4C31B0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==9955==    by 0x40219D: parse (in /home/jbondri/miniShell/minishell)
+==9955==    by 0x401E36: main (in /home/jbondri/miniShell/minishell)
+==9955== 
+==9955== 3,466 bytes in 62 blocks are still reachable in loss record 39 of 52
+==9955==    at 0x4C31B0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==9955==    by 0x40B27C: ft_strdup (in /home/jbondri/miniShell/minishell)
+==9955==    by 0x402096: manage_shlvl (in /home/jbondri/miniShell/minishell)
+==9955==    by 0x4021B2: parse (in /home/jbondri/miniShell/minishell)
+==9955==    by 0x401E36: main (in /home/jbondri/miniShell/minishell)
+==9955== 
+==9955== LEAK SUMMARY:
+==9955==    definitely lost: 0 bytes in 0 blocks
+==9955==    indirectly lost: 0 bytes in 0 blocks
+==9955==      possibly lost: 0 bytes in 0 blocks
+==9955==    still reachable: 4,326 bytes in 78 blocks
+==9955==         suppressed: 134,344 bytes in 196 blocks
+==9955== 
+==9955== For counts of detected and suppressed errors, rerun with: -v
+==9955== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==9953== 
+==9953== FILE DESCRIPTORS: 4 open at exit.
+==9953== Open file descriptor 3: /home/jbondri/miniShell/valgrind_log.txt
+==9953==    <inherited from parent>
+==9953== 
+==9953== Open file descriptor 2: /dev/pts/2
+==9953==    <inherited from parent>
+==9953== 
+==9953== Open file descriptor 1: /dev/pts/2
+==9953==    <inherited from parent>
+==9953== 
+==9953== Open file descriptor 0: /dev/pts/2
+==9953==    <inherited from parent>
+==9953== 
+==9953== 
+==9953== HEAP SUMMARY:
+==9953==     in use at exit: 134,339 bytes in 195 blocks
+==9953==   total heap usage: 411 allocs, 216 frees, 158,442 bytes allocated
+==9953== 
+==9953== LEAK SUMMARY:
+==9953==    definitely lost: 0 bytes in 0 blocks
+==9953==    indirectly lost: 0 bytes in 0 blocks
+==9953==      possibly lost: 0 bytes in 0 blocks
+==9953==    still reachable: 0 bytes in 0 blocks
+==9953==         suppressed: 134,339 bytes in 195 blocks
+==9953== 
+==9953== For counts of detected and suppressed errors, rerun with: -v
+==9953== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)

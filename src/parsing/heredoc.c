@@ -31,11 +31,11 @@ char	*switch_varenv(char *str, t_data *dt)
 		t = (t_token){0};
 		if (str[i] == '$')
 		{
-			next_token(str + i, &t, dt);
+			next_token_2(str + i, &t, dt);
 			if (t.status != MSVARENV && i++)
 				continue ;
 			res = ft_strlreplace(str, t.copy, i, t.length);
-			add_lst_malloc((void *)res);
+			free(str);
 			if (!res)
 			{
 				ft_exit_malloc();
@@ -43,9 +43,54 @@ char	*switch_varenv(char *str, t_data *dt)
 			}
 			str = res;
 			i += (int)ft_strlen(t.copy) - 1;
+			free(t.copy);
 		}
 	}
 	return (str);
+}
+
+char	*assemblage_concateneur_2(char *s1)
+{
+	static char	*str = NULL;
+	char		*res;
+
+	if (!s1)
+	{
+		res = str;
+		str = NULL;
+		return (res);
+	}
+	res = ft_strjoin_mod23(str, s1);
+	if (str)
+		free(str);
+	str = res;
+	return (NULL);
+}
+
+void	next_token_2(char *s, t_token *t, t_data *dt)
+{
+	int			i;
+	static char	*tb[] = {"|", "<<", ">>", "<", ">", "'", "\"", "$"};
+
+	i = 0;
+	while (s[i] && ft_strchr(" \t\v\f\n", s[i]))
+		i++;
+	if (i != 0)
+	{
+		t->status = MSWHITESPACE;
+		t->length = i;
+		return ;
+	}
+	t->start = s;
+	i = -1;
+	while (++i < 8)
+	{
+		*t = (t_token){0};
+		t->status = i;
+		find_type_token((char *)tb[i], s, t, dt);
+		if (t->start)
+			break ;
+	}
 }
 
 void	next_del2(char *s, int *i, t_data *dt)
@@ -58,13 +103,16 @@ void	next_del2(char *s, int *i, t_data *dt)
 		if (s[*i] == '$')
 			develope_word(&t, s);
 		else
-			next_token(s + *i, &t, dt);
+			next_token_2(s + *i, &t, dt);
 		if ((t.status >= MSPIP && t.status <= MSRED_OUT)
 			|| t.status == MSWHITESPACE)
 			return ;
 		*i += t.length;
 		if (t.copy)
-			assemblage_concateneur(t.copy);
+		{
+			assemblage_concateneur_2(t.copy);
+			free(t.copy);
+		}
 	}
 }
 
@@ -76,7 +124,7 @@ char	*next_del(char *s, t_token *tt, t_data *dt)
 	while (s[i] && ft_strchr(" \t\f\v", s[i]))
 		i++;
 	next_del2(s, &i, dt);
-	tt->copy = assemblage_concateneur(NULL);
+	tt->copy = assemblage_concateneur_2(NULL);
 	tt->length = i;
 	if (!(tt->copy))
 	{

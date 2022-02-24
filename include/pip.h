@@ -74,6 +74,7 @@ void	ambigus_redirect(char *s);
 char	*assemblage_concateneur(char *s1);
 bool	assem_2(char *s, t_data *dt, int *i);
 void	assemblage_file_name_red(char *s, t_token *tt, t_data *dt);
+void	next_token_2(char *s, t_token *t, t_data *dt);
 char	*ft_strndup(char *s, int size);
 void	check_pips(char *s);
 char	*ft_strlreplace(char *s1, char *s2, int index, int len);
