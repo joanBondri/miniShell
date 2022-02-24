@@ -6,7 +6,7 @@
 /*   By: jbondri <jbondri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 05:18:23 by jbondri           #+#    #+#             */
-/*   Updated: 2022/02/22 13:53:45 by jbondri          ###   ########.fr       */
+/*   Updated: 2022/02/24 16:36:08 by jbondri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ void	come_back_prompt(t_data **data)
 		if (str)
 			free(str);
 		str = NULL;
+		break ;
 	}
 	free_all_lst_malloc();
 	free_tab((*data)->env);

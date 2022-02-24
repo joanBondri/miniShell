@@ -6,7 +6,7 @@
 /*   By: jbondri <jbondri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 06:53:08 by jbondri           #+#    #+#             */
-/*   Updated: 2022/02/21 15:49:46 by jbondri          ###   ########.fr       */
+/*   Updated: 2022/02/24 16:25:19 by jbondri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include "get_next_line.h"
 
 char	*switch_varenv(char *str, t_data *dt);
+int	print_error_heredoc(t_data *data, int line, char *del);
 char	**stop_stack_arg(t_list **one);
 void	determine_content_herdoc(char *del, int *fd, t_data *dt);
 char	*next_del(char *s, t_token *tt, t_data *dt);
