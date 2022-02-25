@@ -66,6 +66,10 @@ void	free_all_cmd(t_cmd *cmd)
 		tmp = cmd;
 		cmd = cmd->next;
 		free_tab(tmp->arg);
+		if (tmp->infile != -1)
+			close(tmp->infile);
+		if (tmp->outfile != -1)
+			close(tmp->outfile);
 		free(tmp->path);
 		free(tmp);
 	}

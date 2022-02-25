@@ -30,6 +30,7 @@ void	ft_exit_exec(int val, t_cmd *cmd)
 void	ft_exit_child(int val, t_data *data)
 {
 	free_all_cmd(data->cmd);
+	
 	free_data(data);
 	exit(val);
 }

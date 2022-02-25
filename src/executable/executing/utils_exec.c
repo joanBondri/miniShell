@@ -77,10 +77,10 @@ int	loop_path(char **path, char **cmd)
 	return (0);
 }
 
-int	put_prepath(t_cmd *cmd, char **path)
+int	put_prepath(t_data *data, t_cmd *cmd, char **path)
 {
 	if (cmd->arg[0] == NULL)
-		ft_exit_exec(0, cmd); //attention
+		ft_exit_child(0, data);
 	if (ft_strcmp(cmd->arg[0], "") == 0)
 		return (0);
 	if (abs_path(cmd) == 1)

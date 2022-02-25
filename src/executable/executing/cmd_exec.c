@@ -50,7 +50,7 @@ void	exec_other_cmd(t_data *data, t_cmd *cmd, char **path)
 	}
 	if (path == NULL)
 		no_path(data, cmd);
-	if (put_prepath(cmd, path) == 0)
+	if (put_prepath(data, cmd, path) == 0)
 	{
 		print_free(ft_strjoin3("minishell: ", cmd->arg[0],
 				": command not found\n"), STDERR_FILENO);

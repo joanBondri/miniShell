@@ -138,7 +138,7 @@ void	free_lst_conditionnal(void);
 bool	check_tab_string_free(char **yop, void *mem);
 char	**free_tab(char **tab);
 int		call_builtin(t_data *data, t_cmd *cmd, int i);
-int		put_prepath(t_cmd *cmd, char **path);
+int		put_prepath(t_data *data, t_cmd *cmd, char **path);
 int		loop_path(char **path, char **cmd);
 int		abs_path(t_cmd *cmd);
 int		m_unset(t_data *data, t_cmd *cmd);
