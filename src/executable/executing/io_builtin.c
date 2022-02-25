@@ -103,6 +103,5 @@ int	one_builtin(t_data *data, t_cmd *cmd)
 	close(data->save_in);
 	close(data->save_out);
 	one_pipe_close(data, cmd);
-	//free_lst();
 	return (return_value(0, 1));
 }

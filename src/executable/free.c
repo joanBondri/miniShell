@@ -44,24 +44,17 @@ void	free_data_cmd(void)
 	free(data);
 }
 
-void	free_data(t_data *data)
-{
-	free_tab(data->path);
-	free_tab(data->env);
-	free(data);
-}
-
 void	free_all_cmd(t_cmd *cmd)
 {
-	t_cmd *tmp;
+	t_cmd	*tmp;
 
-	while(cmd)
+	while (cmd)
 	{
 		tmp = cmd;
 		cmd = cmd->prev;
 	}
 	cmd = tmp;
-	while(cmd)
+	while (cmd)
 	{
 		tmp = cmd;
 		cmd = cmd->next;

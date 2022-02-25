@@ -52,7 +52,6 @@ void	come_back_prompt(t_data **data)
 		if (str)
 			free(str);
 		str = NULL;
-		// break ;
 	}
 	free_all_lst_malloc();
 	free_tab((*data)->env);

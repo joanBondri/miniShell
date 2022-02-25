@@ -33,11 +33,8 @@ void	exec_builtin(t_data *data, t_cmd *cmd, int i)
 	int	value;
 
 	value = call_builtin(data, cmd, 0);
-	// free_data_cmd2(data);
-	// if (value > -1)
 	fd_pipe_parent(data, cmd, i);
 	ft_exit_child(return_value(value, 0), data);
-	// return_value(value, 0);
 }		
 
 void	exec_other_cmd(t_data *data, t_cmd *cmd, char **path)

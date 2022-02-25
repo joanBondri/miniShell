@@ -6,7 +6,7 @@
 /*   By: xchalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 13:36:45 by xchalle           #+#    #+#             */
-/*   Updated: 2022/02/10 13:37:57 by xchalle          ###   ########.fr       */
+/*   Updated: 2022/02/25 18:32:20 by xchalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ void	ft_exit_exec(int val, t_cmd *cmd)
 void	ft_exit_child(int val, t_data *data)
 {
 	free_all_cmd(data->cmd);
-	
 	free_data(data);
 	exit(val);
 }

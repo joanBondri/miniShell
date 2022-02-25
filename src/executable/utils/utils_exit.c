@@ -64,7 +64,7 @@ int	num_arg_error(t_data *data, t_cmd *cmd)
 	(void)cmd;
 	if (data->nbr_cmd == 1)
 		ft_putendl_fd("exit", STDERR_FILENO);
-	ft_putendl_fd("bash: exit: too many arguments", STDERR_FILENO);
+	ft_putendl_fd("minishell: exit: too many arguments", STDERR_FILENO);
 	return (1);
 }
 
@@ -73,8 +73,7 @@ int	num_val_error(t_data *data, t_cmd *cmd)
 	(void)data;
 	if (data->nbr_cmd == 1)
 		ft_putendl_fd("exit", STDERR_FILENO);
-	print_free(ft_strjoin3("bash: exit: ", cmd->arg[1],
+	print_free(ft_strjoin3("minishell: exit: ", cmd->arg[1],
 			" : numeric argument required\n"), STDERR_FILENO);
-	// free_data_cmd();
 	return (2);
 }

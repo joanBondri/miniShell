@@ -56,21 +56,9 @@ int	loop_exec(t_data *data, t_cmd *cmd, int i, char **path)
 	return (return_value(0, 1));
 }
 
-// void	put_path_cmd(t_cmd *cmd, char **path)
-// {
-	// t_cmd *tmp;
-// 
-	// tmp = cmd;
-	// while(tmp)
-	// {
-		// tmp->path = path;
-		// tmp = tmp->next;
-	// }
-// }
-
 int	exec_data_suit(t_data *data, t_cmd *cmd, char **path)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	signal(SIGINT, SIG_IGN);
@@ -105,6 +93,5 @@ int	exec_data(t_data *data, t_cmd *cmd)
 			ft_exit_exec(ft_error(MALLOC), cmd);
 	}
 	data->path = path;
-	// put_path_cmd(cmd, path);
 	return (exec_data_suit(data, cmd, path));
 }

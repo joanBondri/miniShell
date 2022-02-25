@@ -29,7 +29,6 @@ int	exit_arg_1(char *str, t_data *data, t_cmd *cmd)
 	}
 	if (data->nbr_cmd == 1)
 		ft_putendl_fd("exit", STDOUT_FILENO);
-	// free_data_cmd();
 	return ((unsigned int)(val));
 }
 

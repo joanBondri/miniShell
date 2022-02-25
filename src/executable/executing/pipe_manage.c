@@ -22,18 +22,6 @@ void	fd_pipe_child(t_data *data, t_cmd *cmd, int i)
 		random_pipe_c(data, cmd, i);
 }
 
-void	pipe__even(t_data *data)
-{
-		if (pipe(data->pipe_even) < 0)
-			ft_exit_child(ft_error(PIPE), data);
-}
-
-void	pipe__odd(t_data *data)
-{
-		if (pipe(data->pipe_odd) < 0)
-			ft_exit_child(ft_error(PIPE), data);	
-}
-
 void	fd_pipe_parent(t_data *data, t_cmd *cmd, int i)
 {
 	if (i == 0)
@@ -56,11 +44,13 @@ void	piper(t_data *data, int i)
 	}
 	else if ((i % 2 == 0))
 	{
-		pipe__odd(data);
+		if (pipe(data->pipe_odd) < 0)
+			ft_exit_child(ft_error(PIPE), data);
 	}
 	else
 	{
-		pipe__even(data);
+		if (pipe(data->pipe_even) < 0)
+			ft_exit_child(ft_error(PIPE), data);
 	}
 }
 
