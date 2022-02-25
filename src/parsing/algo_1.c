@@ -6,7 +6,7 @@
 /*   By: jbondri <jbondri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 07:03:33 by jbondri           #+#    #+#             */
-/*   Updated: 2022/02/22 19:00:58 by jbondri          ###   ########.fr       */
+/*   Updated: 2022/02/25 20:14:17 by jbondri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,4 +113,12 @@ void	check_redirection(char *str, t_data *dt)
 		if (change_mind("no", false))
 			return ;
 	}
+}
+
+char	*ft_exit_malloc(void)
+{
+	ft_putstr_fd("error_malloc\n", 2);
+	free_all_lst_malloc();
+	exit(1);
+	return (NULL);
 }

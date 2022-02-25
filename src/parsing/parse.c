@@ -6,7 +6,7 @@
 /*   By: jbondri <jbondri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 04:31:10 by jbondri           #+#    #+#             */
-/*   Updated: 2022/02/24 16:52:43 by jbondri          ###   ########.fr       */
+/*   Updated: 2022/02/25 20:17:20 by jbondri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,14 +75,12 @@ t_data	*parse(char **env)
 	if (!env)
 		return (NULL);
 	data = malloc(sizeof(t_data) * 1);
-	printf("env = %p\n", data);
 	if (!data)
 		return (NULL);
 	*data = (t_data){0};
 	while (env[i])
 		i++;
 	data->env = malloc(sizeof(char *) * (i + 1));
-	printf("env = %p\n", data->env);
 	manage_shlvl(env, data);
 	if (find_index_env(data, "SHLVL") == -1)
 		add_var_tab(data, "SHLVL=1");

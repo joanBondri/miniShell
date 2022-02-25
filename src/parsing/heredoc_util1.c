@@ -6,7 +6,7 @@
 /*   By: jbondri <jbondri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 04:27:18 by jbondri           #+#    #+#             */
-/*   Updated: 2022/02/24 16:42:01 by jbondri          ###   ########.fr       */
+/*   Updated: 2022/02/25 20:08:20 by jbondri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,8 @@ int	go_heredoc(char *str, t_cmd *buff, t_data *dt)
 		exit(ft_error(FORK));
 	if (child == 0)
 		determine_content_herdoc(del, pip, dt);
-	else
-	{
-		if (!manage_parent(pip))
-			return (0);
-	}
+	if (!manage_parent(pip))
+		return (0);
 	close(pip[1]);
 	signal(SIGINT, handler_int);
 	return (tt.length);

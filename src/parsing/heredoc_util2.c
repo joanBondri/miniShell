@@ -6,7 +6,7 @@
 /*   By: jbondri <jbondri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 04:28:28 by jbondri           #+#    #+#             */
-/*   Updated: 2022/02/24 16:52:56 by jbondri          ###   ########.fr       */
+/*   Updated: 2022/02/25 20:31:36 by jbondri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,10 @@ bool	break_loop(bool yop)
 	return (swap);
 }
 
-void	print_varenv(char *s, int fd, t_data *dt)
+void	print_varenv(char **s, int fd, t_data *dt)
 {
-	s = switch_varenv(s, dt);
-	write(fd, s, ft_strlen(s));
+	switch_varenv(s, dt);
+	write(fd, *s, ft_strlen(*s));
 	write(fd, "\n", 1);
 }
 
@@ -72,7 +72,7 @@ void	determine_content_herdoc(char *del, int *fd, t_data *dt)
 		if ((!ft_strncmp(s, del, ft_strlen(s))
 				&& !ft_strncmp(s, del, ft_strlen(del))))
 			ft_2_exit(0, s, dt);
-		print_varenv(s, fd[1], dt);
+		print_varenv(&s, fd[1], dt);
 		free(s);
 	}
 }

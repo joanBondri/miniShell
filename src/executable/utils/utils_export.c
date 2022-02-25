@@ -6,7 +6,7 @@
 /*   By: xchalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 13:17:38 by xchalle           #+#    #+#             */
-/*   Updated: 2022/02/17 07:25:27 by jbondri          ###   ########.fr       */
+/*   Updated: 2022/02/25 19:58:34 by jbondri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	is_strjoin(char **env_val, char *tab_cell, char *str, t_cmd *cmd)
 		tmp = env_val[0];
 		env_val[0] = ft_strtrim(env_val[0], "+");
 		if (!env_val[0])
-			ft_exit_exec(ft_error(MALLOC), cmd);//attention
+			ft_exit_exec(ft_error(MALLOC), cmd);
 		if (is_correct_export(env_val, tab_cell, str) == 0)
 		{
 			free(tmp);

@@ -6,47 +6,37 @@
 /*   By: jbondri <jbondri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 00:17:19 by jbondri           #+#    #+#             */
-/*   Updated: 2022/02/22 19:02:20 by jbondri          ###   ########.fr       */
+/*   Updated: 2022/02/25 20:27:37 by jbondri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pip.h"
 
-void	ft_exit_malloc(void)
-{
-	ft_putstr_fd("error_malloc\n", 2);
-	free_all_lst_malloc();
-	exit(1);
-}
-
-char	*switch_varenv(char *str, t_data *dt)
+char	*switch_varenv(char **str, t_data *dt)
 {
 	int		i;
 	t_token	t;
 	char	*res;
 
 	i = -1;
-	while (str[++i])
+	while ((*str)[++i])
 	{
 		t = (t_token){0};
-		if (str[i] == '$')
+		if ((*str)[i] == '$')
 		{
-			next_token_2(str + i, &t, dt);
+			next_token_2((*str) + i, &t, dt);
 			if (t.status != MSVARENV && i++)
 				continue ;
-			res = ft_strlreplace(str, t.copy, i, t.length);
-			free(str);
+			res = ft_strlreplace((*str), t.copy, i, t.length);
+			free(*str);
 			if (!res)
-			{
-				ft_exit_malloc();
-				return (NULL);
-			}
-			str = res;
+				return ((char *)ft_exit_malloc());
+			(*str) = res;
 			i += (int)ft_strlen(t.copy) - 1;
 			free(t.copy);
 		}
 	}
-	return (str);
+	return ((*str));
 }
 
 char	*assemblage_concateneur_2(char *s1)

@@ -6,7 +6,7 @@
 /*   By: jbondri <jbondri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 21:35:14 by jbondri           #+#    #+#             */
-/*   Updated: 2022/02/22 19:01:48 by jbondri          ###   ########.fr       */
+/*   Updated: 2022/02/25 20:10:26 by jbondri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,7 @@ void	print_all(void)
 	tmp = *all;
 	i = -1;
 	while (tmp)
-	{
-		printf("%i\tlst = %p\n", ++i, tmp);
 		tmp = tmp->next;
-	}
 }
 
 void	free_all_lst_malloc(void)
@@ -60,26 +57,11 @@ void	free_all_lst_malloc(void)
 	*all = NULL;
 }
 
-void	ft_nothing(void *mem)
-{
-	(void)mem;
-	return ;
-}
-
 void	free_lst_conditionnal(void)
 {
 	t_list	**all;
 
 	all = add_lst_malloc(NULL);
 	ft_lstclear(all, &free_or_not);
-	*all = NULL;
-}
-
-void	free_lst(void)
-{
-	t_list	**all;
-
-	all = add_lst_malloc(NULL);
-	ft_lstclear(all, ft_nothing);
 	*all = NULL;
 }

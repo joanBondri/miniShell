@@ -6,7 +6,7 @@
 /*   By: jbondri <jbondri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 05:18:23 by jbondri           #+#    #+#             */
-/*   Updated: 2022/02/24 16:36:08 by jbondri          ###   ########.fr       */
+/*   Updated: 2022/02/25 20:12:30 by jbondri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,13 @@ char	*ft_loop_strchr(const char *str, char *c)
 			break ;
 	}
 	return (res);
+}
+
+void	final_free(t_data *data)
+{
+	free_all_lst_malloc();
+	free_tab(data->env);
+	free(data);
 }
 
 void	come_back_prompt(t_data **data)
@@ -53,8 +60,6 @@ void	come_back_prompt(t_data **data)
 			free(str);
 		str = NULL;
 	}
-	free_all_lst_malloc();
-	free_tab((*data)->env);
-	free(*data);
+	final_free(*data);
 	exit(ft_putendlre_fd("exit", STDOUT_FILENO, 0));
 }
